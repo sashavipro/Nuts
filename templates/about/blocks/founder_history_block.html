@@ -1,0 +1,51 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{# Подготавливаем фоновую картинку для правой части (истории), если она загружена #}
+{% if self.history_bg_image %}
+    {% image self.history_bg_image original as bg_history %}
+{% endif %}
+
+<section class="history gray_section">
+    <div class="container">
+        <div class="row no-gutters">
+            {# --- ЛЕВАЯ ЧАСТЬ: ОСНОВАТЕЛЬ --- #}
+            <div class="col-lg-7 col-12">
+                <div class="history__blockquote">
+                    <div class="row no-gutters" style="height: 100%;">
+                        <div class="col-md-5">
+                            {% if self.founder_image %}
+                                {# object-fit: cover важен, чтобы картинка не сплющивалась и занимала всю высоту #}
+                                {% image self.founder_image fill-500x750 style="width: 100%; height: 100%; object-fit: cover;" %}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-7">
+                            <div class="blockquote_block">
+                                <h3>{{ self.founder_name }}</h3>
+                                <p>{{ self.founder_role }}</p>
+                                <blockquote>
+                                    {{ self.quote }}
+                                </blockquote>
+                                {% if self.button_text and self.button_url %}
+                                    <a href="{{ self.button_url }}" class="button button_transparent">
+                                        {{ self.button_text }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# --- ПРАВАЯ ЧАСТЬ: ИСТОРИЯ --- #}
+            <div class="col-lg-5 col-12">
+                {# Применяем фоновую картинку (зеленый паттерн) через inline-стиль, если она есть #}
+                <div class="history__content" style="{% if bg_history %}background-image: url('{{ bg_history.url }}'); background-size: cover;{% endif %}">
+                    <h3>{{ self.history_title }}</h3>
+                    <div class="history-text">
+                        {{ self.history_text|richtext }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -10,38 +10,41 @@ from home.blocks import AboutBlock, ContactsMapBlock
 
 class ShopIndexPage(Page):  # pylint: disable=too-many-ancestors
     """The main catalog page listing products."""
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True, on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    body = StreamField([
-        ('seo_block', AboutBlock()),
-        ('contacts', ContactsMapBlock()),
-    ], use_json_field=True, blank=True)
 
-    content_panels = Page.content_panels + [FieldPanel('hero_image'),
-                                            FieldPanel('body')]
-    subpage_types = ['ProductPage']
+    hero_image = models.ForeignKey(
+        "wagtailimages.Image", null=True, on_delete=models.SET_NULL, related_name="+"
+    )
+    body = StreamField(
+        [
+            ("seo_block", AboutBlock()),
+            ("contacts", ContactsMapBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
+    )
+
+    content_panels = Page.content_panels + [
+        FieldPanel("hero_image"),
+        FieldPanel("body"),
+    ]
+    subpage_types = ["ProductPage"]
 
 
 class ProductPage(Page):  # pylint: disable=too-many-ancestors
     """Page model representing a single product."""
+
     sku = models.CharField("Артикул", max_length=50)
     price = models.DecimalField("Цена", max_digits=10, decimal_places=0)
     old_price = models.DecimalField(
-        "Старая цена",
-        max_digits=10, decimal_places=0,
-        blank=True, null=True
+        "Старая цена", max_digits=10, decimal_places=0, blank=True, null=True
     )
     short_description = models.TextField("Краткое описание")
 
     weight_grams = models.PositiveIntegerField("Вес (число)", default=40)
     weight_details = models.CharField("Вес (строка)", max_length=50, default="40г.")
-    tastes = ParentalManyToManyField('ProductTaste', blank=True)
+    tastes = ParentalManyToManyField("ProductTaste", blank=True)
     packaging = models.ForeignKey(
-        'ProductPackaging',
-        on_delete=models.SET_NULL, null=True, blank=True
+        "ProductPackaging", on_delete=models.SET_NULL, null=True, blank=True
     )
 
     composition = models.TextField("Состав", blank=True)
@@ -60,40 +63,31 @@ class ProductPage(Page):  # pylint: disable=too-many-ancestors
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
-            [
-                FieldPanel('sku'),
-                FieldPanel('price'),
-                FieldPanel('old_price')
-            ], heading="Торговое"
+            [FieldPanel("sku"), FieldPanel("price"), FieldPanel("old_price")],
+            heading="Торговое",
         ),
-        FieldPanel('short_description'),
-        InlinePanel('gallery_images', label="Галерея"),
+        FieldPanel("short_description"),
+        InlinePanel("gallery_images", label="Галерея"),
         MultiFieldPanel(
-            [
-                FieldPanel('weight_grams'),
-                FieldPanel('tastes'),
-                FieldPanel('packaging')
-            ], heading="Фильтры"
+            [FieldPanel("weight_grams"), FieldPanel("tastes"), FieldPanel("packaging")],
+            heading="Фильтры",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('composition'),
-                FieldPanel('weight_details'),
-                FieldPanel('energy_value')
-            ], heading="Спецификация"
+                FieldPanel("composition"),
+                FieldPanel("weight_details"),
+                FieldPanel("energy_value"),
+            ],
+            heading="Спецификация",
         ),
         MultiFieldPanel(
-            [FieldPanel('description'),
-             FieldPanel('packaging_info')
-             ], heading="Контент"
+            [FieldPanel("description"), FieldPanel("packaging_info")], heading="Контент"
         ),
         MultiFieldPanel(
-            [FieldPanel('is_new'),
-             FieldPanel('is_sale')
-             ], heading="Бейджи"
+            [FieldPanel("is_new"), FieldPanel("is_sale")], heading="Бейджи"
         ),
     ]
-    parent_page_types = ['ShopIndexPage']
+    parent_page_types = ["ShopIndexPage"]
 
     def main_image(self):
         """Retrieve the first image from the product gallery."""
@@ -103,13 +97,12 @@ class ProductPage(Page):  # pylint: disable=too-many-ancestors
 
 class ProductGalleryImage(Orderable):
     """An image for the product gallery, linked to a ProductPage."""
+
     page = ParentalKey(
-        ProductPage,
-        on_delete=models.CASCADE, related_name='gallery_images'
+        ProductPage, on_delete=models.CASCADE, related_name="gallery_images"
     )
     image = models.ForeignKey(
-        'wagtailimages.Image',
-        on_delete=models.CASCADE, related_name='+'
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
     )
     caption = models.CharField(max_length=250, blank=True)
-    panels = [FieldPanel('image'), FieldPanel('caption')]
+    panels = [FieldPanel("image"), FieldPanel("caption")]

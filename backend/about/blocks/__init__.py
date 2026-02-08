@@ -1,9 +1,17 @@
 """about/blocks/__init__.py."""
 
-from .about_page import ImageBannerBlock, FounderHistoryBlock, SimpleGalleryBlock
+from .about_page import FounderHistoryBlock
 from .wholesale_page import (
-    ClientCategoryItemBlock, WholesaleIntroBlock, TextImageBlock
+    WholesaleIntroBlock,
+    TabMiniItemBlock,
+    TabItemBlock,
+    WholesaleTabsBlock,
 )
-from .delivery_page import (
-    ServiceMethodItemBlock, TabContentBlock, PaymentDeliveryTabsBlock
-)
+
+__all__ = [
+    "FounderHistoryBlock",
+    "WholesaleIntroBlock",
+    "TabMiniItemBlock",
+    "TabItemBlock",
+    "WholesaleTabsBlock",
+]

@@ -1,0 +1,19 @@
+<section class="timer">
+    <div class="container">
+        <div class="row">
+            {% for item in self.stats %}
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="wrap">
+                        <span class="timer__single"
+                              data-from="0"
+                              data-to="{{ item.value }}"
+                              data-speed="3000"
+                              data-refresh-interval="50"></span>
+                        {% if item.unit %}<sup>{{ item.unit }}</sup>{% endif %}
+                        <div class="timer__descr">{{ item.description|safe }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

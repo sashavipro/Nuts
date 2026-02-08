@@ -1,0 +1,52 @@
+{% load wagtailcore_tags %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-12">
+            <div class="wrap">
+                <h2>Контакты</h2>
+                <div class="bottom_social">
+                    <div class="bottom_social_tel">
+                        <i class="nut-icon icons-phone"></i>
+                        <ul>
+                            {% for phone in self.phones %}
+                            <li><a href="tel:{{ phone }}">{{ phone }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {# Соцсети можно добавить в модель, пока статика #}
+                    <div class="bottom_social_links">
+                        <ul>
+                            <li><a href="#"><i class="nut-icon icons-viber"></i></a></li>
+                            <li><a href="#"><i class="nut-icon icons-telegram"></i></a></li>
+                            <li><a href="#"><i class="nut-icon icons-whatsapp"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                {% if self.email %}
+                <div class="bottom_mail">
+                    <a href="mailto:{{ self.email }}"><i class="nut-icon icons-post"></i> {{ self.email }}</a>
+                </div>
+                {% endif %}
+                <address class="bottom_address">
+                    <ul>
+                        <li>
+                            <b>Офис и отдел продаж</b>
+                            <p>{{ self.address_office|linebreaksbr }}</p>
+                        </li>
+                        <li>
+                            <b>Производство</b>
+                            <p>{{ self.address_production|linebreaksbr }}</p>
+                        </li>
+                    </ul>
+                </address>
+            </div>
+        </div>
+        <div class="col-lg-7 col-12">
+            {# Если в self.map_embed_code лежит iframe #}
+            <div id="map">
+                {{ self.map_embed_code|safe }}
+            </div>
+        </div>
+    </div>
+</div>

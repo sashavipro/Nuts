@@ -1,0 +1,32 @@
+{% load wagtailcore_tags static %}
+
+<section class="production">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h2>{{ self.title }}</h2>
+                {% if self.description %}
+                    <div class="section-description">{{ self.description|linebreaks }}</div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for product in self.featured_products %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="wrap">
+                        {# Создайте файл shop/includes/product_card.html с версткой .production__item #}
+                        {% include "shop/includes/product_card.html" with product=product %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if self.shop_link %}
+        <div class="row">
+            <div class="wrapper">
+                <a href="{% pageurl self.shop_link %}" class="button button_transparent">Перейти в магазин</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

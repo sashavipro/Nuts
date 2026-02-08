@@ -1,0 +1,49 @@
+{% load wagtailcore_tags static %}
+
+<section class="news gray_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 col-12">
+                <h2>{{ self.title }}</h2>
+                {% if self.subtitle %}
+                    <p class="news__descr">{{ self.subtitle }}</p>
+                {% endif %}
+            </div>
+            <div class="col-md-6 col-12 d-flex justify-content-end">
+                <div class="wrap">
+                    <div class="navigation"></div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="news-container swiper-container">
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-wrapper">
+                        {# Здесь должен быть цикл по новостям #}
+                        {# Пример верстки одного слайда #}
+                        <div class="swiper-slide">
+                            <div class="news__item">
+                                <span class="video_wrap">
+                                    <img src="{% static 'img/pic.jpg' %}" alt="alt">
+                                </span>
+                                <div class="wraper">
+                                    <div class="item_data">12.04.2019</div>
+                                    <h3>Заголовок новости</h3>
+                                    <p>Текст новости...</p>
+                                    <a href="#">Читать <i class="nut-icon icons-read-more"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if self.news_index_page %}
+        <div class="row">
+            <div class="wrapper">
+                <a href="{% pageurl self.news_index_page %}" class="button button_transparent">Смотреть все новости</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

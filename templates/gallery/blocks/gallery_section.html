@@ -1,0 +1,44 @@
+{% load wagtailcore_tags %}
+
+<section class="benefit gray_section gallery_section" style="padding: 60px 0;">
+    <div class="container">
+
+        {# 1. Заголовок #}
+        <div class="row align-items-center justify-content-center mb-5">
+            <div class="col-12 text-center">
+                <h2>{{ value.title }}</h2>
+                {% if value.description %}
+                    <p>{{ value.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {# 2. Сетка #}
+        <div class="row justify-content-center">
+            {% if value.items %}
+
+                {% if max_count %}
+                     {# Режим импорта (например, на Главную или О компании) #}
+                     {% for block in value.items|slice:max_count %}
+                        {% include_block block %}
+                     {% endfor %}
+                {% else %}
+                     {# Режим полной галереи #}
+                     {% for block in value.items %}
+                        {% include_block block %}
+                     {% endfor %}
+                {% endif %}
+
+            {% endif %}
+        </div>
+
+        {# 3. Кнопка (только при импорте) #}
+        {% if show_link and gallery_url %}
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <a href="{{ gallery_url }}" class="button button_transparent">Смотреть всю галерею</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

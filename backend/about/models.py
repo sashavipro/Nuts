@@ -1,63 +1,96 @@
 """about/models.py."""
 
-from django.db import models
+from wagtail import blocks
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
 from home.blocks import (
-    AboutBlock, StatsBlock, MissionBlock, EcoBannerBlock, LatestNewsBlock,
-    ContactsMapBlock
+    AboutBlock,
+    StatsBlock,
+    EcoBannerBlock,
+    LatestNewsBlock,
+    ContactsMapBlock,
+    HeroBlock,
 )
 from about.blocks import (
-    ImageBannerBlock, FounderHistoryBlock, SimpleGalleryBlock, WholesaleIntroBlock,
-    TextImageBlock, PaymentDeliveryTabsBlock
+    FounderHistoryBlock,
+    WholesaleIntroBlock,
+    WholesaleTabsBlock,
 )
 
 
-class AboutPage(Page):
-    """Page model for the 'About Us' section."""
-    # pylint: disable=duplicate-code
-    body = StreamField([
-        ('banner', ImageBannerBlock()),
-        ('about_section', AboutBlock()),
-        ('founder', FounderHistoryBlock()),
-        ('stats', StatsBlock()),
-        ('gallery', SimpleGalleryBlock()),
-        ('mission', MissionBlock()),
-        ('eco', EcoBannerBlock()),
-        ('news', LatestNewsBlock()),
-        ('contacts', ContactsMapBlock()),
-    ], use_json_field=True)
+class AboutPage(Page):  # pylint: disable=too-many-ancestors
+    """Page model for the About section."""
 
-    content_panels = Page.content_panels + [FieldPanel('body')]
-
-
-class WholesalePage(Page):
-    """Page model for 'Wholesale and Corporate Clients'."""
-    body = StreamField([
-        ('intro', WholesaleIntroBlock()),
-        ('content', TextImageBlock()),
-        ('stats', StatsBlock()),
-        ('eco', EcoBannerBlock()),
-        ('contacts', ContactsMapBlock()),
-    ], use_json_field=True)
-
-    content_panels = Page.content_panels + [FieldPanel('body')]
-
-
-class DeliveryPage(Page):
-    """Page model for 'Payment and Delivery' information."""
-    hero_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True, on_delete=models.SET_NULL, related_name='+'
+    body = StreamField(
+        [
+            ("hero", HeroBlock()),
+            ("about_section", AboutBlock()),
+            ("founder", FounderHistoryBlock()),
+            ("stats", StatsBlock()),
+            (
+                "gallery_import",
+                blocks.StructBlock(
+                    [
+                        (
+                            "gallery_page",
+                            blocks.PageChooserBlock(
+                                target_model="gallery.GalleryPage",
+                                label="Страница галереи",
+                            ),
+                        ),
+                        (
+                            "count",
+                            blocks.IntegerBlock(
+                                default=3, label="Количество элементов"
+                            ),
+                        ),
+                    ],
+                    template="about/blocks/gallery_import_wrapper.html",
+                    label="Вставка Галереи",
+                ),
+            ),
+            ("eco", EcoBannerBlock()),
+            ("news", LatestNewsBlock()),
+            ("contacts", ContactsMapBlock()),
+        ],
+        use_json_field=True,
     )
-    body = StreamField([
-        ('tabs', PaymentDeliveryTabsBlock()),
-        ('stats', StatsBlock()),
-        ('mission', MissionBlock()),
-        ('contacts', ContactsMapBlock()),
-    ], use_json_field=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('hero_image'), FieldPanel('body')
-    ]
+    content_panels = Page.content_panels + [FieldPanel("body")]
+
+
+class WholesalePage(Page):  # pylint: disable=too-many-ancestors
+    """Page model for 'Wholesale and Corporate Clients'."""
+
+    body = StreamField(
+        [
+            ("hero", HeroBlock()),
+            ("intro", WholesaleIntroBlock()),
+            ("tabs_section", WholesaleTabsBlock()),
+            ("stats", StatsBlock()),
+            ("eco", EcoBannerBlock()),
+            ("contacts", ContactsMapBlock()),
+        ],
+        use_json_field=True,
+    )
+
+    content_panels = Page.content_panels + [FieldPanel("body")]
+
+
+class DeliveryPage(Page):  # pylint: disable=too-many-ancestors
+    """Page model for 'Payment and Delivery' information."""
+
+    body = StreamField(
+        [
+            ("hero", HeroBlock()),
+            ("intro", WholesaleIntroBlock()),
+            ("tabs_section", WholesaleTabsBlock()),
+            ("stats", StatsBlock()),
+            ("eco", EcoBannerBlock()),
+            ("contacts", ContactsMapBlock()),
+        ],
+        use_json_field=True,
+    )
+
+    content_panels = Page.content_panels + [FieldPanel("body")]

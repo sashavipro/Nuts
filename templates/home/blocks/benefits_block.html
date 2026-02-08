@@ -1,0 +1,36 @@
+{% load wagtailimages_tags %}
+
+<section class="benefit">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                <h2>{{ self.title }}</h2>
+                {% if self.description %}
+                    <p>{{ self.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            {% for card in self.cards %}
+                <div class="col-lg-4 col-md-6 col-12">
+                    <div class="wrap">
+                        {% image card.image fill-400x300 as bg_img %}
+                        <div class="benefit__item overlay" style="background-image: url({{ bg_img.url }})">
+                            {% if card.icon %}
+                                {% image card.icon original class="nut-icon" %}
+                            {% endif %}
+                            <h3>{{ card.title }}</h3>
+                        </div>
+                        <div class="benefit__item item_hover overlay_green">
+                            <h3>{% if card.icon %}
+                                {% image card.icon original class="nut-icon" %}
+                            {% endif %}</h3>
+                            <h3>{{ card.title }}</h3>
+                            <div class="benefit-descr">{{ card.description|linebreaks }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

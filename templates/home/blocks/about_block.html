@@ -1,0 +1,106 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="manufacturer gray_section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-5">
+                <h2>{{ self.title }}</h2>
+                <div class="manufacturer__descr">
+                    {{ self.text|richtext }}
+                </div>
+                {% if self.link %}
+                    <a href="{% pageurl self.link %}" class="button button_transparent">Подробнее</a>
+                {% endif %}
+            </div>
+            <div class="col-md-7">
+                <div class="manufacturer-container swiper-container">
+                    <div class="swiper-wrapper">
+                        {% for block in self.gallery %}
+                            <div class="swiper-slide">
+
+                                {# --- ЛОГИКА ДЛЯ ИЗОБРАЖЕНИЯ --- #}
+                                {% if block.block_type == 'image' %}
+                                    {# Убрали класс manufacturer__item_video, оставили только базовый manufacturer__item #}
+                                    <div class="manufacturer__item" style="height: 100%; min-height: 300px;">
+                                        {% image block.value fill-800x500 class="img-responsive" style="width: 100%; height: 100%; object-fit: cover;" %}
+                                    </div>
+
+                                {# --- ЛОГИКА ДЛЯ ВИДЕО --- #}
+                                {% elif block.block_type == 'video' %}
+                                    {# Тоже убрали manufacturer__item_video, чтобы не было дубликата кнопки #}
+                                    <div class="manufacturer__item" style="height: 100%; min-height: 300px; padding: 0; border: none; background: #000;">
+                                        <div class="video-wrapper" onclick="playAboutSliderVideo(this)" style="cursor: pointer; position: relative; width: 100%; height: 100%;">
+
+                                            {# 1. Видео (на паузе) #}
+                                            <video class="about-slider-video" playsinline preload="metadata" style="width: 100%; height: 100%; object-fit: cover;">
+                                                <source src="{{ block.value.url }}" type="video/mp4">
+                                            </video>
+
+                                            {# 2. Затемнение #}
+                                            <div class="video-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); transition: opacity 0.5s;"></div>
+
+                                            {# 3. Кнопка Play (НАША, рабочая) #}
+                                            <div class="video-play-btn" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: opacity 0.5s;">
+                                                <span><i class="nut-icon icons-play-icon" style="font-size: 60px; color: #fff;"></i></span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="wrap">
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function playAboutSliderVideo(wrapper) {
+        var video = wrapper.querySelector('.about-slider-video');
+        var overlay = wrapper.querySelector('.video-overlay');
+        var btn = wrapper.querySelector('.video-play-btn');
+
+        if (video && video.paused) {
+            video.play();
+            video.controls = true;
+
+            if (overlay) overlay.style.opacity = '0';
+            if (btn) btn.style.opacity = '0';
+
+            setTimeout(function() {
+                if (overlay) overlay.style.display = 'none';
+                if (btn) btn.style.display = 'none';
+            }, 500);
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var videos = document.querySelectorAll('.about-slider-video');
+        videos.forEach(function(video) {
+            video.addEventListener('ended', function() {
+                var wrapper = this.closest('.video-wrapper');
+                var overlay = wrapper.querySelector('.video-overlay');
+                var btn = wrapper.querySelector('.video-play-btn');
+
+                this.controls = false;
+                this.currentTime = 0;
+
+                if (overlay) {
+                    overlay.style.display = 'block';
+                    setTimeout(() => overlay.style.opacity = '1', 10);
+                }
+                if (btn) {
+                    btn.style.display = 'block';
+                    setTimeout(() => btn.style.opacity = '1', 10);
+                }
+            });
+        });
+    });
+</script>

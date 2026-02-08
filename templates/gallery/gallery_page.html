@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+
+    {# Теперь шаблон максимально чистый. #}
+    {# 1. HeroBlock выведет шапку. #}
+    {# 2. GallerySectionBlock выведет заголовок "Наша галерея", описание и саму сетку. #}
+    {# 3. ContactsMapBlock выведет контакты внизу. #}
+
+    {% for block in page.body %}
+        {% include_block block %}
+    {% endfor %}
+
+{% endblock %}

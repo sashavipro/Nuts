@@ -1,0 +1,43 @@
+{% load wagtailimages_tags static %}
+
+<div class="{{ self.size|default:'col-lg-4' }} mb-4">
+
+    <div class="wrap" style="height: 400px;">
+
+        {% image self.image fill-800x800 as img_data %}
+
+        {# --- СЛОЙ 1: Картинка (Нижний) --- #}
+        <div class="benefit__item overlay"
+             style="background-image: url('{{ img_data.url }}');">
+        </div>
+
+        {# --- СЛОЙ 2: Ховер (используем класс overlay_green overlay_green_bg из main_min.css) --- #}
+        <div class="benefit__item item_hover overlay_green overlay_green_bg"
+             style="display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;">
+
+            {# ИКОНКА --- #}
+            {% if self.icon %}
+                <div style="margin-bottom: 20px; position: relative; z-index: 100;">
+                    {% image self.icon width-80 as icon_img %}
+                    <img src="{{ icon_img.url }}"
+                         alt="{{ self.title }}"
+                         style="max-height: 60px;
+                                width: auto;">
+                </div>
+            {% endif %}
+
+            {# ТЕКСТ --- #}
+            <h3 style="position: relative; z-index: 100;">{{ self.title }}</h3>
+
+            {% if self.description %}
+                <div class="benefit-descr" style="position: relative; z-index: 100;">
+                    {{ self.description|linebreaks }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

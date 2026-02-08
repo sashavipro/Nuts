@@ -1,0 +1,32 @@
+{% load wagtailcore_tags %}
+
+<section class="wholesale-intro section" style="padding: 100px 0;">
+    <div class="container">
+        <div class="row">
+
+            {# ЛЕВАЯ ЧАСТЬ: Заголовок #}
+            <div class="col-lg-4 col-12 mb-5 mb-lg-0">
+                <h2 style="font-size: 40px; line-height: 1.2; color: #1d252d; font-weight: 700;">
+                    {{ self.title }}
+                </h2>
+            </div>
+
+            {# ПРАВАЯ ЧАСТЬ: Две колонки текста #}
+            <div class="col-lg-8 col-12">
+                <div class="row">
+                    <div class="col-md-6 col-12 mb-4 mb-md-0">
+                        <div class="text-content" style="color: #4a555e; line-height: 1.6;">
+                            {{ self.column_1|richtext }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div class="text-content" style="color: #4a555e; line-height: 1.6;">
+                            {{ self.column_2|richtext }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

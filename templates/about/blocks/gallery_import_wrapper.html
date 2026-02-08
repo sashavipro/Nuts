@@ -1,0 +1,22 @@
+{% load wagtailcore_tags %}
+
+{% if self.gallery_page %}
+
+    {% with gallery_data=self.gallery_page.specific.get_main_gallery_section %}
+
+        {% if gallery_data %}
+
+            {# ИСПРАВЛЕНИЕ: with value=gallery_data (а не self=...) #}
+            {% include "gallery/blocks/gallery_section.html" with value=gallery_data max_count=self.count show_link=1 gallery_url=self.gallery_page.url %}
+
+        {% else %}
+            <div class="container">
+                <p class="text-center text-muted">
+                    На выбранной странице нет секции галереи.
+                </p>
+            </div>
+        {% endif %}
+
+    {% endwith %}
+
+{% endif %}

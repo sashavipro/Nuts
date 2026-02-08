@@ -1,0 +1,142 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section class="payment">
+    <div class="container">
+
+        {# 1. НАВИГАЦИЯ ТАБОВ - используем структуру из main_min.css (.payment .tabs) #}
+        <div class="tabs">
+            <div class="tabs__wrap">
+                <ul class="tabs__caption" role="tablist">
+                    {% for tab in self.tabs %}
+                        <li class="{% if forloop.first %}active{% endif %}"
+                            data-tab-id="{{ forloop.counter }}"
+                            role="tab">
+
+                            {# ИКОНКА ТАБА - поддержка картинки ИЛИ шрифта #}
+                            {% if tab.tab_icon_type == 'font' and tab.tab_icon_font_class %}
+                                <i class="nut-icon {{ tab.tab_icon_font_class }}"></i>
+                            {% elif tab.tab_icon_type == 'image' and tab.tab_icon_image %}
+                                <span style="margin-right: 8px; display: inline-block; width: 37px; height: 37px;">
+                                    {% image tab.tab_icon_image original style="width: 100%; height: auto;" %}
+                                </span>
+                            {% endif %}
+
+                            <span>{{ tab.tab_label }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {# 2. КОНТЕНТ ТАБОВ #}
+            {% for tab in self.tabs %}
+                <div class="tabs__content {% if forloop.first %}active{% endif %}"
+                     data-content-id="{{ forloop.counter }}">
+
+                    <div class="row align-items-center">
+
+                        {# ЛЕВАЯ ЧАСТЬ #}
+                        <div class="col-lg-5 col-12 mb-4 mb-lg-0">
+                            {% if tab.content_title %}
+                                <div class="tabs__content_block">
+                                    <div class="tabs__content_title">{{ tab.content_title }}</div>
+                                </div>
+                            {% endif %}
+
+                            <div class="tabs__content_block">
+                                <ul>
+                                    {% for item in tab.content_items %}
+
+                                        {# ВАРИАНТ 1: Элемент с иконкой #}
+                                        {% if item.block_type == 'icon_item' %}
+                                            <li>
+                                                <span style="display: flex; align-items: flex-start;">
+                                                    {# ИКОНКА ЭЛЕМЕНТА - поддержка картинки ИЛИ шрифта #}
+                                                    {% if item.value.icon_type == 'font' and item.value.icon_font_class %}
+                                                        <i class="nut-icon {{ item.value.icon_font_class }}"
+                                                           style="font-size: 48px;
+                                                                  color: #337D5A;
+                                                                  margin-right: 15px;
+                                                                  min-width: 48px;
+                                                                  line-height: 48px;"></i>
+                                                    {% elif item.value.icon_type == 'image' and item.value.icon_image %}
+                                                        {% image item.value.icon_image original %}
+                                                    {% endif %}
+
+                                                    <div>
+                                                        <strong style="display: block; margin-bottom: 5px; font-size: 18px;">{{ item.value.title }}</strong>
+                                                        {% if item.value.description %}
+                                                            <span style="font-style: normal; font-weight: normal; display: block; color: #555;">{{ item.value.description }}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                </span>
+                                            </li>
+
+                                        {# ВАРИАНТ 2: Простой текстовый абзац #}
+                                        {% elif item.block_type == 'text_paragraph' %}
+                                            <li style="list-style: none; margin-left: 0;">
+                                                <div style="color: #555; line-height: 1.6; margin-bottom: 15px;">
+                                                    {{ item.value|richtext }}
+                                                </div>
+                                            </li>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            {# КНОПКА (если указана) #}
+                            {% if tab.button_text and tab.button_url %}
+                                <div style="margin-top: 30px;">
+                                    <a href="{{ tab.button_url }}" class="button">
+                                        {{ tab.button_text }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {# ПРАВАЯ ЧАСТЬ #}
+                        <div class="col-lg-7 col-12">
+                            {% if tab.image %}
+                                <div style="border-radius: 10px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                                    {% image tab.image fill-800x500 style="width: 100%; height: auto; display: block;" %}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{# --- СКРИПТ ПЕРЕКЛЮЧЕНИЯ ТАБОВ --- #}
+<script>
+(function() {
+    // Находим все табы в этой секции
+    const tabButtons = document.querySelectorAll('.payment .tabs__caption li');
+    const tabContents = document.querySelectorAll('.payment .tabs__content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabId = this.getAttribute('data-tab-id');
+
+            // 1. Убираем активный класс со всех кнопок
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+
+            // 2. Добавляем активный класс нажатой кнопке
+            this.classList.add('active');
+
+            // 3. Скрываем все панели
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // 4. Показываем нужную панель
+            const targetContent = document.querySelector('.payment .tabs__content[data-content-id="' + tabId + '"]');
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+})();
+</script>

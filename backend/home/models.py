@@ -7,7 +7,6 @@ from wagtail.admin.panels import FieldPanel
 from contacts.blocks import ContactImportBlock
 from .blocks import (
     HeroBlock,
-    ProductSectionBlock,
     AboutBlock,
     StatsBlock,
     BenefitsBlock,
@@ -25,7 +24,6 @@ class HomePage(Page):  # pylint: disable=too-many-ancestors
     body = StreamField(
         [
             ("hero", HeroBlock()),
-            ("products", ProductSectionBlock()),
             ("about", AboutBlock()),
             ("stats", StatsBlock()),
             ("benefits", BenefitsBlock()),
@@ -37,3 +35,6 @@ class HomePage(Page):  # pylint: disable=too-many-ancestors
     )
 
     content_panels = Page.content_panels + [FieldPanel("body")]
+
+    max_count = 1
+    parent_page_types = []

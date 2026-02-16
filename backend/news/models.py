@@ -40,6 +40,7 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         "Short Description", help_text="For the news list", blank=True
     )
 
+    # pylint: disable=duplicate-code
     preview_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -48,6 +49,8 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         related_name="+",
         verbose_name="Preview: Image",
     )
+    # pylint: enable=duplicate-code
+
     preview_video = models.ForeignKey(
         "wagtailmedia.Media",
         null=True,
@@ -143,6 +146,7 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
         verbose_name="Sidebar Social Widget",
     )
 
+    # pylint: disable=duplicate-code
     footer_blocks = StreamField(
         [
             ("eco", EcoBannerBlock()),
@@ -165,7 +169,10 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
         ),
         FieldPanel("footer_blocks"),
     ]
+    # pylint: enable=duplicate-code
 
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
     subpage_types = ["news.NewsPage"]
 
     def get_context(self, request, *args, **kwargs):

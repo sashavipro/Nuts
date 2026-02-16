@@ -1,0 +1,68 @@
+{% load wagtailimages_tags %}
+
+<section class="payment payment__product">
+    <div class="tabs">
+        <div class="tabs__wrap">
+            <div class="container">
+                <div class="row">
+                    <ul class="tabs__caption">
+                        {% for tab in self.tabs %}
+                            <li class="{% if forloop.first %}active{% endif %}">
+                                <span>{{ tab.title }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    {% for tab in self.tabs %}
+                        <div class="tabs__content {% if forloop.first %}active{% endif %}">
+                            <div class="tabs__content_product">
+
+                                {% if tab.image %}
+                                    <div class="row align-items-start"> {# Добавил align-items-start для красивого выравнивания #}
+
+                                        {# Логика: Картинка СЛЕВА #}
+                                        {% if tab.image_alignment == 'left' %}
+                                            <div class="col-lg-5 col-md-6 col-12 mb-4">
+                                                {# ИЗМЕНЕНИЕ: Было fill-400x300, стало fill-600x500 #}
+                                                {# Это сделает картинку крупной и почти квадратной, как на макете #}
+                                                {% image tab.image fill-600x500 class="img-fluid w-100" style="border-radius: 8px;" %}
+                                            </div>
+                                            <div class="col-lg-7 col-md-6 col-12">
+                                                {{ tab.content|safe }}
+                                            </div>
+
+                                        {# Логика: Картинка СПРАВА #}
+                                        {% else %}
+                                            <div class="col-lg-7 col-md-6 col-12 order-2 order-md-1">
+                                                {{ tab.content|safe }}
+                                            </div>
+                                            <div class="col-lg-5 col-md-6 col-12 mb-4 order-1 order-md-2">
+                                                {# ИЗМЕНЕНИЕ: Здесь тоже увеличили #}
+                                                {% image tab.image fill-600x500 class="img-fluid w-100" style="border-radius: 8px;" %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                {% else %}
+                                    {# Если картинки нет - текст на всю ширину #}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            {{ tab.content|safe }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,4 +1,5 @@
 {% load static wagtailcore_tags navigation_tags %}
+{% load i18n_tags %}
 <header class="top-header">
     <div class="top-header__line">
         <div class="container">
@@ -50,13 +51,32 @@
                         </ul>
 
                         <div id="lang-menu" class="lang-menu">
-                            <span class="title">Ru</span>
-                            <ul>
-                                <li><a href="#">En</a></li>
-                                <li><a href="#">Ru</a></li>
-                                <li><a href="#">Uk</a></li>
-                            </ul>
-                        </div>
+    {# Показываем текущий активный язык #}
+    <span class="title">{{ request.LANGUAGE_CODE|upper }}</span>
+
+    <ul>
+        {# Ссылка на Английский #}
+        <li>
+            <a href="{% get_translated_url 'en' %}" {% if request.LANGUAGE_CODE == 'en' %}class="active"{% endif %}>
+                En
+            </a>
+        </li>
+
+        {# Ссылка на Русский #}
+        <li>
+            <a href="{% get_translated_url 'ru' %}" {% if request.LANGUAGE_CODE == 'ru' %}class="active"{% endif %}>
+                Ru
+            </a>
+        </li>
+
+        {# Ссылка на Украинский #}
+        <li>
+            <a href="{% get_translated_url 'uk' %}" {% if request.LANGUAGE_CODE == 'uk' %}class="active"{% endif %}>
+                Uk
+            </a>
+        </li>
+    </ul>
+</div>
                     </div>
                 </div>
             </div>

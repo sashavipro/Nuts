@@ -1,5 +1,6 @@
 """home/blocks.py."""
 
+from django.apps import apps
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 from wagtailmedia.blocks import VideoChooserBlock
@@ -16,23 +17,8 @@ class HeroBlock(blocks.StructBlock):
 
     button_text = blocks.CharBlock(required=False, default="Смотреть видео")
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:
         template = "home/blocks/hero_block.html"
-
-
-class ProductSectionBlock(blocks.StructBlock):
-    """Block used to display a selection of products."""
-
-    title = blocks.CharBlock(default="Продукция")
-    description = blocks.TextBlock(required=False)
-    featured_products = blocks.ListBlock(
-        blocks.PageChooserBlock(target_model="shop.ProductPage"),
-        label="Выберите товары",
-    )
-    shop_link = blocks.PageChooserBlock(required=False)
-
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
-        template = "home/blocks/product_section.html"
 
 
 class MediaGalleryBlock(blocks.StreamBlock):
@@ -52,7 +38,7 @@ class AboutBlock(blocks.StructBlock):
     link = blocks.PageChooserBlock(required=False)
     gallery = MediaGalleryBlock()
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:
         template = "home/blocks/about_block.html"
 
 
@@ -69,7 +55,7 @@ class StatsBlock(blocks.StructBlock):
 
     stats = blocks.ListBlock(StatItemBlock())
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:
         template = "home/blocks/stats_block.html"
 
 
@@ -87,7 +73,7 @@ class BenefitsBlock(blocks.StructBlock):
 
     cards = blocks.ListBlock(BenefitCardBlock())
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:
         template = "home/blocks/benefits_block.html"
 
 
@@ -99,7 +85,7 @@ class EcoBannerBlock(blocks.StructBlock):
     title = blocks.CharBlock(default="Эко продукция")
     text = blocks.TextBlock()
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:
         template = "home/blocks/eco_banner.html"
 
 
@@ -109,7 +95,34 @@ class LatestNewsBlock(blocks.StructBlock):
     title = blocks.CharBlock(default="Новости")
     subtitle = blocks.TextBlock(required=False)
     count = blocks.IntegerBlock(default=3)
-    news_index_page = blocks.PageChooserBlock(target_model="news.NewsIndexPage")
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    news_index_page = blocks.PageChooserBlock(
+        target_model="news.NewsIndexPage", required=False
+    )
+
+    class Meta:
         template = "home/blocks/latest_news.html"
+        icon = "doc-full"
+        label = "Слайдер последних новостей"
+
+    def get_context(self, value, parent_context=None):
+        """
+        The method retrieves data from the database before sending it to the template.
+        """
+        # Resolve Cyclic Import: Use get_model instead of direct import
+        NewsPage = apps.get_model("news", "NewsPage")
+
+        context = super().get_context(value, parent_context=parent_context)
+
+        index_page = value.get("news_index_page")
+        count = value.get("count", 3)
+
+        if index_page:
+            news_items = (
+                NewsPage.objects.live().child_of(index_page).order_by("-date")[:count]
+            )
+        else:
+            news_items = NewsPage.objects.live().order_by("-date")[:count]
+
+        context["news_items"] = news_items
+        return context

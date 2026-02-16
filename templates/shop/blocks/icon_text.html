@@ -1,0 +1,10 @@
+<div class="col-12">
+    <div class="warning">
+        {% if self.icon_class %}
+            <i class="{{ self.icon_class }}"></i>
+        {% else %}
+             <i class="nut-icon icons-warning-sigh"></i>
+        {% endif %}
+        <p>{{ self.text }}</p>
+    </div>
+</div>

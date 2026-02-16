@@ -1,0 +1,22 @@
+<li style="margin-bottom: 10px;">
+    <div class="row">
+        <div class="col-md-5">
+            <strong>{{ self.label }}:</strong>
+        </div>
+        <div class="col-md-7">
+            <span>
+                {% if self.attribute_type == 'composition' %}
+                    {{ page.product.composition }}
+                {% elif self.attribute_type == 'weight' %}
+                    {{ page.product.weight_option.name }}
+                {% elif self.attribute_type == 'energy_value' %}
+                    {{ page.product.energy_value }}
+                {% elif self.attribute_type == 'shelf_life' %}
+                    {{ page.product.shelf_life }}
+                {% elif self.attribute_type == 'packaging' %}
+                    {{ page.product.packaging }}
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</li>

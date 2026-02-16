@@ -32,6 +32,9 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         FieldPanel("body"),
     ]
 
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
+
     def get_main_gallery_section(self):
         """
         Retrieves the first gallery section block from the body.

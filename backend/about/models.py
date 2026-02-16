@@ -56,7 +56,8 @@ class AboutPage(Page):  # pylint: disable=too-many-ancestors
         ],
         use_json_field=True,
     )
-
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
     content_panels = Page.content_panels + [FieldPanel("body")]
 
 
@@ -74,7 +75,8 @@ class WholesalePage(Page):  # pylint: disable=too-many-ancestors
         ],
         use_json_field=True,
     )
-
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
     content_panels = Page.content_panels + [FieldPanel("body")]
 
 
@@ -92,5 +94,6 @@ class DeliveryPage(Page):  # pylint: disable=too-many-ancestors
         ],
         use_json_field=True,
     )
-
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
     content_panels = Page.content_panels + [FieldPanel("body")]

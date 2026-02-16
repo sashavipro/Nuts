@@ -15,6 +15,7 @@ import os
 from pathlib import Path
 import environ
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 env = environ.Env()
 
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
+    "wagtail.locales",
+    "wagtail.contrib.simple_translation",
     "wagtailmedia",
     "wagtail",
     "modelcluster",
@@ -55,6 +58,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_select2",
     "cities_light",
+    "modeltranslation",
     "unfold",
     "unfold.contrib.filters",
     "unfold.contrib.forms",
@@ -72,6 +76,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -151,14 +156,17 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-# LANGUAGES = (
-#     ("en", _("English")),
-#     ("ru", _("Russian")),
-#     ("uk", _("Ukrainian"))
-# )
-#
-# MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
-# MODELTRANSLATION_LANGUAGES = ('en', 'ru', 'uk')
+LANGUAGES = [
+    ("ru", _("Russian")),
+    ("uk", _("Ukrainian")),
+    ("en", _("English")),
+]
+MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
+WAGTAIL_I18N_ENABLED = True
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
+WAGTAIL_I18N_DECIMAL_SEPARATOR = ","
+
+LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 
 USE_TZ = True
 

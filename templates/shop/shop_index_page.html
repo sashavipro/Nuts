@@ -1,0 +1,486 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags navigation_tags %}
+
+{% block body_class %}page inside{% endblock %}
+{% block extra_css %}{% endblock %}
+
+{% block content %}
+
+{# 1. Hero Section #}
+{% if page.hero_image %}
+    {% image page.hero_image original as bg_img %}
+    <section class="first-section overlay" style="background-image: url({{ bg_img.url }})">
+{% else %}
+    <section class="first-section overlay" style="background-image: url({% static 'img/header-home.jpg' %})">
+{% endif %}
+    <div class="container">
+        <div class="breadcrumbs">
+            {% breadcrumbs is_hero=True %}
+        </div>
+        <div class="row align-items-center justify-content-center">
+            <h1>{% if page.custom_title %}{{ page.custom_title }}{% else %}{{ page.title }}{% endif %}</h1>
+        </div>
+    </div>
+</section>
+
+{# 2. Секция каталога #}
+<section class="production">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-12">
+                {# --- БЛОК ФИЛЬТРОВ --- #}
+                <div class="production__filter">
+                    <form id="filter-form" action="." method="get">
+                        <div class="row">
+                            {# ЛЕВАЯ ЧАСТЬ (7 колонок) #}
+                            <div class="col-lg-7">
+                                <div class="row align-items-center">
+
+                                    {# Заголовок "Фильтр" (3 колонки) #}
+                                    <div class="col-lg-3">
+                                        <div class="production__filter_title">
+                                            <p>Фильтр</p>
+                                            <i class="nut-icon icons-settings"></i>
+                                        </div>
+                                    </div>
+
+                                    {# Выбор вкуса (5 колонок) #}
+                                    <div class="col-lg-5">
+                                        <select name="taste"
+                                                hx-get="{{ page.url }}"
+                                                hx-target="#product-grid"
+                                                hx-trigger="change"
+                                                hx-include="#filter-form"
+                                                hx-push-url="true">
+                                            <option value="">Вкус</option>
+                                            {% for taste in tastes %}
+                                                <option value="{{ taste.id }}" {% if current_taste == taste.id %}selected{% endif %}>
+                                                    {{ taste.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    {# Выбор веса (4 колонки) #}
+                                    <div class="col-lg-4">
+                                        <select name="weight"
+                                                hx-get="{{ page.url }}"
+                                                hx-target="#product-grid"
+                                                hx-trigger="change"
+                                                hx-include="#filter-form"
+                                                hx-push-url="true">
+                                            <option value="">Масса</option>
+                                            {% for weight in weights %}
+                                                <option value="{{ weight.id }}" {% if current_weight == weight.id %}selected{% endif %}>
+                                                    {{ weight.name }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# ПРАВАЯ ЧАСТЬ (5 колонок) #}
+                            <div class="col-lg-5 align-self-center">
+                                <div class="row">
+
+                                    {# Сортировка (5 колонок) - через стрелочки #}
+                                    <div class="col-lg-5 align-self-center">
+                                        <div class="production__filter_price">
+                                            <span>Стоимость</span>
+                                            <input type="hidden" name="sort" id="sort-input" value="{{ current_sort }}">
+                                            <i class="nut-icon icons-arrow-down {% if current_sort == 'price_desc' %}accent{% endif %}"
+                                               data-sort="price_desc"
+                                               style="cursor: pointer;"></i>
+                                            <i class="nut-icon icons-right-top {% if current_sort == 'price_asc' %}accent{% endif %}"
+                                               data-sort="price_asc"
+                                               style="cursor: pointer;"></i>
+                                        </div>
+                                    </div>
+
+                                    {# Кнопки (7 колонок) #}
+                                    <div class="col-lg-7">
+                                        <div class="production__filter_button">
+                                            <a href="#" class="button" id="apply-filters">Применить</a>
+                                            <a href="#" class="button_close" id="reset-filters">
+                                                <i class="nut-icon icons-close-button"></i><span> Сбросить</span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {# --- СПИСОК ТОВАРОВ --- #}
+        <div class="row justify-content-center" id="product-grid">
+            {% include "shop/includes/product_list.html" %}
+        </div>
+
+    </div>
+</section>
+
+{# Футер блоки #}
+{% for block in page.footer_blocks %}
+    {% include_block block %}
+{% endfor %}
+
+{% endblock %}
+
+{% block extra_js %}
+{# Подключаем Select2 #}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+{# Скрипт для фильтров и карточек #}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ==========================================
+        // 1. ИНИЦИАЛИЗАЦИЯ SELECT2 (красивые селекты)
+        // ==========================================
+        if (typeof $.fn.select2 !== 'undefined') {
+            $('select[name="taste"], select[name="weight"]').select2({
+                minimumResultsForSearch: -1,  // Убираем поиск
+                placeholder: function() {
+                    return $(this).attr('placeholder') || 'Выберите';
+                },
+                width: '100%'
+            });
+        }
+
+        // ==========================================
+        // 2. СОРТИРОВКА - клик по всей области
+        // ==========================================
+        const sortContainer = document.querySelector('.production__filter_price');
+        const sortInput = document.getElementById('sort-input');
+        const sortIcons = document.querySelectorAll('.production__filter_price i[data-sort]');
+
+        if (sortContainer && sortInput) {
+            // Делаем всю область кликабельной
+            sortContainer.style.cursor = 'pointer';
+
+            sortContainer.addEventListener('click', function(e) {
+                // Определяем какая иконка должна быть активна
+                let targetSort = 'price_asc';
+
+                // Если клик по конкретной иконке - используем её sort
+                if (e.target.hasAttribute('data-sort')) {
+                    targetSort = e.target.getAttribute('data-sort');
+                } else {
+                    // Если клик по тексту или области - переключаем
+                    const currentSort = sortInput.value;
+                    if (currentSort === 'price_asc') {
+                        targetSort = 'price_desc';
+                    } else {
+                        targetSort = 'price_asc';
+                    }
+                }
+
+                sortInput.value = targetSort;
+
+                // Обновляем визуальное состояние
+                sortIcons.forEach(icon => {
+                    if (icon.getAttribute('data-sort') === targetSort) {
+                        icon.classList.add('accent');
+                    } else {
+                        icon.classList.remove('accent');
+                    }
+                });
+
+                // Автоматически применяем фильтр
+                const form = document.getElementById('filter-form');
+                const formData = new FormData(form);
+                const params = new URLSearchParams(formData);
+
+                // Обновляем URL без перезагрузки
+                history.pushState(null, '', '{{ page.url }}?' + params.toString());
+
+                htmx.ajax('GET', '{{ page.url }}?' + params.toString(), {
+                    target: '#product-grid',
+                    swap: 'innerHTML'
+                });
+            });
+        }
+
+        // ==========================================
+        // 3. КНОПКА "ПРИМЕНИТЬ"
+        // ==========================================
+        const applyButton = document.getElementById('apply-filters');
+        if (applyButton) {
+            applyButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const form = document.getElementById('filter-form');
+                const formData = new FormData(form);
+                const params = new URLSearchParams(formData);
+
+                // Обновляем URL без перезагрузки
+                history.pushState(null, '', '{{ page.url }}?' + params.toString());
+
+                // Загружаем контент через HTMX
+                htmx.ajax('GET', '{{ page.url }}?' + params.toString(), {
+                    target: '#product-grid',
+                    swap: 'innerHTML'
+                });
+            });
+        }
+
+        // ==========================================
+        // 3.1. КНОПКА "СБРОСИТЬ"
+        // ==========================================
+        const resetButton = document.getElementById('reset-filters');
+        if (resetButton) {
+            resetButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Сбрасываем форму
+                document.getElementById('filter-form').reset();
+
+                // Сбрасываем сортировку
+                const sortInput = document.getElementById('sort-input');
+                if (sortInput) {
+                    sortInput.value = 'default';
+                }
+
+                // Убираем accent со всех стрелочек
+                document.querySelectorAll('.production__filter_price i[data-sort]').forEach(icon => {
+                    icon.classList.remove('accent');
+                });
+
+                // Обновляем Select2
+                if (typeof $.fn.select2 !== 'undefined') {
+                    $('select[name="taste"], select[name="weight"]').val('').trigger('change');
+                }
+
+                // Обновляем URL без перезагрузки
+                history.pushState(null, '', '{{ page.url }}');
+
+                // Загружаем контент через HTMX
+                htmx.ajax('GET', '{{ page.url }}', {
+                    target: '#product-grid',
+                    swap: 'innerHTML'
+                });
+            });
+        }
+
+        // ==========================================
+        // 4. АВТОФИЛЬТРАЦИЯ ПРИ ИЗМЕНЕНИИ СЕЛЕКТОВ
+        // ==========================================
+        $('select[name="taste"], select[name="weight"]').on('change', function() {
+            const form = document.getElementById('filter-form');
+            const formData = new FormData(form);
+            const params = new URLSearchParams(formData);
+
+            // Обновляем URL без перезагрузки
+            history.pushState(null, '', '{{ page.url }}?' + params.toString());
+
+            htmx.ajax('GET', '{{ page.url }}?' + params.toString(), {
+                target: '#product-grid',
+                swap: 'innerHTML'
+            });
+        });
+
+        // ==========================================
+        // 5. ЛАЙТБОКС ДЛЯ КАРТИНОК (ЗУМ)
+        // ==========================================
+        initProductLightbox();
+    });
+
+    // ==========================================
+    // ПЕРЕИНИЦИАЛИЗАЦИЯ ПОСЛЕ HTMX
+    // ==========================================
+    document.addEventListener('htmx:afterSwap', function(evt) {
+        // Переинициализируем Select2
+        if (typeof $.fn.select2 !== 'undefined') {
+            $('select[name="taste"], select[name="weight"]').select2({
+                minimumResultsForSearch: -1,
+                placeholder: function() {
+                    return $(this).attr('placeholder') || 'Выберите';
+                },
+                width: '100%'
+            });
+
+            // Переподключаем обработчики
+            $('select[name="taste"], select[name="weight"]').off('change').on('change', function() {
+                const form = document.getElementById('filter-form');
+                const formData = new FormData(form);
+                const params = new URLSearchParams(formData);
+
+                // Обновляем URL
+                history.pushState(null, '', '{{ page.url }}?' + params.toString());
+
+                htmx.ajax('GET', '{{ page.url }}?' + params.toString(), {
+                    target: '#product-grid',
+                    swap: 'innerHTML'
+                });
+            });
+        }
+
+        // Переинициализируем свайперы и лайтбокс
+        setTimeout(function() {
+            initProductSwiper();
+            initProductLightbox();
+            initProductCardClicks();
+        }, 100);
+    });
+
+    // ==========================================
+    // ФУНКЦИЯ: Инициализация Swiper
+    // ==========================================
+    function initProductSwiper() {
+        if (typeof Swiper !== 'undefined') {
+            var sliders = document.querySelectorAll('.products-container:not(.swiper-container-initialized)');
+            sliders.forEach(function(slider) {
+                var slidesCount = slider.querySelectorAll('.swiper-slide').length;
+
+                new Swiper(slider, {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    loop: slidesCount > 1,
+                    simulateTouch: false,
+                    observer: true,
+                    observeParents: true,
+                    navigation: {
+                        nextEl: slider.querySelector('.swiper-button-next'),
+                        prevEl: slider.querySelector('.swiper-button-prev'),
+                    },
+                    autoplay: slidesCount > 1 ? {
+                        delay: 10000000,
+                        disableOnInteraction: false,
+                    } : false,
+                });
+            });
+        }
+    }
+
+    // ==========================================
+    // ФУНКЦИЯ: Инициализация лайтбокса
+    // ==========================================
+    function initProductLightbox() {
+        // Используем simpleLightbox как в common.js
+        if (typeof $.fn.simpleLightbox !== 'undefined') {
+            // Удаляем старые инстансы
+            $('.products-container .swiper-slide a').each(function() {
+                if ($(this).data('simpleLightbox')) {
+                    $(this).data('simpleLightbox').destroy();
+                }
+            });
+
+            // Инициализируем новый
+            $('.products-container .swiper-slide a').simpleLightbox({
+                nav: true,
+                closeText: '×',
+                nextText: '>',
+                prevText: '<',
+                showCounter: true,
+                animationSpeed: 250,
+                overlayOpacity: 0.9
+            });
+        }
+    }
+
+    // ==========================================
+    // ФУНКЦИЯ: Клики по карточкам товаров
+    // ==========================================
+    function initProductCardClicks() {
+        document.querySelectorAll('.production__item').forEach(function(card) {
+            // Находим ссылку на товар
+            const productLink = card.querySelector('.production__item_title a');
+            if (!productLink) return;
+
+            const productUrl = productLink.getAttribute('href');
+
+            // Находим wrapper карточки
+            const cardWrapper = card.querySelector('.wrap');
+            if (!cardWrapper) return;
+
+            // Делаем всю карточку кликабельной
+            cardWrapper.style.cursor = 'pointer';
+
+            cardWrapper.addEventListener('click', function(e) {
+                // Проверяем что клик НЕ по:
+                // 1. Кнопке "Купить"
+                // 2. Картинке/лупе (они открывают лайтбокс)
+                // 3. Самой ссылке на товар
+
+                const isButton = e.target.closest('.button');
+                const isImage = e.target.closest('.products-container');
+                const isLink = e.target.closest('a');
+
+                // Если клик НЕ по этим элементам - переходим на страницу товара
+                if (!isButton && !isImage && !isLink) {
+                    window.location.href = productUrl;
+                }
+            });
+        });
+    }
+
+    // Инициализация при первой загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        initProductSwiper();
+        initProductCardClicks();
+    });
+</script>
+
+<style>
+    /* Стили для Select2 в стиле сайта */
+    .select2-container--default .select2-selection--single {
+        height: 45px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: 45px;
+        color: #333;
+        padding-left: 15px;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 45px;
+        right: 10px;
+    }
+
+    .select2-container--default .select2-selection--single:hover,
+    .select2-container--default .select2-selection--single:focus {
+        border-color: #337d5a;
+    }
+
+    .select2-dropdown {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background-color: #337d5a;
+    }
+
+    /* Курсор для области сортировки */
+    .production__filter_price {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .production__filter_price span {
+        pointer-events: none;
+    }
+
+    .production__filter_price i {
+        pointer-events: none;
+    }
+
+    /* Убираем курсор pointer с картинок в карточках (лайтбокс) */
+    .products-container .swiper-slide a {
+        cursor: zoom-in;
+    }
+</style>
+{% endblock %}

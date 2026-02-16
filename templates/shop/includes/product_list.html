@@ -1,0 +1,263 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{# Подключаем стили для зума, если они еще не подключены #}
+<style>
+    /* Стиль для линзы зума в каталоге */
+    .zoomLens {
+        border: 1px solid #82b440 !important; /* Зеленая обводка */
+        background-color: rgba(255, 255, 255, 0.4); /* Полупрозрачный фон */
+        cursor: crosshair;
+    }
+    /* Скрываем контейнеры зума при скролле, чтобы не висели */
+    .zoomContainer {
+        z-index: 999;
+    }
+</style>
+
+{# Цикл по товарам #}
+{% for product in products %}
+<div class="col-lg-4 col-md-6 col-12 fade-in-item">
+    <div class="wrap">
+        <div class="production__item" style="position: relative;">
+
+            {# --- 1. СТИКЕРЫ --- #}
+            <div class="badges-wrapper" style="position: absolute; top: 10px; left: 0; z-index: 10; display: flex; flex-direction: column; gap: 5px;">
+                {% if product.is_sale %}
+                    <div class="sticker" style="position: relative; margin: 0;">
+                        <i class="nut-icon icons-actciya"></i>
+                        <p>Акция</p>
+                    </div>
+                {% endif %}
+
+                {% if product.is_new %}
+                    <div class="sticker" style="position: relative; margin: 0;">
+                        <i class="nut-icon icons-novinka"></i>
+                        <p>Новинка</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# --- 2. ГАЛЕРЕЯ С JS-ЗУМОМ --- #}
+            <div class="products-container swiper-container product-list-swiper" id="swiper-{{ product.id }}">
+                <div class="swiper-wrapper">
+                    {% with gallery_images=product.get_gallery_images %}
+                        {% if gallery_images %}
+                            {% for gallery_image in gallery_images %}
+                                <div class="swiper-slide">
+                                    {# Получаем полную картинку для зума #}
+                                    {% image gallery_image.image original as full_img %}
+
+                                    {# УБРАЛИ тег <a> (lightbox). Теперь картинка сама по себе. #}
+                                    {# Добавили класс list-zoom-img и атрибут data-zoom-image #}
+                                    {% image gallery_image.image fill-400x400 class="list-zoom-img" data-zoom-image=full_img.url style="width: 100%; height: 100%; object-fit: contain;" %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {# Плейсхолдер #}
+                            <div class="swiper-slide">
+                                <img src="{% static 'img/placeholder.jpg' %}" alt="{{ product.title }}" style="width: 100%; height: 100%; object-fit: contain;">
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+                {# Стрелки навигации #}
+                {% if product.get_gallery_images.count > 1 %}
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                {% endif %}
+
+                {# Декоративная лупа (больше не кликабельна для лайтбокса) #}
+                <div class="hover-elements">
+                    <div class="zoom-link" style="pointer-events: none;"> {# Отключили клики #}
+                        <img class="zoom" src="{% static 'img/zoom.svg' %}" alt="zoom">
+                    </div>
+                </div>
+            </div>
+
+            {# 3. ИНФОРМАЦИЯ О ТОВАРЕ #}
+            <div class="wrap">
+                <div class="production__item_title">
+                    <a href="{% if product.page %}{{ product.page.url }}{% else %}#{% endif %}" style="color: inherit; text-decoration: none;">
+                        {{ product.title }}
+                    </a>
+                </div>
+
+                {% if product.sku %}
+                <div class="production__item_art">
+                    <span>Арт:</span> {{ product.sku }}
+                </div>
+                {% endif %}
+
+                {# Вкусы #}
+                {% if product.tastes.exists %}
+                <div class="production__item_tastes" style="margin-bottom: 10px; font-size: 14px; color: #000; font-weight: 600; padding: 0 20px;">
+                    {% for taste in product.tastes.all %}
+                        {{ taste.name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {# Характеристики #}
+                <div class="production__item_weight">
+                    <div class="weight_item">
+                        <div class="weight_item_icon">
+                            <i class="nut-icon icons-food-scale-tool"></i>
+                        </div>
+                        <div class="weight_item_descr">
+                            <p>Масса</p>
+                            <p><span>{{ product.weight_option.name|default:"—" }}</span></p>
+                        </div>
+                    </div>
+                    {% if product.packaging %}
+                    <div class="weight_item">
+                        <div class="weight_item_icon">
+                            <i class="nut-icon icons-group"></i>
+                        </div>
+                        <div class="weight_item_descr">
+                            <p>Упаковка</p>
+                            <p><span>{{ product.packaging }}</span></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {# Цена и Кнопка #}
+                <div class="production__item_sum">
+                    <div class="sum_item">
+                        <div class="sum_item_title">
+                            <p>Цена: </p>
+                        </div>
+                        {% if product.old_price %}
+                            <div class="sum_item_new">
+                                <p>{{ product.price }} <i>грн.</i></p>
+                            </div>
+                            <div class="sum_item_old">
+                                <p>{{ product.old_price }} <i>грн.</i></p>
+                            </div>
+                        {% else %}
+                            <div class="sum_item_new">
+                                <p>{{ product.price }} <i>грн.</i></p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="sum_item">
+                        <div class="sum_item_button">
+                            <a href="{% if product.page %}{{ product.page.url }}{% else %}#{% endif %}" class="button">Купить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{# Кнопка загрузки еще (HTMX) #}
+{% if products.has_next %}
+    <div id="shop-load-more-container" class="col-12 w-100">
+        <div class="wrapper">
+            <button class="button button_transparent"
+                    hx-get="?page={{ products.next_page_number }}&taste={{ current_taste|default:'' }}&sort={{ current_sort|default:'' }}"
+                    hx-target="#shop-load-more-container"
+                    hx-swap="outerHTML"
+                    hx-indicator="#shop-loader">
+                Загрузить еще
+            </button>
+        </div>
+        <div id="shop-loader" class="htmx-indicator text-center" style="display:none; margin-top: 10px;">
+            Загрузка...
+        </div>
+    </div>
+{% endif %}
+
+{# --- Подключение скрипта зума (на случай, если его нет в base.html) --- #}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVryhlGugrQFqAivETqIqrQrpBeimiuuuCR5F/0XXQsmEUK5XUg/yOQII39dM5Jt2T0h+cbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    // Функция инициализации зума на конкретном слайдере
+    function initZoomForSlider(sliderElement) {
+        // Находим активный слайд
+        var activeSlide = sliderElement.querySelector('.swiper-slide-active');
+        if (!activeSlide) activeSlide = sliderElement.querySelector('.swiper-slide'); // Фолбек
+
+        if (activeSlide) {
+            var img = $(activeSlide).find('.list-zoom-img');
+
+            // Если зум уже был, удаляем старый (чтобы не дублировался при свайпе)
+            $('.zoomContainer').remove();
+            $('.list-zoom-img').removeData('elevateZoom');
+
+            // Инициализируем на активной картинке
+            if (img.length > 0) {
+                img.elevateZoom({
+                    zoomType: "lens",       // Режим линзы
+                    lensShape: "round",     // Круглая
+                    lensSize: 200,          // Размер 200px
+                    borderSize: 1,
+                    borderColor: "#82b440",
+                    containLensZoom: true   // Линза внутри картинки
+                });
+            }
+        }
+    }
+
+    // Инициализация Swiper и Zoom
+    setTimeout(function() {
+        if (typeof Swiper !== 'undefined') {
+            // Ищем все слайдеры
+            var sliders = document.querySelectorAll('.product-list-swiper:not(.swiper-container-initialized)');
+
+            sliders.forEach(function(slider) {
+                var slidesCount = slider.querySelectorAll('.swiper-slide').length;
+
+                new Swiper(slider, {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                    loop: slidesCount > 1,
+                    simulateTouch: false, // Отключаем перетаскивание, чтобы не конфликтовало с зумом
+                    observer: true,
+                    observeParents: true,
+                    navigation: {
+                        nextEl: slider.querySelector('.swiper-button-next'),
+                        prevEl: slider.querySelector('.swiper-button-prev'),
+                    },
+                    on: {
+                        init: function() {
+                            // При инициализации запускаем зум на первом слайде
+                            // Используем mouseenter, чтобы активировать зум только когда мышь уже там (оптимизация)
+                            $(slider).on('mouseenter', function() {
+                                initZoomForSlider(slider);
+                            });
+                        },
+                        slideChangeTransitionEnd: function() {
+                            // При смене слайда перезапускаем зум
+                            initZoomForSlider(slider);
+                        },
+                        slideChange: function() {
+                            // Убираем линзу во время движения, чтобы не висела
+                            $('.zoomContainer').remove();
+                        }
+                    }
+                });
+            });
+
+            // Инициализируем зум для товаров с 1 картинкой (где нет свайпа)
+            $('.product-list-swiper').each(function() {
+                 var slider = this;
+                 $(slider).on('mouseenter', function() {
+                    initZoomForSlider(slider);
+                 });
+                 // На случай ухода мыши - чистим
+                 $(slider).on('mouseleave', function() {
+                    $('.zoomContainer').remove();
+                 });
+            });
+        }
+    }, 100);
+
+    if (typeof $ !== 'undefined' && $.fn.niceSelect) {
+        $('select.wide').niceSelect();
+    }
+</script>

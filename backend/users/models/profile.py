@@ -12,6 +12,7 @@ from contacts.blocks import ContactImportBlock
 class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestors
     """User profile page managing dashboard, orders, and addresses."""
 
+    # pylint: disable=duplicate-code
     promo_image = models.ForeignKey(
         "wagtailimages.Image",
         null=True,
@@ -19,6 +20,8 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    # pylint: enable=duplicate-code
+
     promo_text = models.CharField(
         max_length=255, blank=True, default="Орех Причерноморья"
     )
@@ -36,6 +39,9 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
         FieldPanel("promo_text"),
         FieldPanel("footer_blocks"),
     ]
+
+    max_count = 1
+    parent_page_types = ["home.HomePage"]
 
     @route(r"^$")
     def dashboard(self, request):

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{% block content %}
+<section class="news-detail section" style="padding: 60px 0;">
+    <div class="container">
+        <div class="row">
+
+            {# ЛЕВАЯ ЧАСТЬ (Контент) #}
+            <div class="col-lg-8 col-12">
+                <h1 style="color: #1d252d; margin-bottom: 10px;">{{ page.title }}</h1>
+                <div class="date" style="color: #888; margin-bottom: 30px;">{{ page.date }}</div>
+
+                <div class="content user-content" style="color: #1d252d; line-height: 1.6;">
+                    {% for block in page.body %}
+                        {% include_block block %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            {# ПРАВАЯ ЧАСТЬ (Сайдбар) #}
+            <div class="col-lg-4 col-12 mt-5 mt-lg-0 pl-lg-5">
+                <aside class="sidebar">
+
+                    <div class="sidebar-widget mb-5">
+                        <h3 style="font-size: 22px; margin-bottom: 30px; color: #1d252d;">Последние публикации</h3>
+
+                        {% with parent=page.get_parent.specific %}
+                            {% for item in page.get_recent_news %}
+
+                                {# ИСПОЛЬЗУЕМ ОБЩИЙ ШАБЛОН КАРТОЧКИ #}
+                                <div class="mb-4">
+                                    {# force_small=True делает карточку компактной по высоте #}
+                                    {% include "news/includes/news_card.html" with post=item force_small=True %}
+                                </div>
+
+                            {% endfor %}
+
+                            {# Соцсети #}
+                            {% for block in parent.sidebar_widget %}
+                                {% include_block block %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

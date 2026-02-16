@@ -5,7 +5,7 @@ from django.conf import settings
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
-from home.blocks import ContactsMapBlock
+from contacts.blocks import ContactImportBlock
 from .products import ProductPage
 from .snippets import DeliveryMethod, PaymentMethod
 
@@ -103,7 +103,12 @@ class OrderSuccessPage(Page):
     background_image = models.ForeignKey(
         "wagtailimages.Image", null=True, on_delete=models.SET_NULL, related_name="+"
     )
-    footer_blocks = StreamField([("contacts", ContactsMapBlock())], use_json_field=True)
+    footer_blocks = StreamField(
+        [
+            ("contacts_section", ContactImportBlock()),
+        ],
+        use_json_field=True,
+    )
     content_panels = Page.content_panels + [
         FieldPanel("background_image"),
         FieldPanel("footer_blocks"),

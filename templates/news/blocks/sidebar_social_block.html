@@ -1,0 +1,25 @@
+{% load wagtailimages_tags %}
+
+<div class="sidebar-widget social-widget text-center p-5 mb-5"
+     style="background-color: #337d5a; color: #fff; border-radius: 8px;">
+
+    <div class="logo-area mb-3">
+        <h3 style="color: #fff; font-size: 20px; margin-bottom: 5px;">{{ self.title }}</h3>
+        {% if self.subtitle %}
+            <h4 style="color: #fff; font-size: 16px; font-weight: 700;">{{ self.subtitle }}</h4>
+        {% endif %}
+    </div>
+
+    <div class="social-links d-flex justify-content-center flex-wrap">
+        {% for social in self.socials %}
+            <a href="{{ social.link }}" target="_blank"
+               style="color: #fff; margin: 5px 10px; display: inline-block; width: 24px; height: 24px;">
+                {% if social.icon_type == 'font' %}
+                    <i class="nut-icon {{ social.icon_font_class }}" style="font-size: 18px;"></i>
+                {% elif social.icon_type == 'image' %}
+                    {% image social.icon_image original style="width: 100%; height: auto;" %}
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+</div>

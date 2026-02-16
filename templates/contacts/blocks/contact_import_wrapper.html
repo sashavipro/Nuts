@@ -1,0 +1,19 @@
+{# contacts/templates/contacts/blocks/contact_import_wrapper.html #}
+{% load wagtailcore_tags %}
+
+{% if self.contact_page %}
+    {# Получаем блок контактов с выбранной страницы #}
+    {% with contact_block=self.contact_page.specific.get_detailed_contacts_block %}
+
+        {% if contact_block %}
+            {# Рендерим этот блок. Он сам подтянет свой родной шаблон detailed_contacts.html #}
+            {% include_block contact_block %}
+        {% else %}
+            {# Если страницу выбрали, но секцию контактов на ней не заполнили #}
+            <div class="container py-5 text-center text-muted">
+                <p>На выбранной странице контактов секция "detailed_contacts" не найдена.</p>
+            </div>
+        {% endif %}
+
+    {% endwith %}
+{% endif %}

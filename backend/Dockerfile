@@ -1,33 +1,20 @@
-FROM python:3.12-slim-bookworm
+FROM python:3.12-slim
 
-RUN useradd wagtail
-
-EXPOSE 8000
-
-ENV PYTHONUNBUFFERED=1 \
-    PORT=8000
-
-RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-recommends \
+RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
-    libmariadb-dev \
-    libjpeg62-turbo-dev \
-    zlib1g-dev \
-    libwebp-dev \
- && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
-RUN pip install "gunicorn==20.0.4"
-
-COPY requirements.txt /
-RUN pip install -r /requirements.txt
+RUN pip install poetry
 
 WORKDIR /app
 
-COPY . .
+COPY pyproject.toml poetry.lock ./
 
-RUN python manage.py collectstatic --noinput --clear
-RUN chown -R wagtail:wagtail /app
+RUN poetry config virtualenvs.create false
 
-USER wagtail
+RUN poetry install --no-interaction --no-ansi --no-root
 
-CMD set -xe; python manage.py migrate --noinput; gunicorn mysite.wsgi:application
+COPY backend/ .
+
+EXPOSE 8000

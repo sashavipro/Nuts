@@ -3,7 +3,6 @@
 <section class="benefit gray_section gallery_section" style="padding: 60px 0;">
     <div class="container">
 
-        {# 1. Заголовок #}
         <div class="row align-items-center justify-content-center mb-5">
             <div class="col-12 text-center">
                 <h2>{{ value.title }}</h2>
@@ -13,26 +12,50 @@
             </div>
         </div>
 
-        {# 2. Сетка #}
-        <div class="row justify-content-center">
-            {% if value.items %}
+        <div class="row justify-content-center" id="gallery-grid">
 
-                {% if max_count %}
-                     {# Режим импорта (например, на Главную или О компании) #}
-                     {% for block in value.items|slice:max_count %}
-                        {% include_block block %}
-                     {% endfor %}
-                {% else %}
-                     {# Режим полной галереи #}
-                     {% for block in value.items %}
-                        {% include_block block %}
-                     {% endfor %}
+            {% if max_count %}
+                 {# --- Режим импорта на Главной --- #}
+                 {% for block in value.items|slice:max_count %}
+                    {% include_block block %}
+                 {% endfor %}
+
+            {% elif gallery_items %}
+                 {# --- Режим Галереи (С пагинацией) --- #}
+
+                 {# 1. Выводим первую страницу #}
+                 {% for block in gallery_items %}
+                    {% include_block block %}
+                 {% endfor %}
+
+                 {# 2. Выводим кнопку (копируем логику из partial для первой страницы) #}
+                 {% if gallery_items.has_next %}
+                    <div id="gallery-load-wrapper-{{ gallery_items.next_page_number }}" class="col-12 text-center mt-4 w-100">
+                        <button
+                            class="button button_transparent"
+                            hx-get="?page={{ gallery_items.next_page_number }}"
+                            hx-target="#gallery-load-wrapper-{{ gallery_items.next_page_number }}"
+                            hx-swap="outerHTML"
+                            hx-indicator="#gallery-loader">
+                            Посмотреть еще
+                        </button>
+
+                        <div id="gallery-loader" class="htmx-indicator" style="display:none; margin-top: 10px;">
+                            Загрузка...
+                        </div>
+                    </div>
                 {% endif %}
 
+            {% else %}
+                 {# Fallback #}
+                 {% for block in value.items %}
+                    {% include_block block %}
+                 {% endfor %}
             {% endif %}
+
         </div>
 
-        {# 3. Кнопка (только при импорте) #}
+        {# Кнопка для режима импорта #}
         {% if show_link and gallery_url %}
         <div class="row mt-4">
             <div class="col-12 text-center">

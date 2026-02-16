@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import environ
+from django.urls import reverse_lazy
 
 env = environ.Env()
 
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
     "news",
     "gallery",
     "about",
+    "contacts",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -51,6 +53,12 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "django_filters",
+    "django_select2",
+    "cities_light",
+    "unfold",
+    "unfold.contrib.filters",
+    "unfold.contrib.forms",
+    "unfold.contrib.import_export",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -129,6 +137,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "users.CustomUser"
+AUTHENTICATION_BACKENDS = [
+    "users.backends.EmailOrUsernameModelBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
@@ -221,3 +233,80 @@ WAGTAILDOCS_EXTENSIONS = [
     "xlsx",
     "zip",
 ]
+
+# Настройки Unfold
+UNFOLD = {
+    "SITE_TITLE": "Nuts Admin",
+    "SITE_HEADER": "Nuts Administration",
+    "SITE_URL": "/",
+    # "SITE_ICON": lambda request: static("img/logo.svg"),  # Если есть логотип
+    # Настройка цветов (Primary, Secondary и т.д.)
+    "COLORS": {
+        "primary": {
+            "50": "236 253 245",
+            "100": "209 250 229",
+            "200": "167 243 208",
+            "300": "110 231 183",
+            "400": "52 211 153",
+            "500": "16 185 129",  # Ваш зеленый цвет (примерно)
+            "600": "5 150 105",
+            "700": "4 120 87",
+            "800": "6 95 70",
+            "900": "6 78 59",
+        },
+    },
+    # Настройка бокового меню
+    "SIDEBAR": {
+        "show_search": True,  # Поиск по меню
+        "show_all_applications": True,
+        "navigation": [
+            {
+                "title": "Навигация",
+                "separator": True,  # Линия-разделитель
+                "items": [
+                    {
+                        "title": "Панель управления",
+                        "icon": "dashboard",  # Иконки Material Symbols
+                        "link": reverse_lazy("admin:index"),
+                    },
+                ],
+            },
+        ],
+    },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": env("REDIS_CACHE_URL"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        },
+    }
+}
+
+# # Используем Redis для хранения сессий (быстрее, чем в SQL базе)
+# SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+# SESSION_CACHE_ALIAS = "default"
+
+# --- CELERY CONFIGURATION
+CELERY_BROKER_URL = env("CELERY_BROKER_URL")
+CELERY_RESULT_BACKEND = env("CELERY_RESULT_BACKEND")
+
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+
+# Дополнительные настройки для надежности
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+# --- Email Configuration (Base) ---
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_PORT = env("EMAIL_PORT")
+EMAIL_USE_TLS = env("EMAIL_USE_TLS")
+
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

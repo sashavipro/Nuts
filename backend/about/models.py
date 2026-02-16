@@ -9,7 +9,6 @@ from home.blocks import (
     StatsBlock,
     EcoBannerBlock,
     LatestNewsBlock,
-    ContactsMapBlock,
     HeroBlock,
 )
 from about.blocks import (
@@ -17,6 +16,7 @@ from about.blocks import (
     WholesaleIntroBlock,
     WholesaleTabsBlock,
 )
+from contacts.blocks import ContactImportBlock
 
 
 class AboutPage(Page):  # pylint: disable=too-many-ancestors
@@ -52,7 +52,7 @@ class AboutPage(Page):  # pylint: disable=too-many-ancestors
             ),
             ("eco", EcoBannerBlock()),
             ("news", LatestNewsBlock()),
-            ("contacts", ContactsMapBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
     )
@@ -70,7 +70,7 @@ class WholesalePage(Page):  # pylint: disable=too-many-ancestors
             ("tabs_section", WholesaleTabsBlock()),
             ("stats", StatsBlock()),
             ("eco", EcoBannerBlock()),
-            ("contacts", ContactsMapBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
     )
@@ -88,7 +88,7 @@ class DeliveryPage(Page):  # pylint: disable=too-many-ancestors
             ("tabs_section", WholesaleTabsBlock()),
             ("stats", StatsBlock()),
             ("eco", EcoBannerBlock()),
-            ("contacts", ContactsMapBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
     )

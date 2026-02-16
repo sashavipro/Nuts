@@ -1,0 +1,24 @@
+{% load wagtailcore_tags %}
+
+{# 1. Сначала выводим новые картинки #}
+{% for block in gallery_items %}
+    {% include_block block %}
+{% endfor %}
+
+{# 2. Затем выводим контейнер с кнопкой (если есть след. страница) #}
+{% if gallery_items.has_next %}
+    <div id="gallery-load-wrapper-{{ gallery_items.next_page_number }}" class="col-12 text-center mt-4 w-100">
+        <button
+            class="button button_transparent"
+            hx-get="?page={{ gallery_items.next_page_number }}"
+            hx-target="#gallery-load-wrapper-{{ gallery_items.next_page_number }}"
+            hx-swap="outerHTML"
+            hx-indicator="#gallery-loader">
+            Посмотреть еще
+        </button>
+
+        <div id="gallery-loader" class="htmx-indicator" style="display:none; margin-top: 10px;">
+            Загрузка...
+        </div>
+    </div>
+{% endif %}

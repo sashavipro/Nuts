@@ -8,9 +8,12 @@
     <section class="eco overlay" style="background-image: url('{% if bg_img %}{{ bg_img.url }}{% else %}{% static 'img/eco.jpg' %}{% endif %}')" data-scrollax="properties: { translateY: '30%' }">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-                <a href="#" data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+                {# 1. Добавляем class="text-center d-block" для центрирования содержимого #}
+                <a href="#" class="text-center d-block" data-scrollax="properties: { 'translateY': '5%', 'opacity': 1 }">
+
                     {% if self.icon %}
-                        {% image self.icon original class="nut-icon" %}
+                        {# 2. Добавляем style="margin: 0 auto; display: inline-block;" чтобы картинка точно встала по центру #}
+                        {% image self.icon original class="nut-icon" style="margin: 0 auto; display: inline-block;" %}
                     {% else %}
                          <i class="nut-icon icons-eco"></i>
                     {% endif %}

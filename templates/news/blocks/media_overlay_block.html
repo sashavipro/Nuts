@@ -1,0 +1,112 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+<div class="media-overlay-block mb-5 mt-4"
+     style="position: relative; overflow: hidden; border-radius: 8px; cursor: pointer;"
+     onclick="activateBlockVideo(this)">
+
+    {# 1. Медиа #}
+    {% if self.video %}
+        {# Убрали controls по умолчанию, чтобы было красиво #}
+        <video class="block-video" playsinline style="width: 100%; height: auto; display: block; max-height: 600px; object-fit: cover;">
+            <source src="{{ self.video.url }}" type="video/mp4">
+        </video>
+    {% elif self.image %}
+        {% image self.image original style="width: 100%; height: auto; display: block;" %}
+    {% endif %}
+
+    {# Затемнение #}
+    <div class="block-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); transition: opacity 0.3s;"></div>
+
+    {# 2. Контент по центру #}
+    <div class="block-content"
+         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                text-align: center; width: 80%; z-index: 10; transition: opacity 0.3s;">
+
+        {# Кнопка Play #}
+        {% if self.video %}
+            <div class="play-icon mb-3">
+                <i class="nut-icon icons-play-icon" style="font-size: 70px; color: #fff; text-shadow: 0 4px 10px rgba(0,0,0,0.3);"></i>
+            </div>
+        {% endif %}
+
+        {# Текст #}
+        {% if self.overlay_text %}
+            <div class="text-content" style="color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">
+                {{ self.overlay_text|richtext }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function activateBlockVideo(wrapper) {
+        var video = wrapper.querySelector('video');
+        var overlay = wrapper.querySelector('.block-overlay');
+        var content = wrapper.querySelector('.block-content');
+
+        if (video) {
+            // 1. Запуск
+            video.controls = true;
+            video.play();
+
+            // Скрываем оверлей
+            if(overlay) overlay.style.opacity = '0';
+            if(content) content.style.opacity = '0';
+
+            wrapper.style.cursor = 'auto'; // Курсор по умолчанию
+            wrapper.onclick = null; // Убираем клик, чтобы не мешать нативным контролам
+
+            setTimeout(function(){
+                if(overlay) overlay.style.display = 'none';
+                if(content) content.style.display = 'none';
+            }, 300);
+
+            // 2. Обработка окончания видео (Возврат в исходное состояние)
+            video.onended = function() {
+                video.controls = false; // Убираем контролы
+                video.currentTime = 0;  // Перематываем в начало
+
+                // Возвращаем оверлей
+                if(overlay) {
+                    overlay.style.display = 'block';
+                    // Небольшой таймаут, чтобы transition сработал
+                    setTimeout(() => overlay.style.opacity = '1', 10);
+                }
+                if(content) {
+                    content.style.display = 'block';
+                    setTimeout(() => content.style.opacity = '1', 10);
+                }
+
+                // Возвращаем кликабельность
+                wrapper.style.cursor = 'pointer';
+                wrapper.onclick = function() { activateBlockVideo(this); };
+            };
+        }
+    }
+</script>
+
+<style>
+    /* Стилизация текста внутри блока */
+    .media-overlay-block .text-content h2,
+    .media-overlay-block .text-content h3 {
+        color: white !important;
+        font-weight: 800;
+        margin-bottom: 10px;
+    }
+    .media-overlay-block .text-content p {
+        color: rgba(255,255,255,0.95) !important;
+        font-size: 18px;
+    }
+    .media-overlay-block .text-content a {
+        color: white !important;
+        text-decoration: underline;
+    }
+
+    .media-overlay-block:hover .block-overlay {
+        background: rgba(0,0,0,0.4) !important;
+    }
+    .media-overlay-block:hover .icons-play-icon {
+        transform: scale(1.1);
+        transition: 0.3s;
+    }
+</style>

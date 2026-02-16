@@ -3,6 +3,8 @@
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
+
+from contacts.blocks import ContactImportBlock
 from .blocks import (
     HeroBlock,
     ProductSectionBlock,
@@ -11,12 +13,13 @@ from .blocks import (
     BenefitsBlock,
     EcoBannerBlock,
     LatestNewsBlock,
-    ContactsMapBlock,
 )
 
 
-class HomePage(Page):
-    """The main home page model containing the primary content stream."""
+class HomePage(Page):  # pylint: disable=too-many-ancestors
+    """
+    The main home page model containing the primary content stream.
+    """
 
     # pylint: disable=duplicate-code
     body = StreamField(
@@ -28,7 +31,7 @@ class HomePage(Page):
             ("benefits", BenefitsBlock()),
             ("eco", EcoBannerBlock()),
             ("news", LatestNewsBlock()),
-            ("contacts", ContactsMapBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
     )

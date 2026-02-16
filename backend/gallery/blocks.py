@@ -51,7 +51,13 @@ class GallerySectionBlock(blocks.StructBlock):
     title = blocks.CharBlock(default="Наша галерея", label="Заголовок секции")
     description = blocks.TextBlock(required=False, label="Описание секции")
 
-    # Внутри секции - поток из наших карточек и баннеров
+    items_per_page = blocks.IntegerBlock(
+        default=6,
+        label="Элементов на странице (для пагинации)",
+        help_text="Сколько карточек показывать за раз."
+        " Работает только на детальной странице галереи.",
+    )
+
     items = blocks.StreamBlock(
         [
             ("gallery_hero", GalleryHeroBlock()),

@@ -5,7 +5,8 @@ from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField, StreamField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from home.blocks import AboutBlock, ContactsMapBlock
+from home.blocks import AboutBlock
+from contacts.blocks import ContactImportBlock
 
 
 class ShopIndexPage(Page):  # pylint: disable=too-many-ancestors
@@ -17,7 +18,7 @@ class ShopIndexPage(Page):  # pylint: disable=too-many-ancestors
     body = StreamField(
         [
             ("seo_block", AboutBlock()),
-            ("contacts", ContactsMapBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
         blank=True,

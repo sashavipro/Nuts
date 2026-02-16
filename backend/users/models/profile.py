@@ -6,7 +6,7 @@ from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from home.blocks import ContactsMapBlock
+from contacts.blocks import ContactImportBlock
 
 
 class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestors
@@ -24,7 +24,11 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
     )
 
     footer_blocks = StreamField(
-        [("contacts", ContactsMapBlock())], use_json_field=True, blank=True
+        [
+            ("contacts_section", ContactImportBlock()),
+        ],
+        use_json_field=True,
+        blank=True,
     )
 
     content_panels = Page.content_panels + [

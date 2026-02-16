@@ -1,1 +1,1 @@
-"""news/admin.py."""
+"""news/admin.py"""

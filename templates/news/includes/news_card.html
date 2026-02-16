@@ -1,0 +1,155 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+{# Переменная post передается при вызове include #}
+{# force_small - флаг, чтобы в сайдбаре широкие новости не ломали верстку #}
+
+<div class="news__item {% if post.is_wide_display and not force_small %}news__item_wide{% endif %} h-100 d-flex flex-column"
+     style="background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: none;">
+
+    {# --- 1. МЕДИА БЛОК --- #}
+    <div class="media-wrapper position-relative"
+       {% if post.preview_video %}onclick="playCardVideo(this)"{% endif %}
+       style="border-radius: 8px; overflow: hidden; background: #000;
+              {% if post.is_wide_display and not force_small %}height: 400px;{% else %}height: 250px;{% endif %};
+              {% if post.preview_video %}cursor: pointer;{% endif %}">
+
+        {# ВИДЕО #}
+        {% if post.preview_video %}
+            <video preload="metadata" muted playsinline
+                   style="width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0.8;">
+                <source src="{{ post.preview_video.url }}" type="video/mp4">
+            </video>
+
+        {# КАРТИНКА #}
+        {% elif post.preview_image %}
+            <a href="{% pageurl post %}" class="d-block h-100">
+                {% image post.preview_image fill-800x500 style="width: 100%; height: 100%; object-fit: cover; display: block;" %}
+            </a>
+        {% else %}
+            <a href="{% pageurl post %}" class="d-block h-100">
+                <img src="{% static 'img/placeholder.jpg' %}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            </a>
+        {% endif %}
+
+        {# --- ИНТЕРФЕЙС ВИДЕО (Кнопка и оверлей) --- #}
+        {% if post.preview_video %}
+            <div class="video-ui-layer" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events: none;">
+
+                {# Затемнение (если есть текст) #}
+                {% if post.show_text_on_preview %}
+                    <div class="overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); transition: opacity 0.3s;"></div>
+                {% endif %}
+
+                {# Центр: Плей и Текст #}
+                <div class="center-content"
+                     style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                            text-align: center; width: 90%; z-index: 10; transition: opacity 0.3s;">
+
+                    <div class="play-btn mb-3">
+                        <i class="nut-icon icons-play-icon"
+                           style="font-size: {% if post.is_wide_display and not force_small %}70px{% else %}40px{% endif %};
+                                  color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.3);"></i>
+                    </div>
+
+                    {% if post.show_text_on_preview %}
+                        <h2 class="mb-2" style="color: #fff; font-weight: 800;
+                                   font-size: {% if force_small %}18px{% else %}28px{% endif %};
+                                   text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                            {{ post.title }}
+                        </h2>
+                        {# === ДОБАВЛЕНО ОПИСАНИЕ === #}
+                        {% if post.intro %}
+                            <div class="preview-intro" style="color: rgba(255,255,255,0.9); font-size: 16px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                                {{ post.intro|truncatechars:150 }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        {# --- КАРТИНКА + ТЕКСТ (Без видео) --- #}
+        {% if post.preview_image and post.show_text_on_preview %}
+             <a href="{% pageurl post %}" style="position: absolute; top:0; left:0; width:100%; height:100%; text-decoration: none;">
+                <div class="overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4);"></div>
+
+                <div class="center-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 90%; z-index: 10;">
+                     <h2 class="mb-2" style="color: #fff; font-weight: 800; font-size: {% if force_small %}18px{% else %}28px{% endif %}; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+                        {{ post.title }}
+                    </h2>
+                    {# === ДОБАВЛЕНО ОПИСАНИЕ === #}
+                    {% if post.intro %}
+                        <div class="preview-intro" style="color: rgba(255,255,255,0.9); font-size: 16px; font-weight: 500; text-shadow: 0 1px 3px rgba(0,0,0,0.5);">
+                            {{ post.intro|truncatechars:150 }}
+                        </div>
+                    {% endif %}
+                </div>
+             </a>
+        {% endif %}
+
+    </div>
+
+    {# --- 2. ИНФО СНИЗУ --- #}
+    <div class="info-wrapper p-3 d-flex flex-column flex-grow-1">
+        <div class="item_data mb-2" style="color: #888; font-size: 12px;">{{ post.date }}</div>
+
+        {# Если текст НЕ поверх картинки -> выводим его здесь #}
+        {% if not post.show_text_on_preview %}
+            <h3 class="mb-2" style="line-height: 1.4;">
+                <a href="{% pageurl post %}" style="color: #1d252d; text-decoration: none; font-weight: 800; font-size: {% if post.is_wide_display and not force_small %}24px{% else %}18px{% endif %};">
+                    {{ post.title }}
+                </a>
+            </h3>
+            {% if post.intro %}
+                <div class="intro mb-3 flex-grow-1" style="color: #555; font-size: 14px; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                    {{ post.intro }}
+                </div>
+            {% endif %}
+        {% endif %}
+
+        <div class="mt-auto">
+            <a href="{% pageurl post %}" style="color: #337d5a; font-weight: 700; font-size: 13px; text-transform: uppercase;">
+                Читать далее &rarr;
+            </a>
+        </div>
+    </div>
+</div>
+
+{# Скрипт (вставляется один раз) #}
+<script>
+    if (typeof playCardVideo === 'undefined') {
+        function playCardVideo(wrapper) {
+            var video = wrapper.querySelector('video');
+            var uiLayer = wrapper.querySelector('.video-ui-layer');
+
+            if (video && video.paused) {
+                video.controls = true;
+                video.play();
+
+                // Скрываем UI
+                if (uiLayer) uiLayer.style.opacity = '0';
+
+                // Событие окончания
+                video.onended = function() {
+                    video.controls = false;
+                    video.currentTime = 0;
+                    video.load(); // Сброс постера
+
+                    // Возвращаем UI
+                    if (uiLayer) uiLayer.style.opacity = '1';
+                };
+            }
+        }
+    }
+</script>
+
+<style>
+    .media-wrapper:hover .overlay {
+        background: rgba(0,0,0,0.5) !important;
+        transition: 0.3s;
+    }
+    .media-wrapper:hover .icons-play-icon {
+        transform: scale(1.1);
+        transition: 0.3s;
+    }
+</style>

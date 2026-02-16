@@ -113,16 +113,3 @@ class LatestNewsBlock(blocks.StructBlock):
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
         template = "home/blocks/latest_news.html"
-
-
-class ContactsMapBlock(blocks.StructBlock):
-    """Block displaying contact details and an embedded map."""
-
-    phones = blocks.ListBlock(blocks.CharBlock())
-    email = blocks.EmailBlock()
-    address_office = blocks.TextBlock()
-    address_production = blocks.TextBlock()
-    map_embed_code = blocks.RawHTMLBlock()
-
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
-        template = "home/blocks/contacts_block.html"

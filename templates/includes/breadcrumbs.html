@@ -1,0 +1,82 @@
+{% load wagtailcore_tags %}
+
+{% if ancestors %}
+<div class="breadcrumbs-container {% if is_hero %}in-hero{% else %}default-style{% endif %}">
+    <ul class="breadcrumbs-list">
+        {% for ancestor in ancestors %}
+            <li class="breadcrumbs-item">
+                {% if forloop.last %}
+                    {# Последний элемент (текущая страница) - не ссылка #}
+                    <span class="current">{{ ancestor.title }}</span>
+                {% else %}
+                    <a href="{% pageurl ancestor %}">{{ ancestor.title }}</a>
+                    <span class="separator">→</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+<style>
+    /* Базовые стили списка */
+    .breadcrumbs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+    }
+    .breadcrumbs-item {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .breadcrumbs-item a {
+        text-decoration: none;
+        transition: opacity 0.3s;
+    }
+    .breadcrumbs-item .separator {
+        margin-left: 8px;
+        opacity: 0.7;
+    }
+
+    /* СТИЛЬ 1: Внутри Hero (Прозрачный фон, белый текст) */
+    .breadcrumbs-container.in-hero {
+        margin-bottom: 20px; /* Отступ до заголовка */
+    }
+    .breadcrumbs-container.in-hero .breadcrumbs-item,
+    .breadcrumbs-container.in-hero .breadcrumbs-item a {
+        color: #ffffff;
+    }
+    .breadcrumbs-container.in-hero .breadcrumbs-item a:hover {
+        opacity: 0.8;
+    }
+    .breadcrumbs-container.in-hero .current {
+        font-weight: 700; /* Жирный для текущей страницы */
+        opacity: 1;
+    }
+
+    /* СТИЛЬ 2: Дефолтный (Белая плашка, серый текст - как на 2 скриншоте) */
+    .breadcrumbs-container.default-style {
+        background-color: #fff;
+        border-radius: 50px; /* Овал */
+        padding: 10px 25px;
+        display: inline-block;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+        margin-top: 30px; /* Отступ от хедера */
+    }
+    .breadcrumbs-container.default-style .breadcrumbs-item,
+    .breadcrumbs-container.default-style .breadcrumbs-item a {
+        color: #888; /* Серый цвет */
+    }
+    .breadcrumbs-container.default-style .breadcrumbs-item a:hover {
+        color: #337D5A; /* Зеленый при наведении */
+    }
+    .breadcrumbs-container.default-style .current {
+        color: #333;
+        font-weight: 600;
+    }
+</style>
+{% endif %}

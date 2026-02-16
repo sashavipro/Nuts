@@ -1,10 +1,10 @@
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags navigation_tags %}
 
 {# --- ВАРИАНТ 1: ВИДЕО --- #}
 {% if self.video %}
 <section class="first-section overlay" style="position: relative; overflow: hidden; background-color: #000;">
 
-    {# 1. Тег видео (фоновый, на паузе) #}
+    {# 1. Тег видео #}
     <video id="hero_video" playsinline preload="metadata" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1;">
         <source src="{{ self.video.url }}" type="video/mp4">
     </video>
@@ -12,8 +12,18 @@
     {# 2. Затемнение #}
     <div id="hero_overlay_bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 2; transition: opacity 0.5s;"></div>
 
-    {# 3. Контент с кнопкой PLAY и ТЕКСТОМ #}
+    {# 3. Контент #}
     <div id="hero_content" class="container" style="position: relative; z-index: 3; transition: opacity 0.5s; height: 100%; display: flex; align-items: center; justify-content: center;">
+
+        {# === КРОШКИ (Абсолютное позиционирование) === #}
+        <div style="position: absolute; top: 30px; left: 15px; width: 100%; pointer-events: none;">
+            {# pointer-events: auto внутри крошек нужен, чтобы ссылки работали, если контейнер перекрывает что-то #}
+            <div style="pointer-events: auto; display: inline-block;">
+                {% breadcrumbs is_hero=True %}
+            </div>
+        </div>
+        {# ========================================== #}
+
         <div class="row align-items-center justify-content-center w-100">
             <div class="col-12 text-center">
                 {# Ссылка запускает скрипт воспроизведения #}
@@ -30,7 +40,6 @@
                     {# Кнопка Play #}
                     <span><i class="nut-icon icons-play-icon"></i></span>
 
-                    {# --- НОВОЕ: Текст под кнопкой --- #}
                     {% if self.button_text %}
                         <p style="color: #ffffff; margin-top: 15px; font-style: italic; font-size: 16px;">
                             {{ self.button_text }}
@@ -52,13 +61,9 @@
 
         if (video) {
             video.play();
-            video.controls = true; // Включаем контролы (пауза, звук)
-
-            // Скрываем контент (заголовок и кнопку)
+            video.controls = true;
             content.style.opacity = '0';
             overlayBg.style.opacity = '0';
-
-            // Убираем элементы из потока, чтобы не мешали кликать по видео
             setTimeout(function() {
                 content.style.display = 'none';
                 overlayBg.style.display = 'none';
@@ -66,19 +71,15 @@
         }
     }
 
-    // Когда видео заканчивается, возвращаем заставку
     document.getElementById('hero_video')?.addEventListener('ended', function() {
         var video = this;
         var content = document.getElementById('hero_content');
         var overlayBg = document.getElementById('hero_overlay_bg');
 
         video.controls = false;
-        video.currentTime = 0; // Перемотка в начало
-
+        video.currentTime = 0;
         content.style.display = 'flex';
         overlayBg.style.display = 'block';
-
-        // Небольшая задержка для плавного появления (fade-in)
         setTimeout(function() {
             content.style.opacity = '1';
             overlayBg.style.opacity = '1';
@@ -86,21 +87,24 @@
     });
 </script>
 
-{# --- ВАРИАНТ 2: КАРТИНКА (из админки) --- #}
+{# --- ВАРИАНТ 2: КАРТИНКА --- #}
 {% elif self.image %}
     {% image self.image original as bg_img %}
     <section class="first-section overlay" style="background-image: url({{ bg_img.url }}); position: relative; overflow: hidden;">
         <div class="container" style="position: relative; z-index: 2;">
+
+            {# === КРОШКИ (Абсолютное позиционирование) === #}
+            <div style="position: absolute; top: 30px; left: 15px; width: 100%;">
+                {% breadcrumbs is_hero=True %}
+            </div>
+            {# ========================================== #}
+
             <div class="row align-items-center justify-content-center">
                 <div class="text-center">
                     <h1 style="color: #ffffff; margin-bottom: 20px;">{{ self.title }}</h1>
                     {% if self.subtitle %}
                         <div style="color: #ffffff; font-size: 18px; line-height: 1.5;">{{ self.subtitle|richtext }}</div>
                     {% endif %}
-
-                    {# Если вы хотите кнопку и на статической картинке (без видео), раскомментируйте код ниже: #}
-                    {# <span><i class="nut-icon icons-play-icon"></i></span> #}
-                    {# {% if self.button_text %}<p style="color: #fff; font-style: italic;">{{ self.button_text }}</p>{% endif %} #}
                 </div>
             </div>
         </div>
@@ -110,6 +114,13 @@
 {% else %}
     <section class="first-section overlay" style="background-image: url({% static 'img/header-home.jpg' %}); position: relative; overflow: hidden;">
         <div class="container" style="position: relative; z-index: 2;">
+
+             {# === КРОШКИ (Абсолютное позиционирование) === #}
+            <div style="position: absolute; top: 30px; left: 15px; width: 100%;">
+                {% breadcrumbs is_hero=True %}
+            </div>
+            {# ========================================== #}
+
             <div class="row align-items-center justify-content-center">
                 <div class="text-center">
                     <h1 style="color: #ffffff; margin-bottom: 20px;">{{ self.title }}</h1>

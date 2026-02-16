@@ -1,4 +1,4 @@
-{% load static %}
+{% load static wagtailcore_tags navigation_tags %}
 <header class="top-header">
     <div class="top-header__line">
         <div class="container">
@@ -16,9 +16,39 @@
                 <div class="col-lg-4 col-12">
                     <div class="wrap">
                         <ul class="log_in d-lg-flex d-none">
-                            <li><a href="#"><i class="nut-icon icons-man-user"></i><span>Вход</span></a></li>
-                            <li><a href="#"><span>Регистрация</span></a></li>
+                            {% if user.is_authenticated %}
+                                {# --- ЕСЛИ ПОЛЬЗОВАТЕЛЬ ВОШЕЛ --- #}
+                                <li>
+                                    <a href="#"> {# Тут можно поставить ссылку на профиль #}
+                                        <i class="nut-icon icons-man-user"></i>
+                                        <span>{{ user.first_name|default:user.username }}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    {# Django требует POST запрос для выхода. Делаем скрытую форму и ссылку-триггер #}
+                                    <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
+                                        {% csrf_token %}
+                                    </form>
+                                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <span>Выход</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                {# --- ЕСЛИ ГОСТЬ --- #}
+                                <li>
+                                    <a href="{% url 'login' %}">
+                                        <i class="nut-icon icons-man-user"></i>
+                                        <span>Вход</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'register' %}">
+                                        <span>Регистрация</span>
+                                    </a>
+                                </li>
+                            {% endif %}
                         </ul>
+
                         <div id="lang-menu" class="lang-menu">
                             <span class="title">Ru</span>
                             <ul>
@@ -90,14 +120,22 @@
             <div class="row">
                 <nav class="menu_main menu_top">
                     <div class="mobile-line d-lg-none d-flex"></div>
+
+                    {# ПОЛУЧАЕМ МЕНЮ ЧЕРЕЗ ТЕГ #}
+                    {% get_top_menu as menu_items %}
+
                     <ul class="menu_main_ul">
-                        <!-- Ссылки можно сделать динамическими через Wagtail Tags -->
-                        <li><a href="/shop/">Магазин</a></li>
-                        <li><a href="/about/">О производстве</a></li>
-                        <li><a href="/delivery/">Оплата и доставка</a></li>
-                        <li><a href="/wholesale/">Оптовым и корпоративным клиентам</a></li>
-                        <li><a href="/news/">Новости и статьи</a></li>
-                        <li><a href="#contacts">Контакты</a></li>
+                        {# Ссылка на Магазин, если она нужна отдельно #}
+                        {# <li><a href="/shop/">Магазин</a></li> #}
+
+                        {# ДИНАМИЧЕСКИЙ ВЫВОД #}
+                        {% for item in menu_items %}
+                            <li>
+                                <a href="{% pageurl item %}" class="{% if item.id == request.current_page.id %}active{% endif %}">
+                                    {{ item.title }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </nav>
             </div>

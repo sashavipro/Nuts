@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
+{% load i18n django_vite %}
 
 {% block content %}
 <section class="section" style="padding: 100px 0;">
@@ -7,45 +7,41 @@
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8 col-12">
 
-                <h2 class="text-center mb-5" style="font-weight: 700; color: #1d252d;">Войти в личный кабинет</h2>
+                <h2 class="text-center mb-5" style="font-weight: 700; color: #1d252d;">{% trans "Войти в личный кабинет" %}</h2>
 
-                {# Добавлено autocomplete="off" #}
                 <form method="post" class="login-form" autocomplete="off">
                     {% csrf_token %}
 
-                    {# Ошибки формы #}
                     {% if form.errors %}
-                        <div class="alert alert-danger">Неверное имя пользователя или пароль.</div>
+                        <div class="alert alert-danger">{% trans "Неверное имя пользователя или пароль." %}</div>
                     {% endif %}
 
                     <div class="form-group mb-4">
-                        <label for="id_username" style="display: none;">Email или Логин</label>
-                        {# Добавлено autocomplete="off" #}
+                        <label for="id_username" style="display: none;">{% trans "Email или Логин" %}</label>
                         <input type="text" name="username" class="form-control"
-                               placeholder="Email или Логин" required id="id_username"
+                               placeholder="{% trans 'Email или Логин' %}" required id="id_username"
                                autocomplete="off"
                                style="padding: 15px; border-radius: 0; border: 1px solid #e1e1e1;">
                     </div>
 
                     <div class="form-group mb-4">
-                        <label for="id_password" style="display: none;">Пароль</label>
-                        {# Добавлено autocomplete="new-password" (хак для некоторых браузеров) или off #}
+                        <label for="id_password" style="display: none;">{% trans "Пароль" %}</label>
                         <input type="password" name="password" class="form-control"
-                               placeholder="Пароль" required id="id_password"
+                               placeholder="{% trans 'Пароль' %}" required id="id_password"
                                autocomplete="new-password"
                                style="padding: 15px; border-radius: 0; border: 1px solid #e1e1e1;">
                     </div>
 
                     <div class="d-flex justify-content-center mb-4">
-                        <a href="{% url 'password_reset' %}" style="color: #337d5a; font-weight: 600; text-decoration: none;">Забыли пароль?</a>
+                        <a href="{% url 'password_reset' %}" style="color: #337d5a; font-weight: 600; text-decoration: none;">{% trans "Забыли пароль?" %}</a>
                     </div>
 
                     <div class="form-group text-center">
-                        <button type="submit" class="button" style="width: 100%; border: none; cursor: pointer;">Войти</button>
+                        <button type="submit" class="button" style="width: 100%; border: none; cursor: pointer;">{% trans "Войти" %}</button>
                     </div>
 
                     <div class="text-center mt-4">
-                        <a href="{% url 'register' %}" style="color: #1d252d; text-decoration: underline;">Регистрация</a>
+                        <a href="{% url 'register' %}" style="color: #1d252d; text-decoration: underline;">{% trans "Регистрация" %}</a>
                     </div>
                 </form>
 

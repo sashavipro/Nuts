@@ -2,152 +2,67 @@
 
 import logging
 
-from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.shortcuts import get_object_or_404, render
 from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy as _
 
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail import blocks
-from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page
 
 from contacts.blocks import ContactImportBlock
-from home.blocks import EcoBannerBlock
-from shop.blocks import (
-    IconTextBlock,
-    PriceBlock,
-    ProductAttributeBlock,
-    ProductTabsBlock,
-    SkuBlock,
-)
+from home.blocks import EcoBannerBlock, HeroBlock
+from shop.blocks import ProductTabsBlock
 from .snippets import ProductPackaging, ProductTaste, ProductWeight
 
 logger = logging.getLogger(__name__)
 
 
-class ProductPageForm(WagtailAdminPageForm):  # pylint: disable=too-many-ancestors
-    """
-    Custom form for ProductPage to manage the product selection field.
-    """
-
-    def __init__(self, *args, **kwargs):
-        """
-        Initialize the form and set the queryset for the product field to include all products.
-        """
-        super().__init__(*args, **kwargs)
-        # pylint: disable=no-member
-        products = Product.objects.all()
-        self.fields["product"].queryset = products
-        logger.debug("ProductPageForm initialized with %d products.", products.count())
-
-
 class ProductPage(Page):  # pylint: disable=too-many-ancestors
     """
-    Represents a product detail page in the Wagtail CMS tree.
-    Links a Product model instance to a specific URL within a specific Locale.
+    A Wagtail Page model serving as a global template for individual product detail views.
+
+    It is restricted to a single instance (max_count = 1) and provides common
+    elements like global tabs and footers across all products in the catalog.
     """
 
-    base_form_class = ProductPageForm
-
-    product = models.ForeignKey(
-        "shop.Product",
-        on_delete=models.PROTECT,
-        related_name="pages",
-        verbose_name="Товар из базы данных",
-    )
-
-    custom_description = models.TextField(
-        "Кастомное описание (перекрывает базу)", blank=True
-    )
+    max_count = 1
 
     body = StreamField(
         [
             ("tabs_section", ProductTabsBlock()),
-            ("contacts_section", ContactImportBlock()),
-            ("rich_text", blocks.RichTextBlock(label="Текст")),
         ],
         use_json_field=True,
         blank=True,
-        verbose_name="Основной контент (снизу)",
+        verbose_name=_("Общие табы для всех товаров"),
     )
 
-    content_blocks = StreamField(
+    footer_blocks = StreamField(
         [
-            ("sku_block", SkuBlock()),
-            ("attribute_block", ProductAttributeBlock()),
-            ("icon_text_block", IconTextBlock()),
-            ("price_block", PriceBlock()),
+            ("contacts_section", ContactImportBlock()),
         ],
         use_json_field=True,
         blank=True,
-        verbose_name="Конструктор правой колонки",
+        verbose_name=_("Подвал (контакты)"),
     )
 
     content_panels = Page.content_panels + [
-        MultiFieldPanel(
-            [
-                FieldPanel("product"),
-            ],
-            heading="Связь с товаром",
-        ),
-        FieldPanel("content_blocks"),
         FieldPanel("body"),
+        FieldPanel("footer_blocks"),
     ]
 
     parent_page_types = ["shop.ShopIndexPage"]
     subpage_types = []
 
-    def clean(self):
-        """
-        Validates that a page for the selected product does not already exist
-        within the current locale to prevent duplicate pages.
-        """
-        super().clean()
-        # pylint: disable=no-member
-        if self.product:
-            existing_pages = ProductPage.objects.filter(
-                product=self.product, locale=self.locale
-            )
-
-            if self.pk:
-                existing_pages = existing_pages.exclude(pk=self.pk)
-
-            if existing_pages.exists():
-                logger.warning(
-                    "Duplicate ProductPage attempted for product '%s' in locale '%s'.",
-                    self.product.title,
-                    self.locale,
-                )
-                raise ValidationError(
-                    {
-                        "product": f"Ошибка: Для товара '{self.product.title}' уже"
-                        f" создана страница на этом языке ({self.locale})."
-                    }
-                )
-
-    def get_context(self, request, *args, **kwargs):
-        """
-        Adds the associated product and related products to the template context.
-        """
-        context = super().get_context(request, *args, **kwargs)
-        context["product"] = self.product
-        # pylint: disable=no-member
-        context["related_products"] = Product.objects.filter(live=True).exclude(
-            id=self.product.id
-        )[:4]
-        logger.debug("Context prepared for ProductPage '%s'.", self.title)
-        return context
-
 
 class ProductGalleryImage(Orderable):  # pylint: disable=too-few-public-methods
     """
-    Represents an image within a product's gallery, allowing for custom ordering.
+    Represents an orderable image within a product's gallery.
     """
 
     product = ParentalKey(
@@ -157,55 +72,39 @@ class ProductGalleryImage(Orderable):  # pylint: disable=too-few-public-methods
         "wagtailimages.Image",
         on_delete=models.CASCADE,
         related_name="+",
-        verbose_name="Изображение",
-    )
-    caption = models.CharField("Подпись", max_length=255, blank=True)
-    position = models.IntegerField(
-        "Позиция (0 = главная)",
-        default=0,
-        help_text="0 = первая/главная, 10 = вторая, 20 = третья и т.д.",
+        verbose_name=_("Изображение"),
     )
 
     panels = [
         FieldPanel("image"),
-        FieldPanel("position"),
-        FieldPanel("caption"),
     ]
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta options for ProductGalleryImage.
+        Meta options for the ProductGalleryImage model.
         """
 
-        verbose_name = "Изображение галереи"
-        verbose_name_plural = "Изображения галереи"
-        ordering = ["position"]
-
-    def save(self, *args, **kwargs):
-        """
-        Overrides the save method to synchronize the sort_order field.
-        """
-        self.sort_order = self.position
-        super().save(*args, **kwargs)
+        verbose_name = _("Изображение галереи")
+        verbose_name_plural = _("Изображения галереи")
 
 
 class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
     """
-    Represents a specific product entity in the database, managed via the admin panel.
+    Represents a specific product entity in the e-commerce database, managed via the admin panel.
     """
 
-    title = models.CharField("Название товара", max_length=255)
+    title = models.CharField(_("Название товара"), max_length=255)
     slug = models.SlugField(
-        "URL (slug)",
+        _("URL (slug)"),
         unique=True,
         allow_unicode=True,
-        help_text="Часть ссылки, например: greckiy-oreh",
+        help_text=_("Часть ссылки, например: greckiy-oreh"),
     )
 
-    sku = models.CharField("Артикул", max_length=50, blank=True)
-    price = models.DecimalField("Цена", max_digits=10, decimal_places=0)
+    sku = models.CharField(_("Артикул"), max_length=50, blank=True)
+    price = models.DecimalField(_("Цена"), max_digits=10, decimal_places=0)
     old_price = models.DecimalField(
-        "Старая цена", max_digits=10, decimal_places=0, null=True, blank=True
+        _("Старая цена"), max_digits=10, decimal_places=0, null=True, blank=True
     )
 
     weight_option = models.ForeignKey(
@@ -213,37 +112,41 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name="Вес",
+        verbose_name=_("Вес"),
         related_name="products",
     )
 
     energy_value = models.CharField(
-        "Энерг. ценность", max_length=255, blank=True, default="654 Ккал."
+        _("Энерг. ценность"), max_length=255, blank=True, default=_("654 Ккал.")
     )
-    shelf_life = models.CharField("Срок годности", max_length=255, blank=True)
-    composition = models.TextField("Состав", blank=True)
+    shelf_life = models.CharField(_("Срок годности"), max_length=255, blank=True)
+    composition = models.TextField(_("Состав"), blank=True)
 
-    tastes = models.ManyToManyField(ProductTaste, blank=True, verbose_name="Вкусы")
+    storage_conditions = models.TextField(
+        _("Условия хранения"), blank=True, default=_("Хранить в помещениях при...")
+    )
+
+    tastes = models.ManyToManyField(ProductTaste, blank=True, verbose_name=_("Вкусы"))
     packaging = models.ForeignKey(
         ProductPackaging,
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name="Упаковка",
+        verbose_name=_("Упаковка"),
     )
 
-    is_new = models.BooleanField("Новинка", default=False)
-    is_sale = models.BooleanField("Акция", default=False)
-    live = models.BooleanField("Опубликовано", default=True)
+    is_new = models.BooleanField(_("Новинка"), default=False)
+    is_sale = models.BooleanField(_("Акция"), default=False)
+    live = models.BooleanField(_("Опубликовано"), default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
+    class Meta:  # pylint: disable=too-few-public-methods
         """
-        Meta options for Product.
+        Meta options for the Product model.
         """
 
-        verbose_name = "Товар"
-        verbose_name_plural = "Товары"
+        verbose_name = _("Товар")
+        verbose_name_plural = _("Товары")
         ordering = ["-created_at"]
 
     panels = [
@@ -256,12 +159,13 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
         FieldPanel("energy_value"),
         FieldPanel("shelf_life"),
         FieldPanel("composition"),
+        FieldPanel("storage_conditions"),
         FieldPanel("tastes"),
         FieldPanel("packaging"),
         FieldPanel("is_new"),
         FieldPanel("is_sale"),
         FieldPanel("live"),
-        InlinePanel("gallery_images", label="Галерея изображений (первое = главное)"),
+        InlinePanel("gallery_images", label=_("Галерея изображений")),
     ]
 
     def __str__(self):
@@ -279,56 +183,26 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
 
     def get_main_image(self):
         """
-        Retrieves the first image from the gallery to serve as the main product image.
+        Retrieves the first image from the product's gallery to serve as the main display image.
         """
         # pylint: disable=no-member
         first = self.gallery_images.first()
         return first.image if first else None
 
-    @property
-    def page(self):
-        """
-        Retrieves the ProductPage associated with this product for the currently active locale.
-        Falls back to the first available page if no localized page is found.
-        """
-        try:
-            current_locale = Locale.get_active()
-            # pylint: disable=no-member
-            page = self.pages.filter(locale=current_locale).first()
-
-            if not page:
-                logger.warning(
-                    "No specific ProductPage found for product '%s' in locale '%s'."
-                    " Returning first available.",
-                    self.title,
-                    current_locale,
-                )
-                page = self.pages.first()
-
-            return page
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error("Error retrieving page for product '%s': %s", self.title, e)
-            return None
-
 
 class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestors
     """
-    Represents the main catalog page, handling product listing, filtering, sorting, and pagination.
+    Represents the main catalog page, handling product listing, filtering,
+    sorting, pagination, and dynamic routing for individual product detail views.
     """
 
-    hero_image = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
+    body = StreamField(
+        [
+            ("hero", HeroBlock()),
+        ],
+        use_json_field=True,
         blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-        verbose_name="Hero изображение",
-    )
-    custom_title = models.CharField(
-        "Заголовок для Hero",
-        max_length=255,
-        blank=True,
-        help_text="Если не заполнено, используется обычный title",
+        verbose_name=_("Контент страницы (сверху)"),
     )
 
     # pylint: disable=duplicate-code
@@ -342,8 +216,7 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel("hero_image"),
-        FieldPanel("custom_title"),
+        FieldPanel("body"),
         FieldPanel("footer_blocks"),
     ]
     # pylint: enable=duplicate-code
@@ -408,7 +281,8 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
 
     def serve(self, request, *args, **kwargs):
         """
-        Handles the request, supporting HTMX for partial updates of the product list.
+        Handles the incoming request, supporting HTMX for partial DOM updates
+        of the product list.
         """
         if request.headers.get("HX-Request") == "true":
             logger.info("Handling HTMX request for ShopIndexPage.")
@@ -420,37 +294,28 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
     def product_detail(self, request, slug):
         """
         Routable page view that handles product detail URLs based on the product slug.
-        Redirects to the specific ProductPage associated with the slug.
+
+        Resolves the specific Product instance from the database and binds it
+        to the global ProductPage template to render the product detail view.
         """
         logger.debug("Attempting to serve product detail for slug: %s", slug)
+
         # pylint: disable=no-member
         product = get_object_or_404(Product, slug=slug, live=True)
-        actual_page = product.page
 
-        if actual_page and actual_page.live:
-            logger.info(
-                "Serving ProductPage '%s' for product '%s'.",
-                actual_page.title,
-                product.title,
-            )
-            return render(
-                request,
-                "shop/product_page.html",
-                {
-                    "page": actual_page,
-                    "product": product,
-                },
-            )
+        current_locale = Locale.get_active()
+        product_page_template = ProductPage.objects.filter(
+            locale=current_locale
+        ).first()
 
-        logger.warning(
-            "No active ProductPage found for product '%s'. Fallback to ShopIndexPage.",
-            product.title,
-        )
+        if not product_page_template:
+            product_page_template = ProductPage.objects.first()
+
         return render(
             request,
             "shop/product_page.html",
             {
-                "page": self,
+                "page": product_page_template,
                 "product": product,
             },
         )

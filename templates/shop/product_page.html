@@ -1,118 +1,44 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags %}
+{% load i18n django_vite wagtailcore_tags wagtailimages_tags %}
 
 {% block extra_css %}
 <style>
-    /* --- СТИКЕРЫ (Слева сверху) --- */
-    .stickers-container {
-        position: absolute;
-        top: 20px;
-        left: -9px;
-        z-index: 20;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-    }
-
-    .product__item .sticker {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        margin: 0 !important;
-        transform: none !important;
-    }
-
-    /* --- ЛУПА (Декоративная по центру) --- */
-    .zoom-icon-center {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 5;
-        pointer-events: none;
-        opacity: 0.7;
-    }
-
-    /* Скрываем старые лупы темы */
-    .product__item > .zoom,
-    .products-container > .zoom {
-        display: none !important;
-    }
-
-    /* --- СТИЛЬ ЛИНЗЫ ЗУМА --- */
-    .zoomLens {
-        border: 1px solid #82b440 !important;
-        background-color: rgba(255, 255, 255, 0.4);
-        cursor: crosshair;
-    }
-    .zoomContainer {
-        z-index: 999;
-    }
-
-    /* --- ГАЛЕРЕЯ (Стиль как в списке, но больше) --- */
-    .product__item .products-container {
-        width: 100%;
-        height: 500px; /* Фиксированная высота */
-        margin: 0 auto;
-        position: relative;
-        overflow: hidden; /* Скрываем вылезающие элементы */
-    }
-
-    .product__item .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: #fff;
-        height: 100%;
-        width: 100%;
-    }
-
-    /* Картинка центрируется и не обрезается */
-    .product__item .main-image {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        display: block;
-    }
-
-    /* --- СТРЕЛКИ --- */
-    .product__item .swiper-button-prev,
-    .product__item .swiper-button-next {
-        width: 50px;
-        height: 50px;
-        margin-top: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        outline: none;
-        z-index: 30;
-    }
+    /* --- СТАРЫЕ СТИЛИ ОСТАВЛЯЕМ БЕЗ ИЗМЕНЕНИЙ --- */
+    .stickers-container { position: absolute; top: 20px; left: -9px; z-index: 20; display: flex; flex-direction: column; gap: 5px; }
+    .product__item .sticker { position: relative !important; top: auto !important; left: auto !important; margin: 0 !important; transform: none !important; }
+    .zoom-icon-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; opacity: 0.7; }
+    .product__item > .zoom, .products-container > .zoom { display: none !important; }
+    .zoomLens { border: 1px solid #82b440 !important; background-color: rgba(255, 255, 255, 0.4); cursor: crosshair; }
+    .zoomContainer { z-index: 999; }
+    .product__item .products-container { width: 100%; height: 500px; margin: 0 auto; position: relative; overflow: hidden; }
+    .product__item .swiper-slide { display: flex; justify-content: center; align-items: center; background: #fff; height: 100%; width: 100%; }
+    .product__item .main-image { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+    .product__item .swiper-button-prev, .product__item .swiper-button-next { width: 50px; height: 50px; margin-top: 0; top: 50%; transform: translateY(-50%); outline: none; z-index: 30; }
     .product__item .swiper-button-prev { left: 10px !important; }
     .product__item .swiper-button-next { right: 10px !important; }
+    .product__item .swiper-button-prev:after, .product__item .swiper-button-next:after { color: #b5b5b5; font-size: 28px !important; font-weight: bold; }
+    .product__item .swiper-button-prev:hover:after, .product__item .swiper-button-next:hover:after { color: #337d5a; }
+    @media (max-width: 767px) { .product__item .products-container { height: 350px; } }
 
-    .product__item .swiper-button-prev:after,
-    .product__item .swiper-button-next:after {
-        color: #b5b5b5;
-        font-size: 28px !important;
-        font-weight: bold;
-    }
-    .product__item .swiper-button-prev:hover:after,
-    .product__item .swiper-button-next:hover:after {
-        color: #337d5a;
-    }
-
-    /* Адаптив */
-    @media (max-width: 767px) {
-        .product__item .products-container {
-             height: 350px;
-        }
-    }
+    /* --- НОВЫЕ СТИЛИ ДЛЯ ШАПКИ ТОВАРА --- */
+    .product-header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+    .product-title-green { color: #337d5a; font-weight: 700; font-size: 28px; margin: 0; line-height: 1.2; margin-right: 20px; flex-grow: 1; }
+    .product-sku { color: #888; font-weight: normal; font-size: 14px; white-space: nowrap; }
+    .product-taste-black { font-size: 24px; font-weight: 700; color: #1d252d; margin-bottom: 25px; line-height: 1.2; }
+    .product-attributes { width: 100%; margin-bottom: 30px; }
+    .attr-row { display: flex; padding: 12px 0; border-bottom: 1px solid #eee; }
+    .attr-name { width: 40%; font-weight: 700; color: #1d252d; }
+    .attr-val { width: 60%; color: #555; }
+    .product-warning { background: #fcfcfc; border: 1px solid #eee; padding: 20px; display: flex; align-items: center; gap: 15px; margin-bottom: 30px; }
+    .product-warning .icon { width: 30px; height: 30px; background: #82b440; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; flex-shrink: 0; }
+    .product-price-block { display: flex; justify-content: flex-end; align-items: center; gap: 20px; }
+    .price-label { font-weight: 700; font-size: 18px; }
+    .current-price { font-size: 28px; font-weight: 700; color: #337d5a; }
+    .old-price { text-decoration: line-through; color: #aaa; font-size: 16px; margin-left: 10px; }
 </style>
 {% endblock %}
 
 {% block content %}
-
 <section class="product">
     <div class="container">
         <div class="row no-gutters">
@@ -121,53 +47,29 @@
             <div class="col-lg-5 col-md-6">
                 <div class="wrap">
                     <div class="product__item">
-
-                        {# СТИКЕРЫ #}
                         <div class="stickers-container">
-                            {% if page.product.is_sale %}
-                                <div class="sticker">
-                                    <i class="nut-icon icons-actciya"></i>
-                                    <p>Акция</p>
-                                </div>
+                            {% if product.is_sale %}
+                                <div class="sticker"><i class="nut-icon icons-actciya"></i><p>{% trans "Акция" %}</p></div>
                             {% endif %}
-                            {% if page.product.is_new %}
-                                <div class="sticker">
-                                    <i class="nut-icon icons-novinka"></i>
-                                    <p>Новинка</p>
-                                </div>
+                            {% if product.is_new %}
+                                <div class="sticker"><i class="nut-icon icons-novinka"></i><p>{% trans "Новинка" %}</p></div>
                             {% endif %}
                         </div>
 
-                        {# ЛУПА (иконка) #}
-                        <div class="zoom-icon-center">
-                             <img src="{% static 'img/zoom.svg' %}" alt="zoom" width="50">
-                        </div>
-
-                        {# СВАЙПЕР #}
                         <div class="products-container swiper-container">
                             <div class="swiper-wrapper">
-                                {% for item in page.product.gallery_images.all %}
+                                {% for item in product.gallery_images.all %}
                                     <div class="swiper-slide">
-                                        {# Оригинал для зума #}
                                         {% image item.image original as full_img %}
-
-                                        {# Картинка для слайда (высокое качество) #}
-                                        {# Используем класс 'main-image' для JS и стилей #}
                                         {% image item.image max-1000x1000 class="img-fluid main-image" data-zoom-image=full_img.url %}
                                     </div>
                                 {% empty %}
                                     <div class="swiper-slide">
-                                        {% if page.product.image %}
-                                            {% image page.product.image original as full_img %}
-                                            {% image page.product.image max-1000x1000 class="img-fluid main-image" data-zoom-image=full_img.url %}
-                                        {% else %}
-                                            <img src="{% static 'img/placeholder.jpg' %}" alt="placeholder" class="img-fluid main-image">
-                                        {% endif %}
+                                        <img src="{% vite_asset_url 'app/img/placeholder.jpg' %}" alt="placeholder" class="img-fluid main-image">
                                     </div>
                                 {% endfor %}
                             </div>
-
-                            {% if page.product.gallery_images.count > 1 %}
+                            {% if product.gallery_images.count > 1 %}
                                 <div class="swiper-button-prev"></div>
                                 <div class="swiper-button-next"></div>
                             {% endif %}
@@ -176,78 +78,82 @@
                 </div>
             </div>
 
-            {# --- ПРАВАЯ КОЛОНКА: ИНФО --- #}
+            {# --- ПРАВАЯ КОЛОНКА: ИНФО О ТОВАРЕ --- #}
             <div class="col-lg-7 col-md-6">
-                <div class="product__content">
-                    <div class="row">
+                <div class="product__content" style="padding-left: 40px;">
 
-                        {# Название #}
-                        <div class="col-md-6">
-                            <div class="product__content_name">
-                                {{ page.product.title }}
-                            </div>
-                        </div>
-
-                        {# Артикул #}
-                        {% for block in page.content_blocks %}
-                            {% if block.block_type == 'sku_block' %}
-                                {% include_block block %}
-                            {% endif %}
-                        {% endfor %}
-
-                        {# Вкусы #}
-                        <div class="col-lg-9 col-12">
-                            {% if page.product.tastes.exists %}
-                                <h1 style="font-size: 24px; margin-top: 10px; font-weight: normal;">
-                                    {% for taste in page.product.tastes.all %}
-                                        {{ taste.name }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}
-                                </h1>
-                            {% endif %}
-                        </div>
-
-                        {# Характеристики #}
-                        <div class="col-12">
-                            <div class="product__content_descr">
-                                <ul>
-                                    {% for block in page.content_blocks %}
-                                        {% if block.block_type == 'attribute_block' %}
-                                            {% include_block block %}
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        </div>
-
-                        {# Иконки #}
-                        {% for block in page.content_blocks %}
-                            {% if block.block_type == 'icon_text_block' %}
-                                {% include_block block %}
-                            {% endif %}
-                        {% endfor %}
-
-                        {# Цена #}
-                        {% for block in page.content_blocks %}
-                            {% if block.block_type == 'price_block' %}
-                                {% include_block block %}
-                            {% endif %}
-                        {% endfor %}
-
+                    <div class="product-header-row">
+                        <h1 class="product-title-green">{{ product.title }}</h1>
+                        <span class="product-sku">{% trans "Арт" %}: {{ product.sku }}</span>
                     </div>
+
+                    <div class="product-taste-black">
+                        {% if product.tastes.first %}{{ product.tastes.first.name }}{% endif %}
+                    </div>
+
+                    <div class="product-attributes">
+                        {% if product.composition %}
+                        <div class="attr-row">
+                            <div class="attr-name">{% trans "Состав" %}:</div>
+                            <div class="attr-val">{{ product.composition }}</div>
+                        </div>
+                        {% endif %}
+
+                        {% if product.weight_option %}
+                        <div class="attr-row">
+                            <div class="attr-name">{% trans "Масса нетто" %}:</div>
+                            <div class="attr-val">{{ product.weight_option.name }}</div>
+                        </div>
+                        {% endif %}
+
+                        {% if product.energy_value %}
+                        <div class="attr-row">
+                            <div class="attr-name">{% trans "Энергетическая ценность" %}:</div>
+                            <div class="attr-val">{{ product.energy_value }}</div>
+                        </div>
+                        {% endif %}
+
+                        {% if product.shelf_life %}
+                        <div class="attr-row">
+                            <div class="attr-name">{% trans "Срок годности" %}:</div>
+                            <div class="attr-val">{{ product.shelf_life }}</div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    {% if product.storage_conditions %}
+                    <div class="product-warning">
+                        <div class="icon">!</div>
+                        <div>{{ product.storage_conditions }}</div>
+                    </div>
+                    {% endif %}
+
+                    <div class="product-price-block">
+                        <div class="price-label">{% trans "Ваша цена" %}:</div>
+                        <div>
+                            <span class="current-price">{{ product.price }} {% trans "грн." %}</span>
+                            {% if product.old_price %}
+                                <span class="old-price">{{ product.old_price }} {% trans "грн." %}</span>
+                            {% endif %}
+                        </div>
+                        <a href="#" class="button button-green" style="margin-left: 20px;">{% trans "Заказать" %}</a>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-{# Табы и футер #}
-{% for block in page.body %}
-    {% include_block block %}
-{% endfor %}
+{% if page %}
+    {% for block in page.body %}
+        {% include_block block %}
+    {% endfor %}
 
-{% for block in page.footer_blocks %}
-    {% include_block block %}
-{% endfor %}
+    {% for block in page.footer_blocks %}
+        {% include_block block %}
+    {% endfor %}
+{% endif %}
 
 {% endblock %}
 
@@ -255,19 +161,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVryhlGugrQFqAivETqIqrQrpBeimiuuuCR5F/0XXQsmEUK5XUg/yOQII39dM5Jt2T0h+cbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-    // --- Зум поверх свайпера из common.js ---
-    // Свайпер уже создан в common.js, нам не нужно его пересоздавать.
-    // Просто вешаем зум-события на готовый инстанс.
-
     function initZoomForSlider(sliderElement) {
-        // Берём только реальный активный слайд, игнорируем клоны (loop дублирует слайды)
         var activeSlide = sliderElement.querySelector('.swiper-slide-active:not(.swiper-slide-duplicate)');
         if (!activeSlide) activeSlide = sliderElement.querySelector('.swiper-slide-active');
         if (!activeSlide) activeSlide = sliderElement.querySelector('.swiper-slide:not(.swiper-slide-duplicate)');
 
         if (activeSlide) {
             var img = $(activeSlide).find('.main-image');
-
             $('.zoomContainer').remove();
             $('.main-image').removeData('elevateZoom');
 
@@ -284,29 +184,17 @@
         }
     }
 
-    // common.js инициализирует свайпер синхронно через (function($){...})(jQuery),
-    // поэтому к моменту DOMContentLoaded инстанс уже готов в productSlider.swiper
     document.addEventListener('DOMContentLoaded', function() {
         var productSlider = document.querySelector('.products-container');
         if (!productSlider || !productSlider.swiper) return;
 
         var swiperInstance = productSlider.swiper;
 
-        // Вешаем зум только при наведении мыши (не при загрузке — экономит ресурсы)
-        $(productSlider).on('mouseenter', function() {
-            initZoomForSlider(productSlider);
-        });
-        $(productSlider).on('mouseleave', function() {
-            $('.zoomContainer').remove();
-        });
+        $(productSlider).on('mouseenter', function() { initZoomForSlider(productSlider); });
+        $(productSlider).on('mouseleave', function() { $('.zoomContainer').remove(); });
 
-        // При смене слайда — убираем линзу пока едет, потом перезапускаем
-        swiperInstance.on('slideChange', function() {
-            $('.zoomContainer').remove();
-        });
-        swiperInstance.on('slideChangeTransitionEnd', function() {
-            initZoomForSlider(productSlider);
-        });
+        swiperInstance.on('slideChange', function() { $('.zoomContainer').remove(); });
+        swiperInstance.on('slideChangeTransitionEnd', function() { initZoomForSlider(productSlider); });
     });
 </script>
 {% endblock %}

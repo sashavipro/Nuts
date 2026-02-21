@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailimages_tags navigation_tags %}
+{% load wagtailcore_tags wagtailimages_tags navigation_tags django_vite %}
 
 {# --- ВАРИАНТ 1: ВИДЕО --- #}
 {% if self.video %}
@@ -15,29 +15,21 @@
     {# 3. Контент #}
     <div id="hero_content" class="container" style="position: relative; z-index: 3; transition: opacity 0.5s; height: 100%; display: flex; align-items: center; justify-content: center;">
 
-        {# === КРОШКИ (Абсолютное позиционирование) === #}
+        {# === КРОШКИ === #}
         <div style="position: absolute; top: 30px; left: 15px; width: 100%; pointer-events: none;">
-            {# pointer-events: auto внутри крошек нужен, чтобы ссылки работали, если контейнер перекрывает что-то #}
             <div style="pointer-events: auto; display: inline-block;">
                 {% breadcrumbs is_hero=True %}
             </div>
         </div>
-        {# ========================================== #}
+        {# ================= #}
 
         <div class="row align-items-center justify-content-center w-100">
             <div class="col-12 text-center">
-                {# Ссылка запускает скрипт воспроизведения #}
                 <a href="#" onclick="startHeroVideo(event)" style="text-decoration: none; display: block;">
-
-                    {# Заголовок #}
                     <h1 style="color: #ffffff;">{{ self.title }}</h1>
-
-                    {# Подзаголовок #}
                     {% if self.subtitle %}
                         <div style="color: #ffffff; margin-bottom: 20px;">{{ self.subtitle|richtext }}</div>
                     {% endif %}
-
-                    {# Кнопка Play #}
                     <span><i class="nut-icon icons-play-icon"></i></span>
 
                     {% if self.button_text %}
@@ -51,7 +43,6 @@
     </div>
 </section>
 
-{# Скрипт для управления видео #}
 <script>
     function startHeroVideo(event) {
         event.preventDefault();
@@ -92,13 +83,9 @@
     {% image self.image original as bg_img %}
     <section class="first-section overlay" style="background-image: url({{ bg_img.url }}); position: relative; overflow: hidden;">
         <div class="container" style="position: relative; z-index: 2;">
-
-            {# === КРОШКИ (Абсолютное позиционирование) === #}
             <div style="position: absolute; top: 30px; left: 15px; width: 100%;">
                 {% breadcrumbs is_hero=True %}
             </div>
-            {# ========================================== #}
-
             <div class="row align-items-center justify-content-center">
                 <div class="text-center">
                     <h1 style="color: #ffffff; margin-bottom: 20px;">{{ self.title }}</h1>
@@ -112,15 +99,11 @@
 
 {# --- ВАРИАНТ 3: ДЕФОЛТ --- #}
 {% else %}
-    <section class="first-section overlay" style="background-image: url({% static 'img/header-home.jpg' %}); position: relative; overflow: hidden;">
+    <section class="first-section overlay" style="background-image: url('{% vite_asset_url 'app/img/header-home.jpg' %}'); position: relative; overflow: hidden;">
         <div class="container" style="position: relative; z-index: 2;">
-
-             {# === КРОШКИ (Абсолютное позиционирование) === #}
             <div style="position: absolute; top: 30px; left: 15px; width: 100%;">
                 {% breadcrumbs is_hero=True %}
             </div>
-            {# ========================================== #}
-
             <div class="row align-items-center justify-content-center">
                 <div class="text-center">
                     <h1 style="color: #ffffff; margin-bottom: 20px;">{{ self.title }}</h1>

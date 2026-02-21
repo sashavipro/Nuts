@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "gallery",
     "about",
     "contacts",
+    "core",
+    "wagtail.contrib.settings",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -59,6 +61,7 @@ INSTALLED_APPS = [
     "django_select2",
     "cities_light",
     "modeltranslation",
+    "django_vite",
     "unfold",
     "unfold.contrib.filters",
     "unfold.contrib.forms",
@@ -150,7 +153,7 @@ AUTHENTICATION_BACKENDS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "ru"
 
 TIME_ZONE = "UTC"
 
@@ -161,7 +164,7 @@ LANGUAGES = [
     ("uk", _("Ukrainian")),
     ("en", _("English")),
 ]
-MODELTRANSLATION_DEFAULT_LANGUAGE = "en"
+MODELTRANSLATION_DEFAULT_LANGUAGE = "ru"
 WAGTAIL_I18N_ENABLED = True
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
 WAGTAIL_I18N_DECIMAL_SEPARATOR = ","
@@ -181,10 +184,22 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+# --- НАСТРОЙКИ DJANGO-VITE ---
+
+# Режим разработки (True если DEBUG=True)
+DJANGO_VITE_DEV_MODE = env.bool("DJANGO_VITE_DEV_MODE", default=True)
+
+# Путь к манифесту (создается после vite build)
+# Мы настроим Vite так, чтобы он собирал файлы в frontend/app/dist
+DJANGO_VITE_ASSETS_PATH = BASE_DIR.parent / "static_vite"
+DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
+
 STATICFILES_DIRS = [
-    FRONTEND_DIR,
+    DJANGO_VITE_ASSETS_PATH,
     PROJECT_DIR / "static",
 ]
+
+DJANGO_VITE_STATIC_URL_PREFIX = ""
 
 STATIC_ROOT = BASE_DIR / "static"
 STATIC_URL = "/static/"
@@ -242,13 +257,11 @@ WAGTAILDOCS_EXTENSIONS = [
     "zip",
 ]
 
-# Настройки Unfold
 UNFOLD = {
-    "SITE_TITLE": "Nuts Admin",
-    "SITE_HEADER": "Nuts Administration",
+    "SITE_TITLE": _("Nuts Admin"),
+    "SITE_HEADER": _("Nuts Administration"),
     "SITE_URL": "/",
     # "SITE_ICON": lambda request: static("img/logo.svg"),  # Если есть логотип
-    # Настройка цветов (Primary, Secondary и т.д.)
     "COLORS": {
         "primary": {
             "50": "236 253 245",
@@ -256,26 +269,59 @@ UNFOLD = {
             "200": "167 243 208",
             "300": "110 231 183",
             "400": "52 211 153",
-            "500": "16 185 129",  # Ваш зеленый цвет (примерно)
+            "500": "16 185 129",
             "600": "5 150 105",
             "700": "4 120 87",
             "800": "6 95 70",
             "900": "6 78 59",
         },
     },
-    # Настройка бокового меню
     "SIDEBAR": {
-        "show_search": True,  # Поиск по меню
-        "show_all_applications": True,
+        "show_search": True,
+        "show_all_applications": False,
         "navigation": [
             {
-                "title": "Навигация",
-                "separator": True,  # Линия-разделитель
+                "title": _("Навигация"),
+                "separator": True,
                 "items": [
                     {
-                        "title": "Панель управления",
-                        "icon": "dashboard",  # Иконки Material Symbols
+                        "title": _("Панель управления"),
+                        "icon": "dashboard",
                         "link": reverse_lazy("admin:index"),
+                        "permission": lambda request: request.user.is_staff,
+                    },
+                ],
+            },
+            {
+                "title": _("Магазин"),
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Товары"),
+                        "icon": "shopping_cart",
+                        "link": reverse_lazy("admin:shop_product_changelist"),
+                        "permission": lambda request: request.user.has_perm(
+                            "shop.view_product"
+                        )
+                        or request.user.is_superuser,
+                    },
+                ],
+            },
+            {
+                "title": _("Доступ и права"),
+                "separator": True,
+                "items": [
+                    {
+                        "title": _("Пользователи"),
+                        "icon": "person",
+                        "link": reverse_lazy("admin:users_customuser_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
+                    },
+                    {
+                        "title": _("Группы"),
+                        "icon": "group",
+                        "link": reverse_lazy("admin:auth_group_changelist"),
+                        "permission": lambda request: request.user.is_superuser,
                     },
                 ],
             },

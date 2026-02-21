@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {# 1. Сначала выводим новые картинки #}
 {% for block in gallery_items %}
@@ -14,11 +14,11 @@
             hx-target="#gallery-load-wrapper-{{ gallery_items.next_page_number }}"
             hx-swap="outerHTML"
             hx-indicator="#gallery-loader">
-            Посмотреть еще
+            {% trans "Посмотреть еще" %}
         </button>
 
         <div id="gallery-loader" class="htmx-indicator" style="display:none; margin-top: 10px;">
-            Загрузка...
+            {% trans "Загрузка..." %}
         </div>
     </div>
 {% endif %}

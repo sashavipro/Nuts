@@ -3,6 +3,7 @@
 import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy as _
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel
@@ -21,11 +22,12 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
 
     body = StreamField(
         [
-            ("hero", HeroBlock(group="Main")),
+            ("hero", HeroBlock(group=_("Основное"))),
             ("gallery_section", GallerySectionBlock()),
-            ("contacts_section", ContactImportBlock(group="Main")),
+            ("contacts_section", ContactImportBlock(group=_("Основное"))),
         ],
         use_json_field=True,
+        verbose_name=_("Контент страницы"),
     )
 
     content_panels = Page.content_panels + [
@@ -34,6 +36,12 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
 
     max_count = 1
     parent_page_types = ["home.HomePage"]
+
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for GalleryPage."""
+
+        verbose_name = _("Галерея")
+        verbose_name_plural = _("Галереи")
 
     def get_main_gallery_section(self):
         """
@@ -50,7 +58,6 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         Adds paginated gallery items to the template context.
         """
         context = super().get_context(request, *args, **kwargs)
-
         gallery_data = self.get_main_gallery_section()
 
         if gallery_data:

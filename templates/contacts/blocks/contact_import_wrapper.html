@@ -1,5 +1,5 @@
 {# contacts/templates/contacts/blocks/contact_import_wrapper.html #}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% if self.contact_page %}
     {# Получаем блок контактов с выбранной страницы #}
@@ -11,7 +11,7 @@
         {% else %}
             {# Если страницу выбрали, но секцию контактов на ней не заполнили #}
             <div class="container py-5 text-center text-muted">
-                <p>На выбранной странице контактов секция "detailed_contacts" не найдена.</p>
+                <p>{% trans 'На выбранной странице контактов секция "detailed_contacts" не найдена.' %}</p>
             </div>
         {% endif %}
 

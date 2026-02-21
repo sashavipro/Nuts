@@ -1,4 +1,4 @@
-"""home/templatetags/navigation_tags.py."""
+"""core/templatetags/navigation_tags.py."""
 
 import logging
 from django import template

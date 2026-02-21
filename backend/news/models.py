@@ -4,6 +4,7 @@ import logging
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy as _
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -21,23 +22,28 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
     Contains preview settings for the list view and a StreamField for the main content.
     """
 
-    date = models.DateField("Publication Date")
+    date = models.DateField(_("Дата публикации"))
     is_wide_display = models.BooleanField(
-        "Full Width (Wide)?",
+        _("Полная ширина (широкий)?"),
         default=False,
-        help_text="If checked, the news item will occupy the full width"
-        " (col-12) in the list.",
+        help_text=_(
+            "Если этот флажок установлен,"
+            " новость будет занимать всю ширину (col-12) в списке."
+        ),
     )
 
     show_text_on_preview = models.BooleanField(
-        "Show Title/Intro over Preview?",
+        _("Показать название/вступление над превью?"),
         default=False,
-        help_text="If checked: Title and Intro will be centered over the image/video"
-        " (white text). If unchecked: below the image (black text).",
+        help_text=_(
+            "Если флажок установлен: заголовок и введение будут"
+            " выровнены по центру над изображением/видео (белый текст)."
+            " Если флажок не установлен: под изображением (черный текст)."
+        ),
     )
 
     intro = models.TextField(
-        "Short Description", help_text="For the news list", blank=True
+        _("Краткое описание"), help_text=_("Для списка новостей"), blank=True
     )
 
     # pylint: disable=duplicate-code
@@ -47,7 +53,7 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Preview: Image",
+        verbose_name=_("Предварительный просмотр: Изображение"),
     )
     # pylint: enable=duplicate-code
 
@@ -57,7 +63,7 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        verbose_name="Preview: Video",
+        verbose_name=_("Предварительный просмотр: Видео"),
     )
 
     body = StreamField(
@@ -65,7 +71,7 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
             (
                 "rich_text",
                 blocks.RichTextBlock(
-                    label="Text Block",
+                    label=_("Текстовый блок"),
                     features=[
                         "h2",
                         "h3",
@@ -79,11 +85,11 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
                     ],
                 ),
             ),
-            ("media_block", MediaOverlayBlock(label="Media (Photo/Video) + Text")),
-            ("eco_banner", EcoBannerBlock(label="Eco Banner")),
+            ("media_block", MediaOverlayBlock(label=_("Медиа (фото/видео) + текст"))),
+            ("eco_banner", EcoBannerBlock(label=_("Эко-баннер"))),
         ],
         use_json_field=True,
-        verbose_name="Content Constructor",
+        verbose_name=_("Конструктор контента"),
     )
 
     content_panels = Page.content_panels + [
@@ -96,9 +102,9 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
                 FieldPanel("preview_image"),
                 FieldPanel("preview_video"),
             ],
-            heading="Preview Settings",
+            heading=_("Настройки предварительного просмотра"),
         ),
-        FieldPanel("body", heading="News Content"),
+        FieldPanel("body", heading=_("Новости Содержание")),
     ]
 
     parent_page_types = ["news.NewsIndexPage"]
@@ -107,7 +113,7 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
     class Meta:  # pylint: disable=too-few-public-methods
         """Meta options for NewsPage."""
 
-        verbose_name = "News Page"
+        verbose_name = _("Страница новостей")
         ordering = ["-date"]
 
     def get_recent_news(self):
@@ -132,10 +138,12 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
     Displays a list of NewsPage children with pagination and HTMX support.
     """
 
-    custom_title = models.CharField("H1 Title", max_length=255, blank=True)
-    intro = models.TextField("Section Description", blank=True)
-    news_per_page = models.IntegerField("News per page", default=6)
-    recent_news_count = models.IntegerField("Sidebar recent news count", default=3)
+    custom_title = models.CharField(_("H1 Заголовок"), max_length=255, blank=True)
+    intro = models.TextField(_("Описание раздела"), blank=True)
+    news_per_page = models.IntegerField(_("Новости на странице"), default=6)
+    recent_news_count = models.IntegerField(
+        _("Количество последних новостей в боковой панели"), default=3
+    )
 
     sidebar_widget = StreamField(
         [
@@ -143,7 +151,7 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
         ],
         use_json_field=True,
         blank=True,
-        verbose_name="Sidebar Social Widget",
+        verbose_name=_("Социальный виджет боковой панели"),
     )
 
     # pylint: disable=duplicate-code
@@ -165,7 +173,7 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
                 FieldPanel("recent_news_count"),
                 FieldPanel("sidebar_widget"),
             ],
-            heading="Sidebar Settings",
+            heading=_("Настройки боковой панели"),
         ),
         FieldPanel("footer_blocks"),
     ]

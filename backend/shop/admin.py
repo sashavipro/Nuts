@@ -22,11 +22,11 @@ class ProductGalleryImageInline(StackedInline):
 
     model = ProductGalleryImage
     extra = 1
-    fields = ["image", "position", "caption"]
-    ordering = ["position"]
+    fields = ["image"]
+    ordering_field = "sort_order"
 
-    verbose_name = "Изображение"
-    verbose_name_plural = "Галерея изображений (0 = первая/главная)"
+    verbose_name = _("Изображение")
+    verbose_name_plural = _("Галерея изображений")
 
 
 @admin.register(Product)
@@ -87,7 +87,7 @@ class ProductAdmin(ModelAdmin, TabbedTranslationAdmin):
         ),
     )
 
-    @display(description="Фото")
+    @display(description=_("Фото"))
     def gallery_count(self, obj):
         """
         Displays the count of images in the product gallery with visual formatting.
@@ -95,9 +95,9 @@ class ProductAdmin(ModelAdmin, TabbedTranslationAdmin):
         count = obj.gallery_images.count()
         if count > 0:
             return format_html('<span style="color: green;">✓ {} фото</span>', count)
-        return format_html('<span style="color: red;">✗ Нет фото</span>')
+        return format_html('<span style="color: red;">{}</span>', _("✗ Нет фото"))
 
-    @action(description="Опубликовать выбранные товары")
+    @action(description=_("Опубликовать выбранные товары"))
     def make_published(self, request, queryset):
         """
         Admin action to bulk publish selected products (set live=True).

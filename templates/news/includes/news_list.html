@@ -1,16 +1,11 @@
-{% load wagtailcore_tags %}
+{% load i18n wagtailcore_tags %}
 
 {% for post in news_items %}
-    {# Если новость широкая - занимаем 12 колонок, иначе 4 #}
     <div class="{% if post.is_wide_display %}col-12{% else %}col-lg-4 col-md-6 col-12{% endif %} mb-5 fade-in-item">
-
-        {# Вставляем карточку, передаем переменную post #}
         {% include "news/includes/news_card.html" with post=post %}
-
     </div>
 {% endfor %}
 
-{# Кнопка HTMX #}
 {% if news_items.has_next %}
     <div id="load-more-target" class="col-12 text-center mt-4" style="width: 100%;">
         <button
@@ -19,10 +14,10 @@
             hx-target="#load-more-target"
             hx-swap="outerHTML"
             hx-indicator="#loading-indicator">
-            Посмотреть еще
+            {% trans "Посмотреть еще" %}
         </button>
         <div id="loading-indicator" class="htmx-indicator" style="display:none; margin-top: 10px;">
-            Загрузка...
+            {% trans "Загрузка..." %}
         </div>
     </div>
 {% endif %}

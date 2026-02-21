@@ -1,82 +1,69 @@
-{% load static wagtailcore_tags navigation_tags %}
-{% load i18n_tags %}
+{% load i18n django_vite wagtailcore_tags wagtailimages_tags navigation_tags wagtailsettings_tags i18n_tags %}
+{% get_settings %}
+
 <header class="top-header">
     <div class="top-header__line">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-4 col-12 d-lg-block d-none">
                     <ul class="line_social">
-                        <li><a href="#"><i class="nut-icon icons-facebook"></i></a></li>
-                        <li><a href="#"><i class="nut-icon icons-instagram"></i></a></li>
-                        <li><a href="#"><i class="nut-icon icons-youtube"></i></a></li>
+                        {% for link in settings.core.SiteSettings.social_links.all %}
+                            {% if link.link_type == 'social' %}
+                                <li><a href="{{ link.url }}" target="_blank"><i class="nut-icon icons-{{ link.platform }}"></i></a></li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="col-lg-4 col-12 d-lg-flex d-none justify-content-center">
-                    <p>Ваша персональная скидка - 5%</p>
+                    <p>{{ settings.core.SiteSettings.discount_text }}</p>
                 </div>
                 <div class="col-lg-4 col-12">
                     <div class="wrap">
                         <ul class="log_in d-lg-flex d-none">
                             {% if user.is_authenticated %}
-                                {# --- ЕСЛИ ПОЛЬЗОВАТЕЛЬ ВОШЕЛ --- #}
                                 <li>
-                                    <a href="#"> {# Тут можно поставить ссылку на профиль #}
+                                    <a href="#">
                                         <i class="nut-icon icons-man-user"></i>
                                         <span>{{ user.first_name|default:user.username }}</span>
                                     </a>
                                 </li>
                                 <li>
-                                    {# Django требует POST запрос для выхода. Делаем скрытую форму и ссылку-триггер #}
                                     <form id="logout-form" action="{% url 'logout' %}" method="post" style="display: none;">
                                         {% csrf_token %}
                                     </form>
                                     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        <span>Выход</span>
+                                        <span>{% trans "Выход" %}</span>
                                     </a>
                                 </li>
                             {% else %}
-                                {# --- ЕСЛИ ГОСТЬ --- #}
                                 <li>
                                     <a href="{% url 'login' %}">
                                         <i class="nut-icon icons-man-user"></i>
-                                        <span>Вход</span>
+                                        <span>{% trans "Вход" %}</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{% url 'register' %}">
-                                        <span>Регистрация</span>
+                                        <span>{% trans "Регистрация" %}</span>
                                     </a>
                                 </li>
                             {% endif %}
                         </ul>
 
                         <div id="lang-menu" class="lang-menu">
-    {# Показываем текущий активный язык #}
-    <span class="title">{{ request.LANGUAGE_CODE|upper }}</span>
-
-    <ul>
-        {# Ссылка на Английский #}
-        <li>
-            <a href="{% get_translated_url 'en' %}" {% if request.LANGUAGE_CODE == 'en' %}class="active"{% endif %}>
-                En
-            </a>
-        </li>
-
-        {# Ссылка на Русский #}
-        <li>
-            <a href="{% get_translated_url 'ru' %}" {% if request.LANGUAGE_CODE == 'ru' %}class="active"{% endif %}>
-                Ru
-            </a>
-        </li>
-
-        {# Ссылка на Украинский #}
-        <li>
-            <a href="{% get_translated_url 'uk' %}" {% if request.LANGUAGE_CODE == 'uk' %}class="active"{% endif %}>
-                Uk
-            </a>
-        </li>
-    </ul>
-</div>
+                            <span class="title">{{ request.LANGUAGE_CODE|upper }}</span>
+                            <ul>
+                                <li>
+                                    <a href="{% get_translated_url 'en' %}" {% if request.LANGUAGE_CODE == 'en' %}class="active"{% endif %}>En</a>
+                                </li>
+                                <li>
+                                    <a href="{% get_translated_url 'ru' %}" {% if request.LANGUAGE_CODE == 'ru' %}class="active"{% endif %}>Ru</a>
+                                </li>
+                                <li>
+                                    <a href="{% get_translated_url 'uk' %}" {% if request.LANGUAGE_CODE == 'uk' %}class="active"{% endif %}>Uk</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -86,12 +73,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-2 d-lg-none">
-                    <div class="mobile-menu-button d-lg-none d-block"><img src="{% static 'img/menu.svg' %}" alt="alt"></div>
+                    <div class="mobile-menu-button d-lg-none d-block"><img src="{% vite_asset_url 'app/img/menu.svg' %}" alt="menu"></div>
                 </div>
                 <div class="col-xl-4 col-lg-3 col-8 align-self-center">
                     <a href="/" class="logo">
-                        <img src="{% static 'img/logo.png' %}" alt="alt">
-                        <span>ОРЕХ<br> ПРИЧЕРНОМОРЬЯ</span>
+                        {% if settings.core.SiteSettings.logo %}
+                            {% image settings.core.SiteSettings.logo original %}
+                        {% else %}
+                            <img src="{% vite_asset_url 'app/img/logo.png' %}" alt="logo">
+                        {% endif %}
+                        <span>{{ settings.core.SiteSettings.logo_text|safe }}</span>
                     </a>
                 </div>
                 <div class="col-xl-8 col-lg-9 col-2 align-self-center">
@@ -99,27 +90,35 @@
                         <div class="col-lg-6 col-12 align-self-center d-lg-block d-none">
                             <div class="wrap">
                                 <ul class="logo_social">
-                                    <li><a href="#"><i class="nut-icon icons-viber"></i></a></li>
-                                    <li><a href="#"><i class="nut-icon icons-telegram"></i></a></li>
-                                    <li><a href="#"><i class="nut-icon icons-whatsapp"></i></a></li>
+                                    {% for link in settings.core.SiteSettings.social_links.all %}
+                                        {% if link.link_type == 'messenger' %}
+                                            <li><a href="{{ link.url }}" target="_blank"><i class="nut-icon icons-{{ link.platform }}"></i></a></li>
+                                        {% endif %}
+                                    {% endfor %}
                                 </ul>
                                 <ul class="logo_tel">
-                                    <li><a href="tel:+380447505011"><span>+38 (044)</span> 750-50-11</a></li>
-                                    <li><a href="tel:+380977755051"><span>+38 (097)</span> 775-50-51</a></li>
+                                    {% if settings.core.SiteSettings.phone_1_number %}
+                                    <li><a href="tel:{{ settings.core.SiteSettings.phone_1_code|cut:' '|cut:'('|cut:')' }}{{ settings.core.SiteSettings.phone_1_number|cut:'-' }}"><span>{{ settings.core.SiteSettings.phone_1_code }}</span> {{ settings.core.SiteSettings.phone_1_number }}</a></li>
+                                    {% endif %}
+                                    {% if settings.core.SiteSettings.phone_2_number %}
+                                    <li><a href="tel:{{ settings.core.SiteSettings.phone_2_code|cut:' '|cut:'('|cut:')' }}{{ settings.core.SiteSettings.phone_2_number|cut:'-' }}"><span>{{ settings.core.SiteSettings.phone_2_code }}</span> {{ settings.core.SiteSettings.phone_2_number }}</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
                         <div class="col-lg-6 col-12 align-self-center">
                             <div class="wraper">
                                 <ul class="logo_tel_mobile d-lg-none d-flex">
-                                    <li><a href="tel:+380447505011"><span>+38 (044)</span> 750-50-11</a></li>
+                                    {% if settings.core.SiteSettings.phone_1_number %}
+                                    <li><a href="tel:{{ settings.core.SiteSettings.phone_1_code|cut:' '|cut:'('|cut:')' }}{{ settings.core.SiteSettings.phone_1_number|cut:'-' }}"><span>{{ settings.core.SiteSettings.phone_1_code }}</span> {{ settings.core.SiteSettings.phone_1_number }}</a></li>
+                                    {% endif %}
                                 </ul>
                                 <ul class="logo_button_mobile d-lg-none d-flex">
-                                    <li><a href="#" class="button">Заказать звонок</a></li>
+                                    <li><a href="#" class="button">{% trans "Заказать звонок" %}</a></li>
                                 </ul>
                                 <ul class="logo_button d-lg-flex d-none">
-                                    <li><a href="#" class="button">Заказать звонок</a></li>
-                                    <li><p>Ждем Вашего звонка<br> ежедневно с 9 до 18</p></li>
+                                    <li><a href="#" class="button">{% trans "Заказать звонок" %}</a></li>
+                                    <li><p>{{ settings.core.SiteSettings.call_text|safe }}</p></li>
                                 </ul>
                                 <a href="#" class="logo_number">
                                     <i class="nut-icon icons-number"></i>
@@ -133,7 +132,7 @@
         </div>
     </div>
     <div class="top-header__discount d-lg-none d-flex">
-        <p>Ваша персональная скидка - 5%</p>
+        <p>{{ settings.core.SiteSettings.discount_text }}</p>
     </div>
     <div class="top-header__menu d-lg-flex d-none">
         <div class="container">
@@ -141,14 +140,9 @@
                 <nav class="menu_main menu_top">
                     <div class="mobile-line d-lg-none d-flex"></div>
 
-                    {# ПОЛУЧАЕМ МЕНЮ ЧЕРЕЗ ТЕГ #}
                     {% get_top_menu as menu_items %}
 
                     <ul class="menu_main_ul">
-                        {# Ссылка на Магазин, если она нужна отдельно #}
-                        {# <li><a href="/shop/">Магазин</a></li> #}
-
-                        {# ДИНАМИЧЕСКИЙ ВЫВОД #}
                         {% for item in menu_items %}
                             <li>
                                 <a href="{% pageurl item %}" class="{% if item.id == request.current_page.id %}active{% endif %}">

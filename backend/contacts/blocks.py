@@ -1,6 +1,7 @@
 """contacts/blocks.py."""
 
 import logging
+from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -17,18 +18,18 @@ class BaseIconBlock(blocks.StructBlock):
 
     icon_type = blocks.ChoiceBlock(
         choices=[
-            ("image", "Image"),
-            ("font", "Font Icon"),
+            ("image", _("Изображение")),
+            ("font", _("Шрифт Иконка")),
         ],
         default="font",
-        label="Icon Type",
+        label=_("Тип значка"),
         required=False,
     )
-    icon_image = ImageChooserBlock(required=False, label="Icon (Image)")
+    icon_image = ImageChooserBlock(required=False, label=_("Иконка (изображение)"))
     icon_font_class = blocks.CharBlock(
         required=False,
-        label="Icon Class",
-        help_text="Example: icons-phone, icons-post, icons-home",
+        label=_("Класс Icon"),
+        help_text=_("Пример: icons-phone, icons-post, icons-home"),
     )
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
@@ -41,11 +42,11 @@ class SocialLinkBlock(BaseIconBlock):
     Contains an icon and a URL.
     """
 
-    link = blocks.URLBlock(label="Link", required=False)
+    link = blocks.URLBlock(label=_("Ссылка"), required=False)
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
         icon = "link"
-        label = "Social Link"
+        label = _("Социальная связь")
 
 
 class PhoneSectionBlock(BaseIconBlock):
@@ -54,44 +55,49 @@ class PhoneSectionBlock(BaseIconBlock):
     """
 
     phones = blocks.ListBlock(
-        blocks.CharBlock(label="Phone Number", required=False),
-        label="Phone List",
+        blocks.CharBlock(label=_("Номер телефона")),
+        label=_("Список телефонов"),
         required=False,
     )
     socials = blocks.ListBlock(
-        SocialLinkBlock(), label="Social Buttons (WhatsApp, Telegram)", required=False
+        SocialLinkBlock(), label=_("Социальные сети"), required=False
     )
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
-        label = "Phones Section"
+        label = _("Раздел Телефон")
         icon = "mobile-alt"
 
 
 class EmailSectionBlock(BaseIconBlock):
     """
-    Section block for displaying an email address with an icon.
+    Section block for displaying email addresses.
     """
 
-    email = blocks.EmailBlock(label="Email", required=False)
-
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
-        label = "Email Section"
-        icon = "mail"
-
-
-class AddressItemBlock(BaseIconBlock):
-    """
-    Block representing a single physical address location.
-    Contains a title, rich text description, and an icon.
-    """
-
-    title = blocks.CharBlock(label="Title (e.g. Office)", required=False)
-    text = blocks.RichTextBlock(
-        label="Address Text", features=["bold", "italic", "link"], required=False
+    emails = blocks.ListBlock(
+        blocks.EmailBlock(label=_("Адрес электронной почты")),
+        label=_("Список адресов электронной почты"),
+        required=False,
     )
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
-        label = "Address"
+        label = _("Раздел Электронная почта")
+        icon = "mail"
+
+
+class AddressItemBlock(blocks.StructBlock):
+    """
+    Block representing a single physical address.
+    """
+
+    title = blocks.CharBlock(label=_("Филиал/Название"), required=False)
+    text = blocks.RichTextBlock(
+        label=_("Текст адреса"),
+        features=["bold", "italic", "link", "br"],
+        required=True,
+    )
+
+    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+        label = _("Адрес")
         icon = "home"
 
 
@@ -102,24 +108,28 @@ class DetailedContactsBlock(blocks.StructBlock):
     """
 
     main_title = blocks.CharBlock(
-        default="Contacts", label="Main Title", required=False
+        default=_("Контакты"), label=_("Основное название"), required=False
     )
 
-    phone_section = PhoneSectionBlock(label="Phones & Socials Block", required=False)
-    email_section = EmailSectionBlock(label="Email Block", required=False)
+    phone_section = PhoneSectionBlock(
+        label=_("Телефоны и социальные сети"), required=False
+    )
+    email_section = EmailSectionBlock(
+        label=_("Блокировка электронной почты"), required=False
+    )
 
     addresses = blocks.ListBlock(
-        AddressItemBlock(), label="Address List", required=False
+        AddressItemBlock(), label=_("Список адресов"), required=False
     )
 
     map_embed = blocks.RawHTMLBlock(
-        label="Map Embed Code (Google Maps iframe)", required=False
+        label=_("Код для вставки карты (iframe Google Maps)"), required=False
     )
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
         template = "contacts/blocks/detailed_contacts.html"
         icon = "map"
-        label = "Detailed Contacts"
+        label = _("Подробные контакты")
 
 
 class ContactImportBlock(blocks.StructBlock):
@@ -129,10 +139,12 @@ class ContactImportBlock(blocks.StructBlock):
     """
 
     contact_page = blocks.PageChooserBlock(
-        target_model="contacts.ContactPage", label="Choose Contact Page", required=True
+        target_model="contacts.ContactPage",
+        label=_("Выберите страницу Контакты"),
+        required=True,
     )
 
     class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
         template = "contacts/blocks/contact_import_wrapper.html"
         icon = "link"
-        label = "Import Contacts"
+        label = _("Импорт контактов")

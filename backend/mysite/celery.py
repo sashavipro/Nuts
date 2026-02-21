@@ -6,7 +6,7 @@ from celery import Celery
 
 logger = logging.getLogger(__name__)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "mysite.settings.base")
 
 app = Celery("mysite")
 
@@ -19,7 +19,6 @@ app.autodiscover_tasks()
 def debug_task(self):
     """
     Debug task to verify Celery worker status.
-
     It dumps the request context to the logs.
     """
     logger.info("Debug task executed. Request: %r", self.request)

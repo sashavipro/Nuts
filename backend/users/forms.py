@@ -4,6 +4,7 @@ import logging
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.template import loader
+from django.utils.translation import gettext_lazy as _
 from cities_light.models import Region
 from .models import CustomUser
 from .tasks import send_reset_email_task
@@ -23,6 +24,8 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
         """Meta options for CustomUserCreationForm."""
 
         model = CustomUser
+
+        # pylint: disable=duplicate-code
         fields = (
             "user_type",
             "is_fop",
@@ -58,7 +61,7 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
         for field in self.fields.values():
             field.widget.attrs.update({"class": "form-control"})
 
-        self.fields["country"].empty_label = "Выберите страну"
+        self.fields["country"].empty_label = _("Выберите страну")
         self.fields["country"].widget.attrs.update({"id": "id_country"})
 
         self.fields["region"].queryset = Region.objects.none()
@@ -89,18 +92,18 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
 
         self.fields["company_name"].required = False
         self.fields["okpo"].required = False
-        self.fields["city"].widget.attrs["placeholder"] = "Город"
-        self.fields["company_name"].widget.attrs["placeholder"] = "Название компании"
-        self.fields["okpo"].widget.attrs["placeholder"] = "ОКПО / ЕДРПОУ"
-        self.fields["zip_code"].widget.attrs["placeholder"] = "Индекс"
-        self.fields["address_line"].widget.attrs["placeholder"] = (
+        self.fields["city"].widget.attrs["placeholder"] = _("Город")
+        self.fields["company_name"].widget.attrs["placeholder"] = _("Название компании")
+        self.fields["okpo"].widget.attrs["placeholder"] = _("ОКПО / ЕДРПОУ")
+        self.fields["zip_code"].widget.attrs["placeholder"] = _("Индекс")
+        self.fields["address_line"].widget.attrs["placeholder"] = _(
             "Адрес (улица, дом, кв.)"
         )
-        self.fields["first_name"].widget.attrs["placeholder"] = "Имя*"
-        self.fields["last_name"].widget.attrs["placeholder"] = "Фамилия*"
-        self.fields["middle_name"].widget.attrs["placeholder"] = "Отчество"
-        self.fields["email"].widget.attrs["placeholder"] = "Email*"
-        self.fields["phone"].widget.attrs["placeholder"] = "Телефон*"
+        self.fields["first_name"].widget.attrs["placeholder"] = _("Имя*")
+        self.fields["last_name"].widget.attrs["placeholder"] = _("Фамилия*")
+        self.fields["middle_name"].widget.attrs["placeholder"] = _("Отчество")
+        self.fields["email"].widget.attrs["placeholder"] = _("Email*")
+        self.fields["phone"].widget.attrs["placeholder"] = _("Телефон*")
 
     def clean(self):
         """
@@ -128,13 +131,14 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
             cleaned_data["is_fop"] = False
             if not cleaned_data.get("company_name"):
                 self.add_error(
-                    "company_name", "Название компании обязательно для юридических лиц."
+                    "company_name",
+                    _("Название компании обязательно для юридических лиц."),
                 )
                 logger.warning(
                     "Validation error: Missing company_name for Legal entity"
                 )
             if not cleaned_data.get("okpo"):
-                self.add_error("okpo", "Код ЕДРПОУ обязателен для юридических лиц.")
+                self.add_error("okpo", _("Код ЕДРПОУ обязателен для юридических лиц."))
                 logger.warning("Validation error: Missing okpo for Legal entity")
 
         return cleaned_data

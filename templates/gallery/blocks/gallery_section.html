@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 <section class="benefit gray_section gallery_section" style="padding: 60px 0;">
     <div class="container">
@@ -37,11 +37,11 @@
                             hx-target="#gallery-load-wrapper-{{ gallery_items.next_page_number }}"
                             hx-swap="outerHTML"
                             hx-indicator="#gallery-loader">
-                            Посмотреть еще
+                            {% trans "Посмотреть еще" %}
                         </button>
 
                         <div id="gallery-loader" class="htmx-indicator" style="display:none; margin-top: 10px;">
-                            Загрузка...
+                            {% trans "Загрузка..." %}
                         </div>
                     </div>
                 {% endif %}
@@ -59,7 +59,7 @@
         {% if show_link and gallery_url %}
         <div class="row mt-4">
             <div class="col-12 text-center">
-                <a href="{{ gallery_url }}" class="button button_transparent">Смотреть всю галерею</a>
+                <a href="{{ gallery_url }}" class="button button_transparent">{% trans "Смотреть всю галерею" %}</a>
             </div>
         </div>
         {% endif %}

@@ -1,4 +1,4 @@
-{% load wagtailcore_tags static %}
+{% load i18n wagtailcore_tags django_vite %}
 
 <section class="production">
     <div class="container">
@@ -24,7 +24,7 @@
         {% if self.shop_link %}
         <div class="row">
             <div class="wrapper">
-                <a href="{% pageurl self.shop_link %}" class="button button_transparent">Перейти в магазин</a>
+                <a href="{% pageurl self.shop_link %}" class="button button_transparent">{% trans "Перейти в магазин" %}</a>
             </div>
         </div>
         {% endif %}

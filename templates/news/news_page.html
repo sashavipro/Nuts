@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
 <section class="news-detail section" style="padding: 60px 0;">
@@ -23,7 +23,7 @@
                 <aside class="sidebar">
 
                     <div class="sidebar-widget mb-5">
-                        <h3 style="font-size: 22px; margin-bottom: 30px; color: #1d252d;">Последние публикации</h3>
+                        <h3 style="font-size: 22px; margin-bottom: 30px; color: #1d252d;">{% trans "Последние публикации" %}</h3>
 
                         {% with parent=page.get_parent.specific %}
                             {% for item in page.get_recent_news %}

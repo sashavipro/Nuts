@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% if self.gallery_page %}
 
@@ -12,7 +12,7 @@
         {% else %}
             <div class="container">
                 <p class="text-center text-muted">
-                    На выбранной странице нет секции галереи.
+                    {% trans "На выбранной странице нет секции галереи." %}
                 </p>
             </div>
         {% endif %}

@@ -7,6 +7,7 @@ from django.views.generic import CreateView
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from .forms import CustomUserCreationForm, CustomPasswordResetForm
 
 logger = logging.getLogger(__name__)
@@ -34,7 +35,9 @@ class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
         login(self.request, user, backend="users.backends.EmailOrUsernameModelBackend")
 
         logger.info("New user registered and logged in: %s", user.username)
-        messages.success(self.request, f"Добро пожаловать, {user.first_name}!")
+        messages.success(
+            self.request, _("Добро пожаловать, {name}!").format(name=user.first_name)
+        )
         return redirect(self.success_url)
 
     def form_invalid(self, form):
@@ -44,7 +47,7 @@ class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
         Logs the errors and displays an error message to the user.
         """
         logger.warning("Registration failed: %s", form.errors)
-        messages.error(self.request, "Пожалуйста, исправьте ошибки в форме.")
+        messages.error(self.request, _("Пожалуйста, исправьте ошибки в форме."))
         return super().form_invalid(form)
 
 
@@ -80,5 +83,5 @@ class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):  # py
     def form_valid(self, form):
         user = form.save()
         login(self.request, user, backend="users.backends.EmailOrUsernameModelBackend")
-        messages.success(self.request, "Пароль успешно изменен! Вы авторизованы.")
+        messages.success(self.request, _("Пароль успешно изменен! Вы авторизованы."))
         return redirect(self.success_url)

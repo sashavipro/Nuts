@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags %}
+
+{% block body_class %}page inside{% endblock %}
+
+{% block content %}
+<section class="profile-section" style="padding: 60px 0; background: #fff; min-height: 50vh;">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-5">
+            <h1 style="color: #1a2f3a; margin: 0; font-weight: 800; font-size: 36px;">{% trans "Учетная запись" %}</h1>
+            <div class="manager-info d-flex flex-column" style="font-size: 14px; color: #555; border-left: 1px solid #eee; padding-left: 20px;">
+                <span>{{ page.manager_title }}</span>
+                <span style="color: #3d8063; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                    <i class="nut-icon icons-telephone"></i> {{ page.manager_phone }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                {% include "users/includes/profile_sidebar.html" %}
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                {% if orders %}
+                    <div class="cart-table-wrapper">
+                        <div class="cart-table-header d-none d-md-flex" style="border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; font-size: 14px; font-weight: 700; color: #1a2f3a;">
+                            <div style="flex: 1.5; padding-left: 20px;">№ {% trans "Заказа" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+                            <div style="flex: 2; text-align: center;">{% trans "Дата" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+                            <div style="flex: 1.5; text-align: center;">{% trans "Кол - во товаров" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+                            <div style="flex: 1.5; text-align: center;">{% trans "Статус" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+                            <div style="flex: 1.5; text-align: right;">{% trans "Стоимость" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+                            <div style="flex: 1; text-align: center;">{% trans "Функции" %}</div>
+                        </div>
+
+                        {% for order in orders %}
+                        <div class="cart-table-row d-flex flex-column flex-md-row align-items-md-center" style="padding: 20px 0; border-bottom: 1px solid #f0f0f0; {% if forloop.counter|divisibleby:2 %}background-color: #f2f7f4;{% endif %}">
+                            <div style="flex: 1.5; font-size: 14px; padding-left: 20px; color: #555;">{{ order.order_number|default:order.id }}</div>
+                            <div style="flex: 2; text-align: center; font-size: 14px; color: #555;">{{ order.created_at|date:"d.m.Y" }}</div>
+                            <div style="flex: 1.5; text-align: center; font-size: 14px; color: #555;">{{ order.items_count }}</div>
+                            <div style="flex: 1.5; text-align: center; font-size: 14px; color: #1a2f3a;">{{ order.get_status_display }}</div>
+                            <div style="flex: 1.5; text-align: right; font-size: 15px; font-weight: 600;">{{ order.total_amount }} {% trans "грн." %}</div>
+
+                            <div style="flex: 1; display: flex; justify-content: center; align-items: center; gap: 15px;">
+
+                                <a href="#" hx-get="{{ page.url }}order/{{ order.id }}/" hx-target="#modal-container" style="color: #3d8063; font-size: 20px; text-decoration: none; display: flex; align-items: center;" title="{% trans 'Просмотреть заказ' %}">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                        <circle cx="12" cy="12" r="3"></circle>
+                                    </svg>
+                                </a>
+
+                                <a href="#" onclick="navigator.clipboard.writeText('{{ order.order_number|default:order.id }}'); alert('{% trans 'Номер заказа скопирован!' %}'); return false;" style="color: #a0a0a0; font-size: 20px; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#3d8063'" onmouseout="this.style.color='#a0a0a0'" title="{% trans 'Скопировать номер заказа' %}">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                </a>
+
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="background: #f9f9f9; padding: 40px; text-align: center; border-radius: 5px;">
+                        <p style="font-weight: 700; color: #1a2f3a; margin: 0;">{% trans "У вас не было заказов!" %}</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div id="modal-container"></div>
+</section>
+
+{% for block in page.footer_blocks %}
+    {% include_block block %}
+{% endfor %}
+{% endblock %}

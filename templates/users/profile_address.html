@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags %}
+
+{% block body_class %}page inside{% endblock %}
+
+{% block extra_css %}
+<style>
+    .step-title { font-size: 18px; font-weight: 800; color: #1a2f3a; margin: 40px 0 20px 0; }
+    .step-content { max-width: 450px; }
+
+    /* Стилизуем обычные инпуты */
+    .step-content .form-control { width: 100%; height: 50px; padding: 12px 15px; border: 1px solid #e1e1e1; border-radius: 0; margin-bottom: 15px; font-size: 16px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .step-content .form-control:focus { border-color: #337d5a; box-shadow: 0 0 0 0.2rem rgba(51, 125, 90, 0.25); }
+    .step-content .form-control::placeholder { color: #999; }
+
+    /* ========================================
+       КАСТОМИЗАЦИЯ SELECT2 (Из страницы регистрации)
+    ======================================== */
+    .select2-container { width: 100% !important; margin-bottom: 15px; }
+    .select2-container .select2-selection--single { height: 50px !important; border: 1px solid #e1e1e1 !important; border-radius: 0 !important; display: flex !important; align-items: center !important; background-color: #fff !important; outline: none !important; box-shadow: none !important; transition: border-color 0.2s ease !important; }
+    .select2-container--default .select2-selection--single .select2-selection__rendered { color: #1b1b1b !important; padding-left: 15px !important; font-size: 16px !important; line-height: normal !important; pointer-events: none; }
+    .select2-container--default .select2-selection--single .select2-selection__placeholder { color: #999 !important; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow { height: 100% !important; width: 40px !important; position: absolute !important; right: 0 !important; top: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b { display: none !important; }
+    .select2-container--default .select2-selection--single .select2-selection__arrow::after { content: ''; display: inline-block; width: 8px; height: 8px; border-right: 2px solid #888; border-bottom: 2px solid #888; transform: rotate(45deg); transition: all 0.2s ease; margin-top: -4px; }
+    .select2-container--default:hover .select2-selection--single { border-color: #337D5A !important; }
+    .select2-container--default:hover .select2-selection--single .select2-selection__arrow::after { border-color: #337D5A !important; }
+    .select2-container--default.select2-container--open .select2-selection--single { border-color: #337d5a !important; border-bottom-color: transparent !important; }
+    .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow::after { transform: rotate(225deg); margin-top: 4px; border-color: #337D5A !important; }
+    .select2-dropdown { border: 1px solid #337d5a !important; border-radius: 0 !important; border-top: none !important; box-shadow: none !important; margin-top: 0 !important; }
+    .select2-container--default .select2-results__option { padding: 10px 15px !important; font-size: 16px !important; color: #1b1b1b !important; background-color: #fff !important; cursor: pointer !important; transition: background 0.1s ease, color 0.1s ease; }
+    .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable, .select2-container--default .select2-results__option--highlighted[aria-selected], .select2-container--default .select2-results__option:hover { background-color: #337d5a !important; color: white !important; }
+    .select2-container--default .select2-results__option[aria-selected="true"] { background-color: #f5f5f5 !important; color: #1b1b1b !important; }
+    .select2-container--default .select2-results__option[aria-selected="true"]:hover, .select2-container--default .select2-results__option--highlighted[aria-selected="true"] { background-color: #337d5a !important; color: #fff !important; }
+    .select2-container--default .select2-selection--single.select2-selection--disabled { background-color: #e9ecef !important; cursor: not-allowed !important; }
+    .select2-search--dropdown .select2-search__field { border: 1px solid #e1e1e1 !important; border-radius: 0 !important; padding: 8px 12px !important; font-size: 14px !important; }
+    .select2-search--dropdown .select2-search__field:focus { border-color: #337d5a !important; outline: none !important; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="profile-section" style="padding: 60px 0; background: #fff; min-height: 50vh;">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-5">
+            <h1 style="color: #1a2f3a; margin: 0; font-weight: 800; font-size: 36px;">{% trans "Учетная запись" %}</h1>
+            <div class="manager-info d-flex flex-column" style="font-size: 14px; color: #555; border-left: 1px solid #eee; padding-left: 20px;">
+                <span>{{ page.manager_title }}</span>
+                <span style="color: #3d8063; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                    <i class="nut-icon icons-telephone"></i> {{ page.manager_phone }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                {% include "users/includes/profile_sidebar.html" %}
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div style="background: #e8f5e9; color: #337d5a; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: 600;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" action=".">
+                    {% csrf_token %}
+
+                    <div class="checkout-step">
+                        <h3 class="step-title" style="margin-top: 0;">1. {% trans "Реквизиты" %}</h3>
+                        <div class="step-content">
+                            {{ form.okpo }}
+                        </div>
+                    </div>
+
+                    <div class="checkout-step">
+                        <h3 class="step-title">2. {% trans "Адрес" %}</h3>
+                        <div class="step-content">
+
+                            <div id="country-wrapper" data-api-url="/users/api/regions">
+                                {{ form.country }}
+                            </div>
+
+                            <div id="region-wrapper">
+                                {{ form.region }}
+                            </div>
+
+                            {{ form.city }}
+
+                            {{ form.address_line }}
+                        </div>
+                    </div>
+
+                    <div class="step-content">
+                        <button type="submit" class="button button-green" style="padding: 15px 35px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; margin-top: 20px;">
+                            {% trans "Сохранить" %}
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% for block in page.footer_blocks %}
+    {% include_block block %}
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+window.addEventListener('load', function() {
+    'use strict';
+    const $ = window.jQuery;
+
+    // Инициализация переменных
+    const $country = $('#id_country');
+    const $region = $('#id_region');
+    const apiUrl = $('#country-wrapper').data('api-url') || "/users/api/regions";
+
+    // Подключение Select2
+    if ($.fn.select2) {
+        $country.select2({ width: '100%', placeholder: "{% trans 'Выберите страну' %}" });
+        $region.select2({ width: '100%', placeholder: "{% trans 'Выберите область' %}" });
+    }
+
+    // Если страна не выбрана (например, профиль только создался) - блокируем регион
+    if (!$country.val()) $region.prop('disabled', true);
+
+    // Логика подгрузки регионов при смене страны
+    $country.on('change', function() {
+        var countryId = $(this).val();
+        $region.empty().append('<option value="">{% trans "Загрузка..." %}</option>').prop('disabled', true);
+
+        if (!countryId) {
+            $region.empty().append('<option value="">{% trans "Сначала выберите страну" %}</option>');
+            $region.trigger('change');
+            return;
+        }
+
+        $.ajax({
+            url: apiUrl,
+            data: { 'country_id': countryId },
+            type: 'GET',
+            success: function(data) {
+                $region.empty();
+                if (data && data.length > 0) {
+                    $region.append('<option value="">{% trans "Выберите регион" %}</option>');
+                    $.each(data, function(index, item) {
+                        // Если в форме уже был выбран этот регион - делаем его selected
+                        let isSelected = ('{{ form.instance.region.id }}' == item.id);
+                        $region.append(new Option(item.name, item.id, false, isSelected));
+                    });
+                    $region.prop('disabled', false);
+                } else {
+                    $region.append('<option value="">{% trans "В этой стране нет регионов" %}</option>');
+                }
+                $region.trigger('change');
+            },
+            error: function() {
+                $region.empty().append('<option value="">{% trans "Ошибка загрузки" %}</option>');
+                $region.trigger('change');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -2,14 +2,16 @@
 
 from .snippets import ProductTaste, ProductPackaging, ProductWeight
 from .products import ShopIndexPage, Product, ProductGalleryImage
-# from .ecommerce import (
-#     Cart,
-#     CartItem,
-#     Order,
-#     OrderItem,
-#     PaymentTransaction,
-#     OrderSuccessPage,
-# )
+from .ecommerce import (
+    Cart,
+    CartItem,
+    Order,
+    OrderItem,
+    PaymentTransaction,
+    OrderSuccessPage,
+    CartPage,
+    CheckoutPage,
+)
 
 __all__ = [
     "ProductTaste",
@@ -18,10 +20,12 @@ __all__ = [
     "ShopIndexPage",
     "Product",
     "ProductGalleryImage",
-    # "Cart",
-    # "CartItem",
-    # "Order",
-    # "OrderItem",
-    # "PaymentTransaction",
-    # "OrderSuccessPage",
+    "Cart",
+    "CartItem",
+    "Order",
+    "OrderItem",
+    "PaymentTransaction",
+    "OrderSuccessPage",
+    "CartPage",
+    "CheckoutPage",
 ]

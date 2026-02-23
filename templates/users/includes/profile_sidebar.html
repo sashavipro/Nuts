@@ -1,0 +1,41 @@
+{% load i18n %}
+<div class="profile-sidebar" style="padding-right: 30px;">
+    <h3 style="font-size: 16px; font-weight: 800; color: #1a2f3a; margin-bottom: 20px;">{% trans "Мои заказы" %}</h3>
+    <ul style="list-style: none; padding: 0; margin: 0 0 40px 0;">
+        <li style="margin-bottom: 12px;">
+            <a href="{{ page.url }}orders/" class="profile-link {% if request.path == page.url|add:'orders/' %}active{% endif %}">
+                {% trans "История заказов" %}
+            </a>
+        </li>
+        <li style="margin-bottom: 12px;">
+            <a href="{{ page.url }}transactions/" class="profile-link {% if request.path == page.url|add:'transactions/' %}active{% endif %}">
+                {% trans "История транзакций" %}
+            </a>
+        </li>
+    </ul>
+
+    <h3 style="font-size: 16px; font-weight: 800; color: #1a2f3a; margin-bottom: 20px;">{% trans "Моя учетная запись" %}</h3>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        <li style="margin-bottom: 12px;">
+    <a href="{{ page.url }}contact-info/" class="profile-link {% if request.path == page.url|add:'contact-info/' %}active{% endif %}">
+        {% trans "Контактная информация" %}
+    </a>
+</li>
+        <li style="margin-bottom: 12px;">
+    <a href="{{ page.url }}password/" class="profile-link {% if request.path == page.url|add:'password/' %}active{% endif %}">
+        {% trans "Пароль" %}
+    </a>
+</li>
+        <li style="margin-bottom: 12px;">
+    <a href="{{ page.url }}address/" class="profile-link {% if request.path == page.url|add:'address/' %}active{% endif %}">
+        {% trans "Адрес" %}
+    </a>
+</li>
+    </ul>
+</div>
+
+<style>
+    .profile-link { font-size: 15px; color: #555; text-decoration: none; display: inline-block; transition: color 0.2s; }
+    .profile-link:hover { color: #3d8063; }
+    .profile-link.active { color: #3d8063; font-weight: 600; border-bottom: 1px solid #3d8063; padding-bottom: 2px; }
+</style>

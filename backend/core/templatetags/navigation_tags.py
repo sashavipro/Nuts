@@ -3,6 +3,8 @@
 import logging
 from django import template
 from wagtail.models import Page, Site, Locale
+from shop.models import ShopIndexPage, CartPage
+from users.models import ProfilePage
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -83,3 +85,59 @@ def has_hero_block(context):
         if block.block_type == "hero":
             return True
     return False
+
+
+@register.simple_tag(takes_context=True)
+def get_shop_url(context):
+    """
+    Returns the current URL of the store page for the current language.
+    Searches for the page by its type (ShopIndexPage), so the link always works,
+    even if the slug changes or the page is hidden from the menu.
+    """
+    request = context.get("request")
+    current_locale = Locale.get_active()
+
+    shop_page = ShopIndexPage.objects.filter(live=True, locale=current_locale).first()
+
+    if not shop_page:
+        shop_page = ShopIndexPage.objects.filter(live=True).first()
+
+    if shop_page and request:
+        return shop_page.get_url(request)
+
+    return "/"
+
+
+@register.simple_tag(takes_context=True)
+def get_cart_url(context):
+    """Returns the current URL of the shopping cart page for the current language."""
+    request = context.get("request")
+    current_locale = Locale.get_active()
+
+    cart_page = CartPage.objects.filter(live=True, locale=current_locale).first()
+
+    if not cart_page:
+        cart_page = CartPage.objects.filter(live=True).first()
+
+    if cart_page and request:
+        return cart_page.get_url(request)
+
+    return "/"
+
+
+@register.simple_tag(takes_context=True)
+def get_profile_url(context):
+    """Returns the current URL of the profile page for the current language."""
+    request = context.get("request")
+
+    current_locale = Locale.get_active()
+
+    profile_page = ProfilePage.objects.filter(live=True, locale=current_locale).first()
+
+    if not profile_page:
+        profile_page = ProfilePage.objects.filter(live=True).first()
+
+    if profile_page and request:
+        return profile_page.get_url(request)
+
+    return "/"

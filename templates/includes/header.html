@@ -22,7 +22,7 @@
                         <ul class="log_in d-lg-flex d-none">
                             {% if user.is_authenticated %}
                                 <li>
-                                    <a href="#">
+                                    <a href="{% get_profile_url %}">
                                         <i class="nut-icon icons-man-user"></i>
                                         <span>{{ user.first_name|default:user.username }}</span>
                                     </a>
@@ -120,11 +120,17 @@
                                     <li><a href="#" class="button">{% trans "Заказать звонок" %}</a></li>
                                     <li><p>{{ settings.core.SiteSettings.call_text|safe }}</p></li>
                                 </ul>
-                                <a href="#" class="logo_number">
-                                    <i class="nut-icon icons-number"></i>
-                                    <span class="quantity">0</span>
-                                </a>
-                            </div>
+
+                                <div class="cart-wrapper" style="position: relative; display: flex; align-items: center;">
+                                    <a href="{% get_cart_url %}" class="logo_number" id="cart-dropdown-trigger" onclick="event.preventDefault(); document.getElementById('mini-cart-container').classList.toggle('show');">
+                                        <i class="nut-icon icons-number"></i>
+                                        <span id="cart-counter" class="quantity" hx-get="/shop/api/cart/count/" hx-trigger="load, cartUpdated from:body">0</span>
+                                    </a>
+
+                                    <div id="mini-cart-container" class="mini-cart-dropdown" hx-get="/shop/api/cart/mini/" hx-trigger="load, cartUpdated from:body">
+                                    </div>
+                                </div>
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -156,3 +162,168 @@
         </div>
     </div>
 </header>
+
+<style>
+    .mini-cart-dropdown {
+        position: absolute;
+        top: calc(100% + 15px); /* Отступ от иконки */
+        right: 0;
+        width: 480px; /* Достаточная ширина для макета */
+        background: #fff;
+        border: 2px solid #3d8063; /* Зеленая рамка */
+        z-index: 9999;
+        display: none;
+        padding: 20px 30px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    .mini-cart-dropdown.show { display: block; }
+
+    /* Делаем небольшой невидимый мостик, чтобы меню не пропадало, пока ведешь мышку (опционально) */
+    .mini-cart-dropdown::before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        right: 0;
+        width: 100%;
+        height: 15px;
+        background: transparent;
+    }
+
+    /* Элемент товара в списке */
+    .mc-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid #f4f4f4;
+    }
+
+    .mc-title {
+        font-size: 16px;
+        color: #1a2f3a;
+        flex: 1;
+        padding-right: 15px;
+        font-weight: 500;
+    }
+
+    /* Блок с кнопками количества */
+    .mc-qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-right: 25px;
+    }
+    .mc-qty-controls button {
+        background: none;
+        border: none;
+        font-size: 16px;
+        color: #888;
+        cursor: pointer;
+        padding: 0 5px;
+        transition: color 0.2s;
+        font-family: monospace; /* Чтобы стрелочки < > были ровными */
+    }
+    .mc-qty-controls button:hover {
+        color: #3d8063;
+    }
+    .mc-qty-controls input {
+        width: 45px;
+        text-align: center;
+        border: 1px solid #e5e5e5;
+        height: 34px;
+        font-size: 15px;
+        color: #1a2f3a;
+        pointer-events: none;
+        outline: none;
+    }
+
+    /* Цена */
+    .mc-price {
+        font-size: 16px;
+        color: #1a2f3a;
+        min-width: 80px;
+        text-align: left;
+    }
+
+    /* Крестик удаления */
+    .mc-remove {
+        background: none;
+        border: none;
+        color: #b0b0b0;
+        font-size: 20px;
+        cursor: pointer;
+        padding: 0 5px;
+        transition: color 0.2s;
+        display: flex;
+        align-items: center;
+    }
+    .mc-remove:hover { color: #ff4d4d; }
+
+    /* Футер (Всего + Кнопка) */
+    .mc-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 30px;
+        margin-top: 25px;
+        padding-top: 5px;
+    }
+
+    .mc-total {
+        font-size: 18px;
+        color: #1a2f3a;
+        font-weight: 700;
+        display: flex;
+        align-items: baseline;
+    }
+    .mc-total-sum {
+        font-size: 26px;
+        color: #3d8063;
+        margin: 0 5px;
+        font-weight: 800;
+    }
+    .mc-total-currency {
+        font-size: 16px;
+        color: #3d8063;
+        font-weight: 700;
+    }
+
+    /* Кнопка "Перейти в корзину" */
+    .mc-checkout-btn {
+        padding: 12px 25px;
+        font-size: 15px;
+        cursor: pointer;
+        color: #fff;
+        background-color: #3d8063;
+        border: none;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background-color 0.2s;
+    }
+    .mc-checkout-btn:hover { background-color: #2a664a; color: #fff;}
+
+    .mc-empty { text-align: center; padding: 20px; color: #888; }
+
+    @media (max-width: 767px) {
+        .mini-cart-dropdown {
+            position: fixed;
+            top: 70px; /* Высота мобильного хедера */
+            right: 15px;
+            left: 15px;
+            width: auto;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('click', function(event) {
+        var trigger = document.getElementById('cart-dropdown-trigger');
+        var container = document.getElementById('mini-cart-container');
+        if (trigger && container) {
+            var isClickInside = trigger.contains(event.target) || container.contains(event.target);
+            if (!isClickInside) {
+                container.classList.remove('show');
+            }
+        }
+    });
+</script>

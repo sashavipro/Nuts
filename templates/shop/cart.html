@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n wagtailimages_tags navigation_tags %}
+
+{% block body_class %}page inside{% endblock %}
+
+{% block content %}
+<section class="cart-section" style="padding: 60px 0; background: #fff;">
+    <div class="container">
+
+        <div class="cart-header d-flex justify-content-between align-items-center flex-wrap mb-5">
+            <div class="d-flex align-items-center gap-4">
+                <h1 style="color: #1a2f3a; margin: 0; font-weight: 800; font-size: 36px;">{% trans "Корзина" %}</h1>
+                <div class="manager-info d-flex flex-column" style="font-size: 14px; color: #555; border-left: 1px solid #eee; padding-left: 20px;">
+                    <span>{{ page.manager_title }}</span>
+                    <span style="color: #3d8063; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                        <i class="nut-icon icons-telephone"></i> {{ page.manager_phone }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        {% if cart and cart.items.exists %}
+
+            <div id="checkout-cart-table">
+                {% include "shop/includes/cart_table.html" %}
+            </div>
+
+            <div class="cart-footer d-flex flex-column flex-md-row justify-content-between align-items-center" style="margin-bottom: 60px;">
+                <a href="{% get_shop_url %}" class="btn-back d-flex align-items-center gap-2" style="color: #3d8063; font-weight: 600; border: 1px solid #3d8063; padding: 12px 25px; text-decoration: none; margin-bottom: 20px;">
+                    <span>&larr;</span> {% trans "Продолжить покупки" %}
+                </a>
+
+                <div class="bottom-checkout d-flex align-items-center gap-4">
+                    <span id="checkout-bottom-total" style="font-size: 18px; font-weight: 700;">
+                        {% trans "Всего" %} <span style="font-size: 24px; color: #3d8063;">{{ cart.get_total_price }}</span> {% trans "грн." %}
+                    </span>
+                    <a href="{{ page.url }}checkout/" class="button button-green" style="padding: 15px 35px; font-size: 16px; font-weight: 600;">{% trans "Оформить заказ" %}</a>
+                </div>
+            </div>
+
+            {% if not request.user.is_authenticated %}
+            <div class="auth-prompt text-center" style="margin-top: 60px; padding-top: 50px;">
+                <h3 style="color: #1a2f3a; font-weight: 800; font-size: 28px; margin-bottom: 20px;">{% trans "Для оформления заказа необходимо" %}</h3>
+                <p style="font-size: 18px; color: #555;">
+                    <a href="{% url 'login' %}?next={{ page.url }}checkout/" style="color: #3d8063; text-decoration: none; font-weight: 600; border-bottom: 1px solid #3d8063;">{% trans "Авторизоваться" %}</a>
+                    <span style="margin: 0 10px;">{% trans "или" %}</span>
+                    <a href="{% url 'register' %}?next={{ page.url }}checkout/" style="color: #3d8063; text-decoration: none; font-weight: 600; border-bottom: 1px solid #3d8063;">{% trans "Зарегистрироваться" %}</a>
+                </p>
+            </div>
+            {% endif %}
+
+        {% else %}
+            <div class="text-center" style="padding: 60px 0;">
+                <p style="font-size: 18px; color: #888; margin-bottom: 30px;">{% trans "Ваша корзина пуста." %}</p>
+                <a href="{% get_shop_url %}" class="button button-green">{% trans "Перейти в магазин" %}</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Если юзер нажал "минус" и удалил последний товар, страница обновится,
+// чтобы показать сообщение "Ваша корзина пуста"
+document.body.addEventListener('cartEmpty', function() {
+    setTimeout(function() {
+        window.location.reload();
+    }, 200);
+});
+</script>
+{% endblock %}

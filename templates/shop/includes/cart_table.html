@@ -1,0 +1,33 @@
+{% load i18n %}
+<div class="cart-table-wrapper" style="margin-bottom: 20px;">
+    <div class="cart-table-header d-none d-md-flex" style="border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 0; font-size: 14px; font-weight: 700; color: #1a2f3a;">
+        <div style="flex: 2; padding-left: 20px;">{% trans "Товар" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+        <div style="flex: 1; text-align: center;">{% trans "Кол - во" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+        <div style="flex: 1; text-align: center;">{% trans "Цена за товар" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+        <div style="flex: 1; text-align: right; padding-right: 20px;">{% trans "Итоговая стоимость" %} <i class="nut-icon icons-arrow-down" style="font-size: 10px; color: #888;"></i></div>
+    </div>
+
+    {% for item in cart.items.all %}
+    <div class="cart-table-row d-flex flex-column flex-md-row align-items-md-center" style="padding: 20px 0; border-bottom: 1px solid #f0f0f0; {% if forloop.counter|divisibleby:2 %}background-color: #f2f7f4;{% endif %}">
+        <div class="cart-item-title" style="flex: 2; font-size: 15px; color: #1a2f3a; padding-left: 20px;">
+            {{ item.product.title }}
+        </div>
+
+        <div class="cart-item-qty d-flex justify-content-center" style="flex: 1; margin: 10px 0;">
+            <div class="mc-qty-controls" style="display: flex; gap: 10px; align-items: center;">
+                <button type="button" hx-post="/shop/api/cart/item/{{ item.id }}/update/" hx-vals='{"action": "decrease"}' hx-target="#mini-cart-container" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' style="background:none; border:none; cursor:pointer; color:#888; font-family: monospace; font-size: 16px;">&lt;</button>
+                <input type="text" value="{{ item.quantity }}" readonly style="width: 45px; text-align: center; border: 1px solid #e0e0e0; height: 34px; font-size: 15px; background: #fff; pointer-events: none;">
+                <button type="button" hx-post="/shop/api/cart/item/{{ item.id }}/update/" hx-vals='{"action": "increase"}' hx-target="#mini-cart-container" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' style="background:none; border:none; cursor:pointer; color:#888; font-family: monospace; font-size: 16px;">&gt;</button>
+            </div>
+        </div>
+
+        <div class="cart-item-price text-md-center" style="flex: 1; font-size: 15px; color: #1a2f3a;">
+            {{ item.product.price }} {% trans "грн." %}
+        </div>
+
+        <div class="cart-item-total text-md-right" style="flex: 1; font-size: 15px; font-weight: 600; padding-right: 20px;">
+            {{ item.get_cost }} {% trans "грн." %}
+        </div>
+    </div>
+    {% endfor %}
+</div>

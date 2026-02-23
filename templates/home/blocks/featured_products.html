@@ -1,0 +1,28 @@
+{% load i18n wagtailimages_tags navigation_tags %}
+
+<section class="production" style="padding: 60px 0;">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-12 text-center" style="margin-bottom: 40px;">
+                <h2 style="font-size: 36px; font-weight: 800; color: #1a2f3a; margin-bottom: 15px;">{{ value.title }}</h2>
+                {% if value.description %}
+                    <p style="color: #555; max-width: 600px; margin: 0 auto; font-size: 16px;">{{ value.description }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            {% include "shop/includes/product_list.html" with products=products %}
+        </div>
+
+        <div class="row justify-content-center" style="margin-top: 30px;">
+            <div class="col-12 text-center">
+                <a href="{% get_shop_url %}" class="button button_transparent" style="display: inline-block; padding: 12px 40px; border: 2px solid #337D5A; color: #337D5A; text-decoration: none; font-weight: 700; transition: all 0.3s ease;">
+                    {% trans "Перейти в магазин" %}
+                </a>
+            </div>
+        </div>
+
+    </div>
+</section>

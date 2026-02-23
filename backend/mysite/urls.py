@@ -4,6 +4,8 @@ from django.conf import settings
 from django.urls import include, path
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
+from django.shortcuts import render
+
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -16,6 +18,7 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path("users/", include("users.urls")),
+    path("shop/", include("shop.urls")),
     path("i18n/", include("django.conf.urls.i18n")),
 ]
 
@@ -26,6 +29,9 @@ if settings.DEBUG:
 
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        path("test-404/", lambda request: render(request, "404.html", status=404)),
+    ]
 
 urlpatterns += i18n_patterns(
     path("search/", search_views.search, name="search"),

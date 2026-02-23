@@ -136,7 +136,14 @@
                                 <span class="old-price">{{ product.old_price }} {% trans "грн." %}</span>
                             {% endif %}
                         </div>
-                        <a href="#" class="button button-green" style="margin-left: 20px;">{% trans "Заказать" %}</a>
+                        <button hx-post="/shop/api/cart/add/{{ product.id }}/"
+                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                hx-target="#cart-counter"
+                                hx-swap="outerHTML"
+                                class="button button-green"
+                                style="margin-left: 20px; border: none; cursor: pointer;">
+                            {% trans "В корзину" %}
+                        </button>
                     </div>
 
                 </div>

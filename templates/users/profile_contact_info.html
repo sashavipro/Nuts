@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags django_vite %}
+
+{% block body_class %}page inside{% endblock %}
+
+{% block extra_css %}
+<style>
+    .step-content { max-width: 450px; }
+    .step-content .form-control { width: 100%; height: 50px; padding: 12px 15px; border: 1px solid #e1e1e1; border-radius: 0; margin-bottom: 15px; font-size: 16px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+    .step-content .form-control:focus { border-color: #337d5a; box-shadow: 0 0 0 0.2rem rgba(51, 125, 90, 0.25); }
+    .step-content .form-control::placeholder { color: #999; }
+
+    .avatar-upload-box { position: relative; width: 150px; height: 180px; overflow: hidden; border-radius: 5px; cursor: pointer; transition: opacity 0.3s ease; }
+    .avatar-upload-box:hover { opacity: 0.9; }
+    .avatar-upload-box img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.4); }
+    .avatar-overlay span { color: #fff; font-size: 14px; font-weight: 600; text-transform: uppercase; border-bottom: 1px dashed #fff; padding-bottom: 2px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="profile-section" style="padding: 60px 0; background: #fff; min-height: 50vh;">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-5">
+            <h1 style="color: #1a2f3a; margin: 0; font-weight: 800; font-size: 36px;">{% trans "Учетная запись" %}</h1>
+            <div class="manager-info d-flex flex-column" style="font-size: 14px; color: #555; border-left: 1px solid #eee; padding-left: 20px;">
+                <span>{{ page.manager_title }}</span>
+                <span style="color: #3d8063; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                    <i class="nut-icon icons-telephone"></i> {{ page.manager_phone }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                {% include "users/includes/profile_sidebar.html" %}
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div style="background: #e8f5e9; color: #337d5a; padding: 15px; border-radius: 5px; margin-bottom: 20px; font-weight: 600;">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="step-content">
+
+                                {% if request.user.user_type == 'legal' or request.user.user_type == 'fop' %}
+                                    {{ form.company_name }}
+                                {% endif %}
+
+                                {{ form.first_name }}
+                                {{ form.email }}
+                                {{ form.phone }}
+
+                                <button type="submit" class="button button-green" style="padding: 15px 35px; font-size: 16px; font-weight: 600; border: none; cursor: pointer; margin-top: 20px;">
+                                    {% trans "Сохранить" %}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-5 mt-4 mt-md-0 d-flex justify-content-center justify-content-md-start">
+                            <label for="id_avatar" class="avatar-upload-box">
+                                {% if request.user.avatar %}
+                                    <img id="avatar-preview-img" src="{{ request.user.avatar.url }}" alt="{% trans 'Аватар' %}">
+                                {% else %}
+                                    <img id="avatar-preview-img" src="{% vite_asset_url 'app/img/pic.png' %}" alt="placeholder">
+                                {% endif %}
+
+                                <div class="avatar-overlay">
+                                    <span>{% trans "Изменить фото" %}</span>
+                                </div>
+                                {{ form.avatar }}
+                            </label>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% for block in page.footer_blocks %}
+    {% include_block block %}
+{% endfor %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Скрипт для предварительного просмотра картинки до отправки на сервер
+    document.getElementById('id_avatar').addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('avatar-preview-img').setAttribute('src', event.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>
+{% endblock %}

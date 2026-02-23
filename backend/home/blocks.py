@@ -174,3 +174,30 @@ class LatestNewsBlock(blocks.StructBlock):
 
         context["news_items"] = news_items
         return context
+
+
+class FeaturedProductsBlock(blocks.StructBlock):
+    """Block for displaying products from the store on other pages."""
+
+    title = blocks.CharBlock(default=_("Продукция"), label=_("Заголовок"))
+    description = blocks.TextBlock(required=False, label=_("Описание"))
+    count = blocks.IntegerBlock(default=3, label=_("Количество товаров"))
+
+    class Meta:
+        """Meta options for FeaturedProductsBlock."""
+
+        template = "home/blocks/featured_products.html"
+        icon = "pick"
+        label = _("Блок товаров")
+
+    def get_context(self, value, parent_context=None):
+        """Get products from the database before rendering."""
+        context = super().get_context(value, parent_context=parent_context)
+
+        product = apps.get_model("shop", "Product")
+
+        count = value.get("count", 3)
+        products = product.objects.filter(live=True).order_by("-created_at")[:count]
+
+        context["products"] = products
+        return context

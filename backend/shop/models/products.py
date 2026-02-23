@@ -215,7 +215,17 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
         blank=True,
     )
 
+    products_per_page = models.PositiveIntegerField(
+        default=9,
+        verbose_name=_("Товаров на страницу"),
+        help_text=_(
+            "Укажите, сколько товаров показывать"
+            " изначально и при нажатии 'Показать еще'"
+        ),
+    )
+
     content_panels = Page.content_panels + [
+        FieldPanel("products_per_page"),
         FieldPanel("body"),
         FieldPanel("footer_blocks"),
     ]
@@ -260,7 +270,7 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
             products = products.order_by("-created_at")
             context["current_sort"] = "default"
 
-        paginator = Paginator(products, 9)
+        paginator = Paginator(products, self.products_per_page)
         page = request.GET.get("page")
         try:
             products_page = paginator.page(page)

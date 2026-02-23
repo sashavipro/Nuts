@@ -13,6 +13,7 @@ from .blocks import (
     BenefitsBlock,
     EcoBannerBlock,
     LatestNewsBlock,
+    FeaturedProductsBlock,
 )
 
 
@@ -26,6 +27,7 @@ class HomePage(Page):  # pylint: disable=too-many-ancestors
         [
             ("hero", HeroBlock(label=_("Главный экран (Hero)"))),
             ("about", AboutBlock(label=_("Блок 'О производителе'"))),
+            ("featured_products", FeaturedProductsBlock(label=_("Блок продуктов"))),
             ("stats", StatsBlock(label=_("Блок статистики"))),
             ("benefits", BenefitsBlock(label=_("Блок преимуществ"))),
             ("eco", EcoBannerBlock(label=_("Эко баннер"))),

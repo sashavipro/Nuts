@@ -1,4 +1,4 @@
-{% load i18n wagtailcore_tags wagtailimages_tags django_vite %}
+{% load i18n wagtailcore_tags wagtailimages_tags django_vite navigation_tags %}
 
 <style>
     .zoomLens {
@@ -64,7 +64,7 @@
 
             <div class="wrap">
                 <div class="production__item_title">
-                    <a href="{{ page.url }}{{ product.slug }}/" style="color: inherit; text-decoration: none;">
+                    <a href="{% get_shop_url %}{{ product.slug }}/" style="color: inherit; text-decoration: none;">
                         {{ product.title }}
                     </a>
                 </div>
@@ -126,7 +126,14 @@
                     </div>
                     <div class="sum_item">
                         <div class="sum_item_button">
-                            <a href="{{ page.url }}{{ product.slug }}/" class="button">{% trans "Купить" %}</a>
+                            <button hx-post="/shop/api/cart/add/{{ product.id }}/"
+                                    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                    hx-target="#cart-counter"
+                                    hx-swap="outerHTML"
+                                    class="button"
+                                    style="border: none; cursor: pointer; width: 100%;">
+                                {% trans "Купить" %}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -138,20 +145,24 @@
 {% endfor %}
 
 {% if products.has_next %}
-    <div id="shop-load-more-container" class="col-12 w-100">
-        <div class="wrapper">
-            <button class="button button_transparent"
-                    hx-get="?page={{ products.next_page_number }}&taste={{ current_taste|default:'' }}&sort={{ current_sort|default:'' }}"
-                    hx-target="#shop-load-more-container"
-                    hx-swap="outerHTML"
-                    hx-indicator="#shop-loader">
-                {% trans "Загрузить еще" %}
-            </button>
-        </div>
-        <div id="shop-loader" class="htmx-indicator text-center" style="display:none; margin-top: 10px;">
-            {% trans "Загрузка..." %}
+    <div id="shop-load-more-container" class="col-12 w-100 text-center" style="margin-top: 40px; margin-bottom: 20px;">
+        <button class="button button-green"
+                hx-get="?page={{ products.next_page_number }}{% if current_taste %}&taste={{ current_taste }}{% endif %}{% if current_weight %}&weight={{ current_weight }}{% endif %}{% if current_sort and current_sort != 'default' %}&sort={{ current_sort }}{% endif %}"
+                hx-target="#shop-load-more-container"
+                hx-swap="outerHTML"
+                hx-indicator="#shop-loader"
+                style="min-width: 250px; border: none; cursor: pointer;">
+            {% trans "Показать еще" %}
+        </button>
+
+        <div id="shop-loader" class="htmx-indicator text-center" style="display:none; margin-top: 15px;">
+            <i class="nut-icon icons-update" style="font-size: 24px; color: #337D5A; animation: spin 1s linear infinite;"></i>
         </div>
     </div>
+
+    <style>
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
 {% endif %}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVryhlGugrQFqAivETqIqrQrpBeimiuuuCR5F/0XXQsmEUK5XUg/yOQII39dM5Jt2T0h+cbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

@@ -1,0 +1,32 @@
+{% load i18n navigation_tags %}
+{% if cart and cart.items.exists %}
+    <div class="mc-items-wrapper">
+        {% for item in cart.items.all %}
+            <div class="mc-item">
+                <div class="mc-title">{{ item.product.title }}</div>
+
+                <div class="mc-qty-controls">
+                    <button hx-post="/shop/api/cart/item/{{ item.id }}/update/" hx-vals='{"action": "decrease"}' hx-target="#mini-cart-container" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>&lt;</button>
+                    <input type="text" value="{{ item.quantity }}" readonly>
+                    <button hx-post="/shop/api/cart/item/{{ item.id }}/update/" hx-vals='{"action": "increase"}' hx-target="#mini-cart-container" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>&gt;</button>
+                </div>
+
+                <div class="mc-price">{{ item.get_cost }} {% trans "грн." %}</div>
+
+                <button class="mc-remove" hx-post="/shop/api/cart/item/{{ item.id }}/remove/" hx-target="#mini-cart-container" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>&times;</button>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="mc-footer">
+        <div class="mc-total">
+            <span class="mc-total-label">{% trans "Всего" %}</span>
+            <span class="mc-total-sum">{{ cart.get_total_price }}</span>
+            <span class="mc-total-currency">{% trans "грн." %}</span>
+        </div>
+        <a href="{% get_cart_url %}" class="button button-green mc-checkout-btn">{% trans "Перейти в корзину" %}</a>
+    </div>
+{% else %}
+    <div class="mc-empty">
+        <p>{% trans "Ваша корзина пуста." %}</p>
+    </div>
+{% endif %}

@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load i18n navigation_tags %}
+
+{% block body_class %}page inside{% endblock %}
+
+{% block extra_css %}
+<style>
+    .step-title { font-size: 18px; font-weight: 800; color: #1a2f3a; margin: 40px 0 20px 0; }
+    .step-content { max-width: 450px; }
+    .step-content input[type="text"], .step-content input[type="email"] { width: 100%; padding: 12px 15px; border: 1px solid #e0e0e0; margin-bottom: 15px; font-size: 15px; outline: none; }
+    .step-content input::placeholder { color: #888; }
+
+    .custom-radio { display: flex; align-items: center; margin-bottom: 15px; cursor: pointer; user-select: none; }
+    .custom-radio input[type="radio"] { display: none; }
+    .custom-radio .radio-mark { width: 20px; height: 20px; border: 2px solid #3d8063; border-radius: 50%; margin-right: 15px; position: relative; flex-shrink: 0; }
+    .custom-radio input[type="radio"]:checked + .radio-mark::after { content: ''; width: 10px; height: 10px; background: #3d8063; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .radio-text { font-size: 15px; color: #1a2f3a; }
+    .badge-orange { background: #e67e22; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; margin-left: 10px; font-weight: 600; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="checkout-section" style="padding: 60px 0; background: #fff;">
+    <div class="container">
+
+        <div class="cart-header d-flex align-items-center gap-4 mb-5">
+            <h1 style="color: #1a2f3a; margin: 0; font-weight: 800; font-size: 36px;">{% trans "Оформление заказа" %}</h1>
+            {% with parent=page.get_parent.specific %}
+                {% if parent.manager_title %}
+                <div class="manager-info d-flex flex-column" style="font-size: 14px; color: #555; border-left: 1px solid #eee; padding-left: 20px;">
+                    <span>{{ parent.manager_title }}</span>
+                    <span style="color: #3d8063; font-weight: 700; display: flex; align-items: center; gap: 5px;">
+                        <i class="nut-icon icons-telephone"></i> {{ parent.manager_phone }}
+                    </span>
+                </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {% if cart and cart.items.exists %}
+
+            <div id="checkout-cart-table">
+                {% include "shop/includes/cart_table.html" %}
+            </div>
+
+            <div id="checkout-top-total" class="text-right mb-5" style="font-size: 18px; font-weight: 700;">
+                {% trans "Всего" %} <span style="font-size: 20px; color: #3d8063;">{{ cart.get_total_price }}</span> {% trans "грн." %}
+            </div>
+
+            <form method="post" action="." id="checkout-form">
+                {% csrf_token %}
+
+                <div class="checkout-step">
+                    <h3 class="step-title">1. {% trans "Контактные данные" %}</h3>
+                    <div class="step-content">
+                        {{ form.company_name }}
+                        {{ form.first_name }}
+                        {{ form.email }}
+                        {{ form.phone }}
+                        {% if form.errors %}
+                            <div class="form-errors" style="color: red; font-size: 13px;">{{ form.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="checkout-step">
+                    <h3 class="step-title">2. {% trans "Способ доставки" %}</h3>
+                    <div class="step-content">
+                        {% for choice_val, choice_label in form.delivery_method.field.choices %}
+                            <label class="custom-radio" for="delivery_{{ choice_val }}">
+                                <input type="radio" name="{{ form.delivery_method.name }}" value="{{ choice_val }}" id="delivery_{{ choice_val }}"
+                                       {% if form.delivery_method.value == choice_val or forloop.first and not form.delivery_method.value %}checked{% endif %}>
+                                <span class="radio-mark"></span>
+                                <span class="radio-text">
+                                    {{ choice_label }}
+                                    {% if choice_val == 'courier' %}<span class="badge-orange">{% trans "бесплатно" %}</span>{% endif %}
+                                </span>
+                            </label>
+                        {% endfor %}
+
+                        <div id="address-block" style="display:none; margin-top: 15px;">
+                            {{ form.city }}
+                            {{ form.address_line }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="checkout-step">
+                    <h3 class="step-title">3. {% trans "Способ оплаты" %}</h3>
+                    <div class="step-content">
+                        {% for choice_val, choice_label in form.payment_method.field.choices %}
+                            <label class="custom-radio" for="payment_{{ choice_val }}">
+                                <input type="radio" name="{{ form.payment_method.name }}" value="{{ choice_val }}" id="payment_{{ choice_val }}"
+                                       {% if form.payment_method.value == choice_val or forloop.first and not form.payment_method.value %}checked{% endif %}>
+                                <span class="radio-mark"></span>
+                                <span class="radio-text">{{ choice_label }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="cart-footer d-flex flex-column flex-md-row justify-content-between align-items-center" style="margin-top: 60px; padding-top: 30px; border-top: 1px solid #f0f0f0;">
+                    <a href="{% get_shop_url %}" class="btn-back d-flex align-items-center gap-2" style="color: #3d8063; font-weight: 600; border: 1px solid #3d8063; padding: 12px 25px; text-decoration: none;">
+                        <span>&larr;</span> {% trans "Продолжить покупки" %}
+                    </a>
+
+                    <div class="bottom-checkout d-flex align-items-center gap-4 mt-4 mt-md-0">
+                        <span id="checkout-bottom-total" style="font-size: 18px; font-weight: 700;">
+                            {% trans "Всего" %} <span style="font-size: 24px; color: #3d8063;">{{ cart.get_total_price }}</span> {% trans "грн." %}
+                        </span>
+                        <button type="submit" class="button button-green" style="padding: 15px 35px; font-size: 16px; font-weight: 600; border: none; cursor: pointer;">{% trans "Оформить заказ" %}</button>
+                    </div>
+                </div>
+
+            </form>
+        {% else %}
+            <p>{% trans "Ваша корзина пуста." %}</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const deliveryRadios = document.querySelectorAll('input[name="delivery_method"]');
+    const addressBlock = document.getElementById('address-block');
+    const addressInput = document.querySelector('input[name="address_line"]');
+
+    if (!addressBlock || !addressInput) return;
+
+    function updateFormVisibility() {
+        let selected = document.querySelector('input[name="delivery_method"]:checked');
+        if (!selected) return;
+
+        if (selected.value === 'pickup') {
+            addressBlock.style.display = 'none';
+        } else {
+            addressBlock.style.display = 'block';
+            if (selected.value === 'nova_poshta') {
+                addressInput.placeholder = '{% trans "Номер отделения или почтомата*" %}';
+            } else {
+                addressInput.placeholder = '{% trans "Улица, дом, квартира*" %}';
+            }
+        }
+    }
+
+    deliveryRadios.forEach(r => r.addEventListener('change', updateFormVisibility));
+    updateFormVisibility();
+});
+
+// Перехватываем сигнал об удалении последнего товара, чтобы вернуть юзера в пустую корзину
+document.body.addEventListener('cartEmpty', function() {
+    setTimeout(function() {
+        window.location.href = '{% get_cart_url %}';
+    }, 200);
+});
+</script>
+{% endblock %}

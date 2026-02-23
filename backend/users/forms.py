@@ -11,6 +11,8 @@ from .tasks import send_reset_email_task
 
 logger = logging.getLogger(__name__)
 
+# pylint: disable=too-few-public-methods
+
 
 class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ancestors
     """
@@ -20,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
     and conditional validation for user types (Physical, Legal, FOP).
     """
 
-    class Meta:  # pylint: disable=too-few-public-methods
+    class Meta:
         """Meta options for CustomUserCreationForm."""
 
         model = CustomUser
@@ -183,3 +185,65 @@ class CustomPasswordResetForm(PasswordResetForm):
         )
 
         logger.info("Password reset task queued for %s", to_email)
+
+
+class UserAddressForm(forms.ModelForm):
+    """
+    Form for editing user billing details and address.
+    """
+
+    class Meta:
+        """Meta options for UserAddressForm."""
+
+        model = CustomUser
+        fields = ["okpo", "country", "region", "city", "address_line"]
+
+        widgets = {
+            "okpo": forms.TextInput(
+                attrs={"placeholder": _("ОКПО"), "class": "form-control"}
+            ),
+            "country": forms.Select(
+                attrs={"id": "id_country", "class": "form-control"}
+            ),
+            "region": forms.Select(attrs={"id": "id_region", "class": "form-control"}),
+            "city": forms.TextInput(
+                attrs={"placeholder": _("Город*"), "class": "form-control"}
+            ),
+            "address_line": forms.TextInput(
+                attrs={"placeholder": _("Адрес"), "class": "form-control"}
+            ),
+        }
+
+
+class UserContactInfoForm(forms.ModelForm):
+    """
+    Form for editing user contact information and avatar.
+    """
+
+    class Meta:
+        """Meta options for UserContactInfoForm."""
+
+        model = CustomUser
+        fields = ["company_name", "first_name", "email", "phone", "avatar"]
+
+        widgets = {
+            "company_name": forms.TextInput(
+                attrs={"placeholder": _("Компания*"), "class": "form-control"}
+            ),
+            "first_name": forms.TextInput(
+                attrs={"placeholder": _("Контактное лицо*"), "class": "form-control"}
+            ),
+            "email": forms.EmailInput(
+                attrs={"placeholder": _("Email*"), "class": "form-control"}
+            ),
+            "phone": forms.TextInput(
+                attrs={"placeholder": _("Телефон*"), "class": "form-control"}
+            ),
+            "avatar": forms.FileInput(
+                attrs={
+                    "id": "id_avatar",
+                    "style": "display: none;",
+                    "accept": "image/*",
+                }
+            ),
+        }

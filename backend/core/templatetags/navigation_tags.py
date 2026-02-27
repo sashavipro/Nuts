@@ -3,8 +3,9 @@
 import logging
 from django import template
 from wagtail.models import Page, Site, Locale
-from shop.models import ShopIndexPage, CartPage
-from users.models import ProfilePage
+from django.templatetags.static import static
+from django_vite.templatetags.django_vite import vite_asset_url
+from django_vite.core.exceptions import DjangoViteAssetNotFoundError
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -22,15 +23,15 @@ def get_site_root(context):
         return None
 
     site = Site.find_for_request(request)
-    if not site:
-        logger.warning("Site not found for request in get_site_root.")
+
+    if not site or not site.root_page:
+        logger.warning("Site or root_page not found for request in get_site_root.")
         return None
 
     root_page = site.root_page
-
     current_locale = Locale.get_active()
 
-    if root_page.locale == current_locale:
+    if getattr(root_page, "locale", None) == current_locale:
         return root_page
 
     translated_root = root_page.get_translation_or_none(current_locale)
@@ -87,57 +88,59 @@ def has_hero_block(context):
     return False
 
 
+def _get_localized_page_url(model_class, request):
+    """A universal assistant for searching for a page URL based on language."""
+    current_locale = Locale.get_active()
+    page = model_class.objects.filter(live=True, locale=current_locale).first()
+
+    if not page:
+        page = model_class.objects.filter(live=True).first()
+
+    return page.get_url(request) if page and request else "/"
+
+
 @register.simple_tag(takes_context=True)
 def get_shop_url(context):
-    """
-    Returns the current URL of the store page for the current language.
-    Searches for the page by its type (ShopIndexPage), so the link always works,
-    even if the slug changes or the page is hidden from the menu.
-    """
-    request = context.get("request")
-    current_locale = Locale.get_active()
+    """Returns the current URL of the shop page for the active language."""
+    from shop.models import ShopIndexPage
 
-    shop_page = ShopIndexPage.objects.filter(live=True, locale=current_locale).first()
-
-    if not shop_page:
-        shop_page = ShopIndexPage.objects.filter(live=True).first()
-
-    if shop_page and request:
-        return shop_page.get_url(request)
-
-    return "/"
+    return _get_localized_page_url(ShopIndexPage, context.get("request"))
 
 
 @register.simple_tag(takes_context=True)
 def get_cart_url(context):
-    """Returns the current URL of the shopping cart page for the current language."""
-    request = context.get("request")
-    current_locale = Locale.get_active()
+    """Returns the current URL of the shopping cart page for the active language."""
+    from shop.models import CartPage
 
-    cart_page = CartPage.objects.filter(live=True, locale=current_locale).first()
-
-    if not cart_page:
-        cart_page = CartPage.objects.filter(live=True).first()
-
-    if cart_page and request:
-        return cart_page.get_url(request)
-
-    return "/"
+    return _get_localized_page_url(CartPage, context.get("request"))
 
 
 @register.simple_tag(takes_context=True)
 def get_profile_url(context):
-    """Returns the current URL of the profile page for the current language."""
-    request = context.get("request")
+    """Returns the current URL of the user profile page for the active language."""
+    from users.models import ProfilePage
 
-    current_locale = Locale.get_active()
+    return _get_localized_page_url(ProfilePage, context.get("request"))
 
-    profile_page = ProfilePage.objects.filter(live=True, locale=current_locale).first()
 
-    if not profile_page:
-        profile_page = ProfilePage.objects.filter(live=True).first()
+@register.simple_tag(takes_context=True)
+def get_checkout_url(context):
+    """Returns the current URL of the checkout page for the active language."""
+    from shop.models import CheckoutPage
 
-    if profile_page and request:
-        return profile_page.get_url(request)
+    return _get_localized_page_url(CheckoutPage, context.get("request"))
 
-    return "/"
+
+@register.simple_tag(takes_context=True)
+def safe_vite_asset(context, path):
+    """
+    Attempts to load the path via Vite.
+    If the file is not in the manifest, it does not crash the server,
+    but writes a warning to the log and returns the usual static.
+    """
+    try:
+        return vite_asset_url(path)
+    except DjangoViteAssetNotFoundError:
+        logger.warning(f"Vite asset missing: {path}")
+        # Если Vite не нашел файл, отдаем через стандартный static
+        return static(path)

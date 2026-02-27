@@ -1,3 +1,7 @@
+import './jquery-global.js';
+// import '../libs/jquery/dist/jquery.min.js';
+import '../libs/select2/dist/js/select2.min.js';
+
 window.addEventListener('load', function() {
     'use strict';
 

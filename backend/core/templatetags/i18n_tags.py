@@ -36,11 +36,28 @@ def _get_wagtail_translated_url(request, page, lang_code):
 def get_translated_url(context, lang_code):
     """
     Retrieves the translated URL for the current page or path.
-    Handles both Wagtail pages and standard Django views.
+    Handles both Wagtail pages and standard Django views,
+    including dynamic slugs for Product models.
     """
     request = context.get("request")
     if not request:
         return f"/{lang_code}/"
+
+    product = context.get("product")
+    if product:
+        from shop.models import ShopIndexPage
+
+        locale = Locale.objects.filter(language_code=lang_code).first()
+        if locale:
+            shop_page = ShopIndexPage.objects.filter(live=True, locale=locale).first()
+            if shop_page:
+                shop_url = shop_page.get_url(request)
+
+                translated_slug = (
+                    getattr(product, f"slug_{lang_code}", None) or product.slug
+                )
+
+                return f"{shop_url}{translated_slug}/"
 
     page = context.get("page")
 

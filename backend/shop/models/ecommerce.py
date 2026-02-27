@@ -46,7 +46,7 @@ def get_or_create_cart(request):
 class Cart(models.Model):
     """Represents a shopping cart tied to a user or a session."""
 
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         null=True,

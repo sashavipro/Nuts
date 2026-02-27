@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n django_vite %}
+{% load i18n django_vite navigation_tags %}
 
 {% block title %}{% trans "Страница не найдена" %} - 404{% endblock %}
 
@@ -11,7 +11,7 @@
                 <div class="wrap">
 
                     <h1 style="font-size: clamp(120px, 15vw, 220px); font-weight: 900; line-height: 1; margin-bottom: 20px;
-                        background: #337d5a url('{% vite_asset_url 'app/img/walnuts.jpg' %}') center/cover;
+                        background: #337d5a url('{% safe_vite_asset 'app/img/walnuts.jpg' %}') center/cover;
                         -webkit-background-clip: text;
                         -webkit-text-fill-color: transparent;">
                         404

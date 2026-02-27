@@ -327,3 +327,66 @@
         }
     });
 </script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const langMenu = document.getElementById('lang-menu');
+
+    if (langMenu) {
+        // Открытие/закрытие по клику
+        langMenu.addEventListener('click', function(e) {
+            e.stopPropagation(); // Предотвращаем всплытие клика
+            this.classList.toggle('active');
+        });
+
+        // Закрытие при клике в любое другое место на странице
+        document.addEventListener('click', function(e) {
+            if (!langMenu.contains(e.target)) {
+                langMenu.classList.remove('active');
+            }
+        });
+    }
+});
+</script>
+
+<style>
+    /* Делаем родителя относительным, чтобы список позиционировался от него */
+    #lang-menu {
+        cursor: pointer;
+        position: relative;
+    }
+
+    /* Стилизуем сам выпадающий список */
+    #lang-menu ul {
+        position: absolute; /* Вырываем из потока! Хедер больше не будет растягиваться */
+        top: 100%;          /* Сдвигаем ровно под кнопку */
+        right: 0;           /* Прижимаем к правому краю (или left: 0, если нужно к левому) */
+        z-index: 9999;      /* Выводим поверх всех остальных элементов сайта */
+
+        /* Декоративные стили (если у вас их не было в CSS) */
+        background-color: #fff;
+        border: 1px solid #eee;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        padding: 5px 0;
+        margin: 0;
+        min-width: 100%;
+        list-style: none;
+
+        display: none;      /* Скрыт по умолчанию */
+    }
+
+    #lang-menu ul li {
+        padding: 5px 15px;
+    }
+
+    #lang-menu ul li:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Показываем при классе active */
+    #lang-menu.active ul {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+</style>

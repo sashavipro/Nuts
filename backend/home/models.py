@@ -41,7 +41,7 @@ class HomePage(Page):  # pylint: disable=too-many-ancestors
     content_panels = Page.content_panels + [FieldPanel("body")]
 
     max_count = 1
-    parent_page_types = []
+    parent_page_types = ["wagtailcore.Page"]
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Meta options for HomePage."""

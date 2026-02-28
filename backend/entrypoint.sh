@@ -3,7 +3,7 @@
 set -e
 
 echo "Сборка статических файлов..."
-python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput --clear
 
 echo "Применение миграций базы данных..."
 python manage.py migrate --noinput

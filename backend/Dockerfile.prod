@@ -22,8 +22,11 @@ RUN poetry config virtualenvs.create false && poetry install --only main --no-in
 
 COPY templates/ ./templates/
 
-COPY backend/ ./backend/
-RUN chmod +x backend/entrypoint.sh
+WORKDIR /app/backend
+
+COPY backend/ .
+
+RUN chmod +x entrypoint.sh
 
 RUN mkdir -p /app/static_vite/assets/app/sass/
 
@@ -31,6 +34,6 @@ WORKDIR /app/backend
 
 EXPOSE 8000
 
-ENTRYPOINT ["/app/backend/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
 
 CMD ["gunicorn", "mysite.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "4", "--threads", "2"]

@@ -194,7 +194,8 @@ DJANGO_VITE_ASSETS_PATH = BASE_DIR.parent / "static_vite"
 DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
 
 STATICFILES_DIRS = [
-    DJANGO_VITE_ASSETS_PATH,
+    BASE_DIR.parent / "static_vite",
+    # DJANGO_VITE_ASSETS_PATH,
     # PROJECT_DIR / "static",
 ]
 

@@ -1,0 +1,4300 @@
+@import "vars"
+@import "fonts"
+@import "libs"
+@import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&display=swap&subset=latin-ext')
+
+/*==========  My css style  ==========*/
+
+::selection
+	background-color: $accent
+	color: #fff
+
+html
+	overflow-x: hidden
+
+body
+	position: relative
+	width: 100%
+	background: $default-bg
+	color: $text
+	font-family: $r-font
+	font-size: 19px
+	line-height: 26px
+	font-weight: 400
+	line-height: auto
+	overflow-x: hidden
+
+img
+	border: 0
+	transition: all 0.3s
+
+a
+	color: $text
+	transition: all 0.3s
+	cursor: pointer
+
+a:focus,
+a:hover
+	outline: none
+	text-decoration: none
+	color: $accent
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+	letter-spacing: 0.01em
+
+h1
+	font-style: normal
+	font-weight: 800
+	font-size: 62px
+	line-height: 73px
+	color: #fff
+
+h2
+	font-weight: 800
+	font-size: 45px
+	line-height: 53px
+
+.nopadding
+	padding-left: 0 !important
+	padding-right: 0 !important
+	margin-left: 0 !important
+	margin-right: 0 !important
+
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input
+	border: 0.5px solid rgba(0, 0, 0, 0.15)
+	box-shadow: none
+	outline: 0 none
+	&::-webkit-input-placeholder
+		font-family: $m-font
+		color: $text
+		font-style: normal
+		font-weight: 500
+		font-size: 14px
+		line-height: 17px
+	&:-moz-placeholder
+		font-family: $m-font
+		color: $text
+		font-style: normal
+		font-weight: 500
+		font-size: 14px
+		line-height: 17px
+	&::-moz-placeholder
+		font-family: $m-font
+		color: $text
+		font-style: normal
+		font-weight: 500
+		font-size: 14px
+		line-height: 17px
+	&:-ms-input-placeholder
+		font-family: $m-font
+		color: $text
+		font-style: normal
+		font-weight: 500
+		font-size: 14px
+		line-height: 17px
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus
+	border-color: $accent
+	box-shadow: none
+	outline: 0 none
+
+i[class^="icons-"]:before, i[class*=" icons-"]:before
+	font-family: "nut"
+	font-style: normal
+	font-weight: normal
+	speak: none
+	display: inline-block
+	text-decoration: inherit
+	width: 1em
+	margin-right: .2em
+	text-align: center
+	font-variant: normal
+	text-transform: none
+	line-height: 1em
+	margin-left: .2em
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+
+.icons-arrow-down:before
+	content: '\e801'
+.icons-bank-card:before
+	content: '\e802'
+.icons-breadcrumbs:before
+	content: '\e803'
+.icons-cake:before
+	content: '\e804'
+.icons-close-button:before
+	content: '\e805'
+.icons-copy:before
+	content: '\e806'
+.icons-dinner-table:before
+	content: '\e807'
+.icons-eco:before
+	content: '\e808'
+.icons-facebook:before
+	content: '\e809'
+.icons-food-scale-tool:before
+	content: '\e80a'
+.icons-group:before
+	content: '\e80b'
+.icons-group4:before
+	content: '\e80c'
+.icons-group5:before
+	content: '\e80d'
+.icons-post:before
+	content: '\e80e'
+.icons-icon:before
+	content: '\e80f'
+.icons-icon2:before
+	content: '\e810'
+.icons-icon3:before
+	content: '\e811'
+.icons-instagram:before
+	content: '\e812'
+.icons-left-arrow:before
+	content: '\e813'
+.icons-locked:before
+	content: '\e814'
+.icons-lorry:before
+	content: '\e815'
+.icons-magnifying-glass:before
+	content: '\e816'
+.icons-man-user:before
+	content: '\e817'
+.icons-museum:before
+	content: '\e818'
+.icons-package:before
+	content: '\e819'
+.icons-place-holder:before
+	content: '\e81a'
+.icons-play-icon:before
+	content: '\e81b'
+.icons-play-icon-1:before
+	content: '\e81c'
+.icons-right-arrow:before
+	content: '\e81d'
+.icons-right-arrow2:before
+	content: '\e81e'
+.icons-right-top:before
+	content: '\e81f'
+.icons-settings:before
+	content: '\e820'
+.icons-shop:before
+	content: '\e821'
+.icons-sticker:before
+	content: '\e822'
+.icons-supermarket:before
+	content: '\e823'
+.icons-telegram:before
+	content: '\e824'
+.icons-vector:before
+	content: '\e825'
+.icons-number:before
+	content: '\e826'
+.icons-swiper-left:before
+	content: '\e827'
+.icons-vector4:before
+	content: '\e828'
+.icons-read-more:before
+	content: '\e829'
+.icons-vector7:before
+	content: '\e82a'
+.icons-vector8:before
+	content: '\e82b'
+.icons-vector9:before
+	content: '\e82c'
+.icons-vector10:before
+	content: '\e82d'
+.icons-vector11:before
+	content: '\e82e'
+.icons-vector12:before
+	content: '\e82f'
+.icons-logo:before
+	content: '\e830'
+.icons-vector14:before
+	content: '\e831'
+.icons-phone:before
+	content: '\e832'
+.icons-qty-left:before
+	content: '\e833'
+.icons-qty-right:before
+	content: '\e834'
+.icons-viber:before
+	content: '\e835'
+.icons-view:before
+	content: '\e836'
+.icons-wallet:before
+	content: '\e837'
+.icons-warning-sigh:before
+	content: '\e838'
+.icons-warning:before
+	content: '\e839'
+.icons-whatsapp:before
+	content: '\e83a'
+.icons-xmlid-835:before
+	content: '\e83b'
+.icons-youtube:before
+	content: '\e83c'
+.icons-zoom:before
+	content: '\e83d'
+.icons-actciya:before
+	content: '\e83e'
+.icons-novinka:before
+	content: '\e83f'
+.icons-31318051_2036859819974011_5099292938282729472_n:before
+	content: '\e840'
+
+.sticker
+	position: absolute
+	top: 20px
+	left: -10px
+	z-index: 999
+	p
+		padding: 0 !important
+		margin: 0 !important
+		position: absolute
+		top: 0
+		left: 20px
+		color: #fff
+		// font-family: $m-font
+		font-style: normal	!important
+		font-weight: 800 !important
+		font-size: 11px !important
+		line-height: 34px !important
+		letter-spacing: 0.06em !important
+		text-transform: uppercase
+	.icons-actciya
+		font-size: 42px
+		line-height: 42px
+		color: #DD133B
+		&:after
+			content: ''
+			position: absolute
+			top: 7px
+			left: 10px
+			height: 20px
+			width: 75px
+			background: #DD133B
+	.icons-novinka
+		font-size: 42px
+		line-height: 42px
+		color: #E1843E
+		&:after
+			content: ''
+			position: absolute
+			top: 7px
+			left: 10px
+			height: 20px
+			width: 75px
+			background: #E1843E
+
+.button
+	height: auto
+	min-width: 148px
+	max-width: 100%
+	border: 1px solid $accent
+	background-color: $accent
+	color: #fff
+	padding: 13px 22px
+	font-style: normal
+	font-weight: 600
+	font-size: 13px
+	line-height: 15px
+	letter-spacing: 0.02em
+	display: inline-flex
+	justify-content: center
+	align-items: center
+	&:hover,
+	&:focus
+		color: $accent
+		border: 1px solid $accent
+		background-color: #fff
+
+.button_transparent
+	height: 52px
+	max-height: 100%
+	min-width: 148px
+	max-width: 100%
+	border: 1px solid $accent
+	background-color: transparent
+	color: $accent
+	padding: 13px 22px
+	font-style: normal
+	font-weight: 600
+	font-size: 13px
+	line-height: 15px
+	letter-spacing: 0.02em
+	display: inline-flex
+	justify-content: center
+	align-items: center
+	&:hover,
+	&:focus
+		color: #fff
+		border: 1px solid $accent
+		background-color: $accent
+
+.pr
+	position: relative
+
+.gray_section
+	background: #FBFBFB !important
+
+.popup__cart
+	position: absolute
+	width: auto
+	display: none
+	// min-height: 100%
+	background: #FFFFFF
+	border: 2px solid #337D5A
+	right: 15px
+	left: auto
+	top: -57px
+	z-index: 999
+	padding: 20px 30px
+	.wrap
+		position: relative
+		width: 408px
+		min-height: 132px
+		height: 100%
+		max-height: 100%
+	&_item
+		min-height: 57px
+		max-height: 100%
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+		.item_row
+			min-height: 57px
+			max-height: 100%
+		.item_title
+			text-align: left
+			p
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 19px
+				padding: 0
+				margin: 0
+				word-wrap: break-word
+		.item_quantity
+			display: flex
+			button
+				border: 0
+				background: #fff
+				padding: 0
+				outline: none
+				i
+					font-size: 10px
+					color: #8A8A8A
+					vertical-align: middle
+				&:first-child
+					padding-right: 8px
+				&:last-child
+					padding-left: 8px !important
+				&:hover
+					cursor: pointer
+					i
+						color: $accent
+			input
+				width: 44px
+				height: 28px
+				border: 1px solid rgba(0, 0, 0, 0.15)
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 32px
+				text-align: center
+		.item_sum
+			text-align: left
+			p
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 19px
+				margin: 0
+				padding: 0
+				word-wrap: break-word
+		.item_close
+			text-align: right
+			i
+				font-size: 12px
+				color: #C4C4C4
+				transition: all 0.3s
+				&:hover,
+				&focus
+					color: $accent
+	&_sum
+		display: flex
+		justify-content: flex-end
+		padding: 20px 0 0
+		flex-wrap: wrap
+		.sum_item
+			display: flex
+			.sum_item_title
+				margin-right: 8px
+				display: flex
+				align-items: center
+				p
+					font-style: normal
+					font-weight: bold
+					font-size: 18px
+					line-height: 32px
+					margin: 0
+					padding: 0
+					word-wrap: break-word
+			.sum_item_new
+				margin-right: 8px
+				display: flex
+				align-items: center
+				p
+					font-family: $m-font
+					font-style: normal
+					font-weight: bold
+					font-size: 22px
+					line-height: 32px
+					color: $accent
+					margin: 0
+					padding: 0
+					word-wrap: break-word
+				i
+					font-family: $m-font
+					font-style: normal
+					font-weight: 600
+					font-size: 14px
+					line-height: 32px
+			.sum_item_button
+				a
+					font-style: normal
+					font-weight: bold
+					font-size: 16px
+					line-height: 17px
+					padding: 17px 23px
+					word-wrap: break-word
+	&_clean
+		p
+			padding: 50px 0
+			margin: 0
+
+
+.top-header
+	&__line
+		min-height: 38px
+		background: rgba(245, 245, 245, 0.5)
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: 600
+			font-size: 14px
+			line-height: 17px
+			color: $accent
+			margin: 0
+			padding: 0
+			text-align: center
+		.row.align-items-center
+			min-height: 38px
+			.line_social
+				list-style-type: none
+				margin: 0
+				padding: 0
+				li
+					display: inline-block
+					margin-right: -26px
+					a
+						color: #323232
+						font-size: 13px
+						padding: 0 20px
+						&:hover,
+						&:focus
+							color: $hover
+					&:first-child
+						a
+							padding-left: 0
+			.wrap
+				display: flex
+				align-items: center
+				justify-content: flex-end
+				.log_in
+					list-style-type: none
+					margin: 0 0 5px 0
+					padding: 0
+					li
+						font-style: normal
+						font-weight: 500
+						font-size: 13px
+						line-height: 15px
+						letter-spacing: 0.02em
+						display: inline-block
+						vertical-align: middle
+						a
+							display: flex
+							i
+								color: #93B474
+								font-size: 11px
+							span
+								display: inline-block
+						&:last-child
+							a
+								padding-left: 20px
+								padding-right: 40px
+								span
+									border-bottom: 2px solid #93B474
+						&:first-child
+							a
+								i
+									padding-right: 5px
+				.lang-menu
+					ul
+						margin: 0
+						padding: 0
+						width: auto
+						list-style: none
+						display: none
+						border: 1px solid rgba(0, 0, 0, 0.08)
+						z-index: 99
+						li
+							background: #fff
+							transition: all 0.3s
+							position: relative
+							&:after
+								content: ''
+								position: absolute
+								width: 38px
+								height: 1px
+								background: rgba(0, 0, 0, 0.08)
+								left: 5px
+								z-index: 99
+							&:hover
+								background: #337D5A
+								color: #fff
+								a
+									color: #fff
+							a
+								display: block
+								width: 100%
+								padding: 15px 15px
+								text-decoration: none
+								font-style: normal
+								font-weight: 500
+								font-size: 13px
+								line-height: 15px
+								letter-spacing: 0.02em
+								color: #1A2F3F
+							&:last-child
+								&:after
+									display: none
+					.title
+						display: inline-block
+						font-style: normal
+						font-weight: 500
+						font-size: 13px
+						line-height: 15px
+						letter-spacing: 0.02em
+						cursor: pointer
+						width: 50px
+						height: 38px
+						position: relative
+						padding: 10px 15px
+						border: 1.5px solid rgba(245, 245, 245, 0.5)
+						&:after
+							content: "\e825"
+							font-family: "nut"
+							display: block
+							font-size: 4px
+							position: absolute
+							color: #93B474
+							top: 12px
+							right: 5px
+				.lang-menu.open
+					.title
+						border: 1.5px solid #337D5A
+						&:after
+							transform: rotate(180deg)
+					ul
+						display: block
+						position: absolute
+	&__logo
+		min-height: 85px
+		display: flex
+		align-items: center
+		border: 1px solid rgba(0, 0, 0, 0.06)
+		position: relative
+		.mobile-menu-button
+			width: 19px
+			height: 17px
+			position: absolute
+			top: 20%
+			left: 15px
+			&:hover,
+			&:focus
+				cursor: pointer
+		.logo
+			display: flex
+			align-items: center
+			width: 220px
+			img
+				height: 53px
+				width: 54px
+			span
+				font-style: normal
+				font-weight: 800
+				font-size: 15px
+				line-height: 18px
+				letter-spacing: 0.02em
+				margin-left: 8px
+			&:hover,
+			&:focus
+				color: $text
+		.wrap
+			display: flex
+			justify-content: center
+			align-items: center
+			.logo_social
+				list-style-type: none
+				margin: 0 15px 0 0
+				padding: 0
+				li
+					display: inline-block
+					a
+						display: block
+						text-align: center
+						border-radius: 10em
+						width: 31px
+						height: 31px
+						background: $accent
+						color: #fff
+						font-size: 17px
+						margin: 0 3px
+						i
+							font-size: 30px
+							&:before
+								margin-left: 0 !important
+			.logo_tel
+				list-style-type: none
+				margin: 0 0 0 15px
+				padding: 0
+				li
+					margin-bottom: 2.5px
+					a
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 13px
+						line-height: 16px
+						display: block
+						span
+							color: $accent
+		.wraper
+			display: flex
+			align-items: center
+			justify-content: space-between
+			.logo_button
+				list-style-type: none
+				margin: 0
+				padding: 0
+				display: flex
+				align-items: center
+				li
+					display: inline-flex
+					align-items: center
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 12px
+						line-height: 15px
+						letter-spacing: 0.02em
+						margin: 0
+						padding-left: 15px
+			.logo_number
+				color: $accent
+				position: relative
+				display: block
+				i
+					font-size: 24px
+				span
+					position: absolute
+					top: 0
+					left: 20px
+					color: #fff
+					font-family: $m-font
+					font-style: normal
+					font-weight: bold
+					font-size: 8px
+					line-height: 10px
+					background: $hover
+					border-radius: 10em
+					width: 15px
+					height: 15px
+					text-align: center
+					line-height: 15px
+	&__menu
+		min-height: 56px
+		position: relative
+		display: flex
+		align-items: center
+		text-align: center
+		.container
+			position: relative
+		nav
+			width: 100%
+			display: flex
+			justify-content: center
+			ul
+				list-style-type: none
+				display: flex
+				align-items: center
+				margin: 0
+				padding: 0
+				li
+					padding: 0 20px
+					a
+						font-style: normal
+						font-weight: 500
+						font-size: 15px
+						line-height: 18px
+						letter-spacing: 0.02em
+						display: block
+						position: relative
+						padding: 0 10px
+						&:hover,
+						&:focus
+							color: $accent
+							&:after
+								content: ''
+								position: absolute
+								height: 3px
+								width: 100%
+								background: $accent
+								left: 0
+								bottom: -19px
+
+.overlay
+	position: relative
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		background: rgba(0, 0, 0, 0.45)
+
+.sl-overlay
+	background: rgba(51, 125, 90, 0.95) !important
+	opacity: 1 !important
+
+.overlay_green
+	position: relative
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		background: rgba(51, 125, 90, 0.95)
+		z-index: 0
+
+.overlay_green.overlay_green_bg
+	position: relative
+	&:after
+		content: ''
+		position: absolute
+		top: 0
+		bottom: 0
+		left: 0
+		right: 0
+		background: rgba(51, 125, 90, 0.95)
+		z-index: 0
+	&:before
+		content: '\e830'
+		font-family: "nut"
+		position: absolute
+		font-size: 300px
+		line-height: 300px
+		color: rgba(255, 255, 255, 0.08)
+		bottom: -25px
+		right: -33px
+		display: block
+		z-index: 99
+
+.parallax
+	overflow: hidden
+
+
+.first-section
+	position: relative
+	min-height: 600px
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center center
+	.row
+		min-height: 600px
+		.wrap
+			z-index: 1
+			h1
+				text-align: center
+				margin-bottom: 30px
+				z-index: 1
+			p
+				text-align: center
+				font-style: normal
+				font-weight: 600
+				font-size: 25px
+				line-height: 29px
+				text-align: center
+				letter-spacing: 0.01em
+				color: #fff
+				margin-bottom: 30px
+			span
+				width: 61px
+				height: 61px
+				text-align: center
+				display: block
+				border: 2px solid #FFFFFF
+				border-radius: 10em
+				text-align: center
+				margin: 0 auto
+				transition: background 0.3s
+				i
+					color: #fff
+					font-size: 56px
+					line-height: 53px
+					&:before
+						margin-left: -3px
+						margin-right: 0
+						line-height: inherit
+			&:hover,
+			&:focus
+				span
+					border: 2px solid $accent
+					border-radius: 10em
+					background: $accent
+		h1
+			text-align: center
+			margin-bottom: 30px
+			z-index: 1
+		a
+			z-index: 1
+			h1
+				text-align: center
+				margin-bottom: 30px
+				z-index: 1
+			p
+				text-align: center
+				font-style: normal
+				font-weight: 600
+				font-size: 25px
+				line-height: 29px
+				text-align: center
+				letter-spacing: 0.01em
+				color: #fff
+				margin-bottom: 30px
+			span
+				width: 61px
+				height: 61px
+				text-align: center
+				display: block
+				border: 2px solid #FFFFFF
+				border-radius: 10em
+				text-align: center
+				margin: 0 auto
+				transition: background 0.3s
+				i
+					color: #fff
+					font-size: 56px
+					line-height: 53px
+					&:before
+						margin-left: -3px
+						margin-right: 0
+						line-height: inherit
+			&:hover,
+			&:focus
+				span
+					border: 2px solid $accent
+					border-radius: 10em
+					background: $accent
+	&__error
+		h1
+			font-size: 250px
+			line-height: 250px
+			margin: 10px
+			text-transform: uppercase
+			background: url('../img/e0678ef1.jpg')
+			background-repeat: no-repeat
+			background-size: contain
+			background-position: center center
+			background-clip: text
+			color: transparent
+			font-family: $m-font
+			font-weight: 800
+		p
+			font-style: normal !important
+			font-weight: 500 !important
+			font-size: 18px !important
+			line-height: 30px !important
+			text-align: center !important
+			letter-spacing: 0.01em !important
+			color: $text !important
+		a.with_arrow
+			font-size: 16px
+			line-height: 17px
+			padding: 17px 30px
+			i
+				font-size: 22px
+				vertical-align: middle
+			b
+				vertical-align: middle
+				font-weight: bold !important
+		.wrap
+			text-align: center
+
+.inside
+	.first-section
+		min-height: 300px !important
+		.row
+			min-height: 300px !important
+
+.production
+	min-height: 600px
+	background: #fff
+	padding: 80px 0
+	h2
+		text-align: center
+		margin-bottom: 30px
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 18px
+		line-height: 22px
+		text-align: center
+		letter-spacing: 0.01em
+		margin-bottom: 60px
+	.wrapper
+		display: flex
+		align-items: flex-end
+		width: 100%
+		min-height: 120px
+		justify-content: center
+	&__item
+		min-height: 534px
+		max-height: 100%
+		width: 100%
+		background: #fff
+		border: 1px solid rgba(0, 0, 0, 0.08)
+		margin-top: 30px
+		position: relative
+		&:hover
+			border: 1px solid #93B474
+			.products-container
+				&:hover
+					cursor: pointer
+				.swiper-button-next,
+				.swiper-button-prev
+					opacity: 1
+		.products-container
+			height: 278px
+			background: #FCFCFC
+			img
+				width: 100%
+				height: 278px
+				object-fit: scale-down
+				object-position: 50% 50%
+			&:hover
+				.zoom
+					opacity: 1
+			.zoom
+				position: absolute
+				width: 55px
+				height: 55px
+				top: 50%
+				left: 50%
+				margin-left: -27.5px
+				margin-top: -27.5px
+				z-index: 99
+				opacity: 0
+			.swiper-button-next
+				background-image: none
+				opacity: 0
+				&:after
+					content: '\e803'
+					font-family: "nut"
+					position: relative
+					float: right
+					font-size: 22px
+					top: 25%
+					right: 20px
+					color: #C4C4C4
+					line-height: initial
+				&:hover,
+				&:focus
+					&:after
+						color: $accent
+			.swiper-button-prev
+				background-image: none
+				opacity: 0
+				&:after
+					content: '\e827'
+					font-family: "nut"
+					position: relative
+					font-size: 24px
+					float: left
+					top: 22%
+					left: 20px
+					color: #C4C4C4
+					line-height: initial
+				&:hover,
+				&:focus
+					&:after
+						color: $accent
+		&_title
+			font-style: normal
+			font-weight: bold
+			font-size: 18px
+			line-height: 21px
+			padding: 20px 30px 0 20px
+			letter-spacing: 0.01em
+		&_art
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 18px
+			padding: 5px 30px 0 20px
+			letter-spacing: 0.01em
+			color: #8A8A8A
+		&_descr
+			font-style: normal
+			font-weight: 600
+			font-size: 16px
+			line-height: 22px
+			letter-spacing: 0.01em
+			color: #000
+			padding: 10px 30px 0 20px
+		&_weight
+			display: flex
+			justify-content: space-between
+			padding: 10px 30px 20px 20px
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+			.weight_item
+				display: flex
+				align-items: center
+				&_descr
+					p
+						margin: 0
+						padding: 0
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 14px
+						line-height: 17px
+						letter-spacing: 0.01em
+						color: #8A8A8A
+						text-align: left
+						span
+							color: $accent
+							i
+								font-style: normal
+				&_icon
+					i
+						color: $accent
+						padding-right: 5px
+		&_sum
+			padding: 15px 20px
+			display: flex
+			justify-content: space-between
+			align-items: center
+			.sum_item
+				display: flex
+				align-items: flex-end
+				flex-wrap: wrap
+				&_title
+					padding-right: 5px
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 15px
+						line-height: 18px
+						letter-spacing: 0.01em
+						margin: 0
+						padding: 0
+				&_new
+					padding-right: 5px
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 20px
+						line-height: 24px
+						letter-spacing: 0.01em
+						color: $accent
+						padding: 0
+						margin: 0
+						i
+							font-family: $m-font
+							font-style: normal
+							font-weight: 600
+							font-size: 15px
+							line-height: 18px
+							letter-spacing: 0.01em
+				&_old
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 16px
+						line-height: 20px
+						letter-spacing: 0.01em
+						padding: 0
+						margin: 0
+						text-decoration: line-through
+						color: #8A8A8A
+						i
+							font-family: $m-font
+							font-style: normal
+							font-weight: 500
+							font-size: 12px
+							line-height: 16px
+							letter-spacing: 0.01em
+	&__filter
+		margin-bottom: 50px
+		.production__filter_title
+			display: flex
+			align-items: center
+			p
+				font-style: normal
+				font-weight: bold
+				font-size: 17px
+				line-height: 20px
+				letter-spacing: 0.01em
+				padding-right: 8px
+				margin: 0
+			i
+				font-size: 21px
+				color: $accent
+		.production__filter_price
+			display: flex
+			align-items: center
+			span
+				font-style: normal
+				font-weight: bold
+				font-size: 17px
+				line-height: 20px
+				letter-spacing: 0.01em
+				padding: 0 8px
+			i
+				font-size: 12.5px
+				color: #8A8A8A
+			&:hover
+				cursor: pointer
+		.production__filter_button
+			display: flex
+			justify-content: space-between
+			align-items: center
+			.button_close
+				font-style: normal
+				font-weight: 600
+				font-size: 14px
+				line-height: 16px
+				letter-spacing: 0.01em
+				color: #8A8A8A
+				i
+					transition: all 0.3s
+				&:hover
+					i
+						color: $accent
+
+.customers
+	padding: 80px 0
+	&__title
+		font-style: normal
+		font-weight: 800
+		font-size: 45px
+		line-height: 53px
+		letter-spacing: 0.01em
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 16px
+		line-height: 24px
+		margin-bottom: 30px
+
+
+
+.accent
+	color: $accent !important
+
+.eco
+	position: relative
+	min-height: 740px
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center center
+	.row
+		min-height: 740px
+		a
+			z-index: 1
+			h2
+				text-align: center
+				margin-bottom: 30px
+				font-style: normal
+				font-weight: 800
+				font-size: 45px
+				line-height: 53px
+				letter-spacing: 0.01em
+				color: #fff
+			p
+				text-align: center
+				font-style: normal
+				font-weight: 600
+				font-size: 22px
+				line-height: 28px
+				text-align: center
+				letter-spacing: 0.01em
+				color: #fff
+				margin-bottom: 30px
+			i
+				color: #fff
+				font-size: 70px
+				text-align: center
+				display: block
+				margin-bottom: 30px
+
+.benefit
+	min-height: 600px
+	// background: #fff
+	padding: 80px 0
+	h2
+		text-align: center
+		margin-bottom: 30px
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 18px
+		line-height: 22px
+		text-align: center
+		letter-spacing: 0.01em
+		margin-bottom: 60px
+	.wrap
+		position: relative
+		min-height: 525px
+		overflow: hidden
+		margin: 15px 0
+		&:hover,
+		&:focus
+			.benefit__item.overlay
+				// opacity: 0.3
+				z-index: 1
+			.benefit__item.item_hover
+				opacity: 1
+
+	&__item
+		min-height: 525px
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: 100%
+		display: flex
+		justify-content: center
+		align-items: center
+		flex-direction: column
+		padding: 40px
+		width: 100%
+		i
+			z-index: 1
+			font-size: 50px
+			color: #fff
+			position: relative
+			margin-bottom: 20px
+		h3
+			z-index: 1
+			font-style: normal
+			font-weight: 800
+			font-size: 40px
+			line-height: 47px
+			letter-spacing: 0.01em
+			position: relative
+			color: #fff
+			margin-bottom: 20px
+		p
+			z-index: 1
+			position: relative
+			color: #fff
+			font-style: normal
+			font-weight: 600
+			font-size: 18px
+			line-height: 23px
+			text-align: center
+			letter-spacing: 0.01em
+			margin-bottom: 20px
+	&__item.item_hover
+		position: absolute
+		width: 100%
+		z-index: 2
+		transition: .5s ease
+		opacity: 0
+		top: 0
+	&__item.overlay
+		z-index: 3
+		opacity: 1
+		transition: .5s ease
+		// backface-visibility: hidden
+		position: relative
+
+.benefit-news
+	min-height: 600px
+	// background: #fff
+	padding: 20px 0 80px
+	.wrapper
+		display: flex
+		justify-content: center
+		width: 100%
+		align-items: flex-end
+		min-height: 90px
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 45px
+		line-height: 53px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		text-align: center
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 18px
+		line-height: 22px
+		text-align: center
+		letter-spacing: 0.01em
+		margin-bottom: 30px
+	.wrap
+		position: relative
+		min-height: 556px
+		overflow: hidden
+		margin: 15px 0
+		&:hover,
+		&:focus
+			.benefit-news__item.overlay
+				// opacity: 0.3
+				z-index: 1
+			.benefit-news__item.item_hover
+				opacity: 1
+	.item_small
+		min-height: 405px !important
+	.benefit-news__item
+		min-height: 556px
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: 100%
+		display: flex
+		justify-content: flex-start
+		align-items: flex-start
+		flex-direction: column
+		padding: 75px 40px 0
+		width: 100%
+	.benefit-news__item_video_text
+		display: flex
+		justify-content: center
+		align-items: center
+		h3
+			margin-bottom: 20px
+		p
+			text-align: center !important
+		span
+			width: 61px
+			height: 61px
+			text-align: center
+			display: block
+			border: 2px solid #FFFFFF
+			border-radius: 10em
+			text-align: center
+			margin: 0 auto
+			transition: background 0.3s
+			margin-bottom: 30px
+			z-index: 9
+			i
+				color: #fff
+				font-size: 56px
+				line-height: 53px
+				&:before
+					margin-left: -3px
+					margin-right: 0
+					line-height: inherit
+		&:hover,
+		&:focus
+			span
+				border: 2px solid $accent
+				border-radius: 10em
+				background: $accent
+	.benefit-news__item_video
+		&:before
+			content: '\e81b'
+			font-family: "nut"
+			position: absolute
+			top: 50%
+			left: 50%
+			margin-top: -31.5px
+			margin-left: -31.5px
+			background: transparent
+			height: 61px
+			width: 61px
+			font-size: 56px
+			line-height: 56px
+			border: 2px solid #fff
+			border-radius: 20em
+			color: #fff
+			z-index: 99
+			transition: background 0.3s
+		&:hover
+			&:before
+				background: $accent
+				border: 2px solid $accent
+	.benefit-news__item
+		i
+			z-index: 1
+			font-size: 50px
+			color: #fff
+			position: relative
+			margin-bottom: 20px
+		h3
+			z-index: 1
+			position: relative
+			font-family: $m-font
+			font-style: normal
+			font-weight: 800
+			font-size: 22px
+			line-height: 27px
+			letter-spacing: 0.01em
+			margin-bottom: 30px
+			color: #fff
+		p
+			z-index: 1
+			position: relative
+			color: #fff
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 22px
+			text-align: left
+	.benefit-news__item.item_hover
+		position: absolute
+		width: 100%
+		z-index: 2
+		transition: .5s ease
+		opacity: 0
+		top: 0
+	.benefit-news__item.overlay
+		z-index: 3
+		opacity: 1
+		transition: .5s ease
+		// backface-visibility: hidden
+		position: relative
+	.news__item_video
+		span.video_wrap
+			position: relative
+			&:before
+				content: '\e81b'
+				font-family: "nut"
+				position: absolute
+				top: 50%
+				left: 50%
+				margin-top: -31.5px
+				margin-left: -31.5px
+				background: transparent
+				height: 57px
+				width: 57px
+				font-size: 53px
+				line-height: 53px
+				border: 2px solid #fff
+				border-radius: 20em
+				color: #fff
+				z-index: 99
+				transition: background 0.3s
+			&:hover
+				&:before
+					background: $accent
+					border: 2px solid $accent
+	.news__item
+		min-height: 100%
+		background: #fff
+		img
+			max-height: 270px
+			height: 270px
+			width: 100%
+			object-fit: cover
+			object-position: 50% 50%
+		.wraper
+			padding: 0
+			.item_data
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 13px
+				line-height: 22px
+				letter-spacing: 0.01em
+				padding-top: 22px
+				padding-bottom: 22px
+				color: #8A8A8A
+			h3
+				font-style: normal
+				font-weight: bold
+				font-size: 15px
+				line-height: 20px
+				letter-spacing: 0.01em
+				min-height: 70px
+				margin: 0
+			p
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 20px
+				letter-spacing: 0.01em
+				padding-bottom: 22px
+				margin: 0
+				text-align: left
+			a
+				font-style: normal
+				font-weight: bold
+				font-size: 14px
+				line-height: 20px
+				letter-spacing: 0.01em
+				i
+					font-size: 10px
+	.benefit-news__img
+		img
+			width: 100%
+			min-height: 526px
+			object-fit: cover
+			object-position: 50% 50%
+
+.gallery_section
+	.wrapper
+		display: flex
+		justify-content: center
+		width: 100%
+		align-items: flex-end
+		min-height: 120px
+	.wrap
+		position: relative
+		min-height: 556px
+		overflow: hidden
+		margin: 15px 0
+		&:hover,
+		&:focus
+			.benefit__item.overlay
+				// opacity: 0.3
+				z-index: 1
+			.benefit__item.item_hover
+				opacity: 1
+	.item_small
+		min-height: 405px !important
+	.benefit__item
+		min-height: 556px
+		background-size: cover
+		background-repeat: no-repeat
+		background-position: 100%
+		display: flex
+		justify-content: flex-start
+		align-items: flex-start
+		flex-direction: column
+		padding: 75px 40px 0
+		width: 100%
+	.benefit__item_video_text
+		display: flex
+		justify-content: center
+		align-items: center
+		h3
+			margin-bottom: 20px
+		p
+			text-align: center !important
+		span
+			width: 61px
+			height: 61px
+			text-align: center
+			display: block
+			border: 2px solid #FFFFFF
+			border-radius: 10em
+			text-align: center
+			margin: 0 auto
+			transition: background 0.3s
+			margin-bottom: 30px
+			z-index: 9
+			i
+				color: #fff
+				font-size: 56px
+				line-height: 53px
+				&:before
+					margin-left: -3px
+					margin-right: 0
+					line-height: inherit
+		&:hover,
+		&:focus
+			span
+				border: 2px solid $accent
+				border-radius: 10em
+				background: $accent
+	.benefit__item_video
+		&:before
+			content: '\e81b'
+			font-family: "nut"
+			position: absolute
+			top: 50%
+			left: 50%
+			margin-top: -31.5px
+			margin-left: -31.5px
+			background: transparent
+			height: 61px
+			width: 61px
+			font-size: 56px
+			line-height: 56px
+			border: 2px solid #fff
+			border-radius: 20em
+			color: #fff
+			z-index: 99
+			transition: background 0.3s
+		&:hover
+			&:before
+				background: $accent
+				border: 2px solid $accent
+	.benefit__item
+		i
+			z-index: 1
+			font-size: 50px
+			color: #fff
+			position: relative
+			margin-bottom: 20px
+		h3
+			z-index: 1
+			position: relative
+			font-family: $m-font
+			font-style: normal
+			font-weight: 800
+			font-size: 22px
+			line-height: 27px
+			letter-spacing: 0.01em
+			margin-bottom: 30px
+		p
+			z-index: 1
+			position: relative
+			color: #fff
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 22px
+			text-align: left
+	.benefit__item.item_hover
+		position: absolute
+		width: 100%
+		z-index: 2
+		transition: .5s ease
+		opacity: 0
+		top: 0
+	.benefit__item.overlay
+		z-index: 3
+		opacity: 1
+		transition: .5s ease
+		// backface-visibility: hidden
+		position: relative
+
+.goal
+	position: relative
+	min-height: 740px
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center center
+	.row
+		min-height: 740px
+		a
+			z-index: 1
+			h2
+				text-align: center
+				margin-bottom: 30px
+				font-style: normal
+				font-weight: 800
+				font-size: 45px
+				line-height: 53px
+				letter-spacing: 0.01em
+				color: #fff
+			p
+				text-align: center
+				padding-top: 10px
+				i
+					font-style: italic
+					font-weight: 500
+					font-size: 24px
+					line-height: 28px
+					letter-spacing: 0.01em
+					text-align: center
+					color: #fff
+			span
+				width: 61px
+				height: 61px
+				text-align: center
+				display: block
+				border: 2px solid #FFFFFF
+				border-radius: 10em
+				text-align: center
+				margin: 0 auto
+				transition: background 0.3s
+				i
+					color: #fff
+					font-size: 56px
+					line-height: 53px
+					&:before
+						margin-left: -3px
+						margin-right: 0
+						line-height: inherit
+			&:hover,
+			&:focus
+				span
+					border: 2px solid $accent
+					border-radius: 10em
+					background: $accent
+
+.history
+	min-height: 683px
+	padding: 90px 0
+	&__blockquote
+		img
+			width: 100%
+			min-height: 493px
+			object-fit: cover
+			object-position: 50% 50%
+	&__content
+		background: #337D5A
+		position: relative
+		height: 100%
+		padding: 30px 40px 0 40px
+		margin-left: 60px
+		overflow: hidden
+		h3
+			font-style: normal
+			font-weight: 800
+			font-size: 32px
+			line-height: 38px
+			letter-spacing: 0.01em
+			color: #fff
+			margin-bottom: 40px
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 22px
+			color: #FCFCFC
+			margin-bottom: 30px
+		&:after
+			content: '\e830'
+			font-family: "nut"
+			position: absolute
+			font-size: 300px
+			line-height: 300px
+			color: rgba(255, 255, 255, 0.08)
+			bottom: -25px
+			right: -33px
+			display: block
+	&__blockquote
+		.blockquote_block
+			padding: 40px 30px
+			h3
+				font-style: normal
+				font-weight: 800
+				font-size: 32px
+				line-height: 38px
+				letter-spacing: 0.01em
+				margin-bottom: 20px
+			p
+				font-style: normal
+				font-weight: 500
+				font-size: 16px
+				line-height: 21px
+				letter-spacing: 0.01em
+				font-family: 'Lato', sans-serif
+				margin-bottom: 40px
+			blockquote
+				font-style: italic
+				font-weight: 500
+				font-size: 15px
+				line-height: 17px
+				letter-spacing: 0.01em
+				margin-left: 40px
+				margin-bottom: 60px
+				position: relative
+				&:before
+					content: '\e82d'
+					color: #337D5A
+					font-family: "nut"
+					font-size: 17px
+					line-height: 26px
+					margin-right: .25em
+					left: -40px
+					top: -10px
+					position: absolute
+
+
+.timer
+	min-height: 292px
+	background: #fff
+	text-align: center
+	padding: 85px 0
+	&__single
+		font-family: $m-font
+		font-style: normal
+		font-weight: 800
+		font-size: 72px
+		line-height: 72px
+		letter-spacing: 0.01em
+		display: inline-block
+		margin-bottom: 20px
+	sup
+		font-style: normal
+		font-weight: 900
+		font-size: 18px
+		line-height: 21px
+		letter-spacing: 0.05em
+		vertical-align: top
+		line-height: 60px
+	&__descr
+		font-style: normal
+		font-weight: normal
+		font-size: 18px
+		line-height: 21px
+		text-align: center
+		letter-spacing: 0.02em
+
+.manufacturer
+	min-height: 662px
+	padding: 85px 0
+	position: relative
+	h2
+		margin-bottom: 30px
+	&__descr
+		margin: 0 0 20px 0
+		font-style: normal
+		font-weight: 600
+		font-size: 16px
+		// line-height: 19px
+		letter-spacing: 0.01em
+		span
+			a
+				color: #337D5A
+	a.button
+		margin-top: 10px
+	&__item_video
+		&:before
+			content: '\e81b'
+			font-family: "nut"
+			position: absolute
+			top: 50%
+			left: 50%
+			margin-top: -31.5px
+			margin-left: -31.5px
+			background: transparent
+			height: 57px
+			width: 57px
+			font-size: 53px
+			line-height: 53px
+			border: 2px solid #fff
+			border-radius: 20em
+			color: #fff
+			z-index: 99
+			transition: background 0.3s
+		&:hover
+			&:before
+				background: $accent
+				border: 2px solid $accent
+	&-container
+		height: 472px
+		.swiper-slide
+			img
+				height: 472px
+				object-fit: cover
+				object-position: 50% 50%
+				width: 100%
+			&:hover
+				cursor: pointer
+			span
+				width: 61px
+				height: 61px
+				text-align: center
+				display: block
+				border: 2px solid #FFFFFF
+				border-radius: 10em
+				text-align: center
+				margin: 0 auto
+				transition: background 0.3s
+				position: absolute
+				top: 50%
+				left: 50%
+				margin-left: -30.5px
+				margin-top: -30.5px
+				i
+					color: #fff
+					font-size: 56px
+					line-height: 53px
+					&:before
+						margin-left: -2px
+						margin-top: 2px
+						margin-right: 0
+						line-height: inherit
+			&:hover,
+			&:focus
+				span
+					border: 2px solid $accent
+					border-radius: 10em
+					background: $accent
+	.wrap
+		height: 58px
+		width: 141px
+		background: $accent
+		position: absolute
+		bottom: 0
+		left: 0
+		z-index: 99
+		.swiper-button-prev
+			background-image: none
+			width: auto
+			outline: none
+			&:after
+				content: '\e827'
+				font-family: "nut"
+				position: relative
+				font-size: 24px
+				float: left
+				top: 22%
+				left: 20px
+				color: rgba(255, 255, 255, 0.5)
+				line-height: initial
+			&:hover,
+			&:focus
+				&:after
+					color: #fff
+		.swiper-button-next
+			background-image: none
+			width: auto
+			outline: none
+			&:after
+				content: '\e803'
+				font-family: "nut"
+				position: relative
+				float: right
+				font-size: 22px
+				top: 25%
+				right: 20px
+				color: rgba(255, 255, 255, 0.5)
+				line-height: initial
+			&:hover,
+			&:focus
+				&:after
+					color: #fff
+	.wrapper
+		overflow-x: hidden
+		max-height: 345px
+		h3
+			font-style: normal
+			font-weight: 600
+			font-size: 24px
+			line-height: 50px
+			letter-spacing: 0.01em
+		p
+			font-style: normal
+			font-weight: 500
+			font-size: 16px
+			line-height: 26px
+			letter-spacing: 0.01em
+
+
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
+	background-color: $accent !important
+
+
+.footer__bottom
+	min-height: 862px
+	background: #fff
+	padding-top: 100px
+	#map
+		min-height: 518px
+	.bottom_social
+		display: flex
+		align-items: center
+		margin-top: 65px
+		margin-bottom: 50px
+		.bottom_social_tel
+			display: flex
+			align-items: center
+			i
+				color: $accent
+				font-size: 14px
+			ul
+				list-style-type: none
+				padding: 0
+				margin: 0
+				li
+					font-family: $m-font
+					font-style: normal
+					font-weight: 500
+					font-size: 14px
+					line-height: 21px
+					letter-spacing: 0.01em
+					padding: 3px 60px 3px 10px
+		.bottom_social_links
+			ul
+				list-style-type: none
+				margin: 0 15px 0 0
+				padding: 0
+				li
+					display: inline-block
+					a
+						display: block
+						text-align: center
+						border-radius: 10em
+						width: 31px
+						height: 31px
+						background: $accent
+						color: #fff
+						font-size: 17px
+						margin: 0 3px
+						i
+							font-size: 30px
+							&:before
+								margin-left: 0 !important
+	.bottom_mail
+		margin-bottom: 65px
+		a
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 21px
+			letter-spacing: 0.01em
+			i
+				color: $accent
+				margin-right: 10px
+	.bottom_address
+		ul
+			list-style-type: none
+			padding: 0
+			margin: 0 0 0 30px
+			li
+				position: relative
+				b
+					font-style: normal
+					font-weight: 800
+					font-size: 17px
+					line-height: 20px
+					letter-spacing: 0.01em
+					margin-bottom: 15px
+					display: block
+				p
+					font-family: $m-font
+					font-style: normal
+					font-weight: 500
+					font-size: 14px
+					line-height: 21px
+					letter-spacing: 0.01em
+				&:after
+					content: '\e82b'
+					position: absolute
+					top: -5px
+					left: -27px
+					font-size: 14px
+					font-family: "nut"
+					color: $accent
+				&:last-child
+					margin-top: 30px
+					&:after
+						content: '\e82c'
+						position: absolute
+						top: -4px
+						left: -22px
+						font-size: 14px
+						font-family: "nut"
+						color: $accent
+	.logo
+		display: flex
+		align-items: center
+		width: 220px
+		img
+			height: 53px
+			width: 54px
+		span
+			font-style: normal
+			font-weight: 800
+			font-size: 15px
+			line-height: 18px
+			letter-spacing: 0.02em
+			margin-left: 8px
+		&:hover,
+		&:focus
+			color: $text
+	.bottom_menu
+		padding-top: 60px
+		padding-bottom: 30px
+		.menu_main_ul
+			list-style-type: none
+			padding: 0
+			margin: 0
+			display: flex
+			justify-content: flex-end
+			li
+				display: inline-block
+				padding: 0 20px
+				a
+					font-style: normal
+					font-weight: 600
+					font-size: 15px
+					line-height: 18px
+					letter-spacing: 0.01em
+					&:hover,
+					&:focus
+						color: $accent
+				&:last-child
+					padding-right: 0
+	.copy
+		border-top: 1px solid rgba(0, 0, 0, 0.06)
+		padding: 40px 0
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: normal
+			font-size: 12px
+			line-height: 15px
+			margin: 0
+		.copy_year
+			text-align: center
+		&__social
+			list-style-type: none
+			margin: 0
+			padding: 0
+			display: flex
+			justify-content: flex-end
+			li
+				display: inline-block
+				margin-right: -26px
+				a
+					color: #323232
+					font-size: 13px
+					padding: 0 20px
+					&:hover,
+					&:focus
+						color: $hover
+				&:first-child
+					a
+						padding-left: 0
+.dev
+	color: $accent
+	span
+		font-weight: 600
+
+
+.footer__bottom_gray
+	padding-top: 0
+	.gray_section
+		padding-top: 100px
+		padding-bottom: 100px
+
+.breadcrumbs
+	padding-top: 35px
+	ul
+		list-style-type: none
+		margin: 0
+		padding: 0
+		li
+			display: inline-block
+			position: relative
+			z-index: 99
+			color: #fff
+			font-style: normal
+			font-weight: 600
+			font-size: 14px
+			line-height: 16px
+			letter-spacing: 0.02em
+			margin-left: 30px
+			&:after
+				content: '\e803'
+				font-family: "nut"
+				position: absolute
+				top: 4px
+				left: -23px
+				font-size: 9px
+				line-height: 9px
+				font-family: "nut"
+			a
+				color: #fff
+				font-style: normal
+				font-weight: 600
+				font-size: 14px
+				line-height: 16px
+				letter-spacing: 0.02em
+				&:hover,
+				&:focus
+					color: $accent
+			&:first-child
+				margin-left: 0
+				&:after
+					display: none
+
+.news
+	position: relative
+	padding-top: 85px
+	padding-bottom: 85px
+	min-height: 1002px
+	&__descr
+		margin: 0 0 20px 0
+		font-style: normal
+		font-weight: 500
+		font-size: 18px
+		line-height: 22px
+		letter-spacing: 0.01em
+	.wrap
+		height: 58px
+		width: 141px
+		background: $accent
+		position: relative
+		.swiper-button-prev
+			background-image: none
+			width: auto
+			outline: none
+			&:after
+				content: '\e827'
+				font-family: "nut"
+				position: relative
+				font-size: 24px
+				float: left
+				top: 22%
+				left: 20px
+				color: rgba(255, 255, 255, 0.5)
+				line-height: initial
+			&:hover,
+			&:focus
+				&:after
+					color: #fff
+		.swiper-button-next
+			background-image: none
+			width: auto
+			outline: none
+			&:after
+				content: '\e803'
+				font-family: "nut"
+				position: relative
+				float: right
+				font-size: 22px
+				top: 25%
+				right: 20px
+				color: rgba(255, 255, 255, 0.5)
+				line-height: initial
+			&:hover,
+			&:focus
+				&:after
+					color: #fff
+	.swiper-container
+		margin-top: 60px
+		.news__item_video
+			span.video_wrap
+				position: relative
+				&:before
+					content: '\e81b'
+					font-family: "nut"
+					position: absolute
+					top: 50%
+					left: 50%
+					margin-top: -31.5px
+					margin-left: -31.5px
+					background: transparent
+					height: 57px
+					width: 57px
+					font-size: 53px
+					line-height: 53px
+					border: 2px solid #fff
+					border-radius: 20em
+					color: #fff
+					z-index: 99
+					transition: background 0.3s
+				&:hover
+					&:before
+						background: $accent
+						border: 2px solid $accent
+		.news__item
+			min-height: 532px
+			background: #fff
+			img
+				max-height: 270px
+				height: 270px
+				width: 100%
+				object-fit: cover
+				object-position: 50% 50%
+			.wraper
+				padding: 0 22px 28px
+				.item_data
+					font-family: $m-font
+					font-style: normal
+					font-weight: 500
+					font-size: 13px
+					line-height: 22px
+					letter-spacing: 0.01em
+					padding-top: 22px
+					padding-bottom: 22px
+					color: #8A8A8A
+				h3
+					font-style: normal
+					font-weight: bold
+					font-size: 15px
+					line-height: 20px
+					letter-spacing: 0.01em
+					margin: 0
+					min-height: 70px
+				p
+					font-style: normal
+					font-weight: 500
+					font-size: 14px
+					line-height: 20px
+					letter-spacing: 0.01em
+					padding-bottom: 22px
+					margin: 0
+				a
+					font-style: normal
+					font-weight: bold
+					font-size: 14px
+					line-height: 20px
+					letter-spacing: 0.01em
+					i
+						font-size: 10px
+	h2
+		margin-bottom: 30px
+	.wrapper
+		display: flex
+		justify-content: center
+		width: 100%
+		align-items: flex-end
+		min-height: 120px
+		a
+			height: 52px
+			max-height: 100%
+
+.mobile-menu
+	overflow: hidden
+
+.select-hidden
+	display: none
+	visibility: hidden
+	padding-right: 10px
+
+
+.select
+	cursor: pointer
+	display: block
+	position: relative
+	font-size: 16px
+	width: 100%
+	height: 47px
+	font-family: $m-font
+	font-style: normal
+	font-weight: 600
+	font-size: 16px
+	line-height: 18px
+	letter-spacing: 0.01em
+	transition: all 0.3s
+
+
+.select-styled
+	position: absolute
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+	background-color: #fff
+	border: 1px solid rgba(0, 0, 0, 0.15)
+	height: 47px
+	padding: 14px 16px
+	font-family: $m-font
+	font-style: normal
+	font-weight: 600
+	font-size: 16px
+	line-height: 18px
+	letter-spacing: 0.01em
+	&:after
+		content: "\e825"
+		font-family: "nut"
+		display: block
+		font-size: 6px
+		position: absolute
+		color: #93B474
+		top: 14px
+		right: 16px
+	&:hover
+		background: rgba(51, 125, 90, 0.1)
+
+.select-styled:active, .select-styled.active
+	background-color: #fff
+	border: 1px solid $accent
+
+.select-styled:active:after, .select-styled.active:after
+	transform: rotate(180deg)
+
+.select-options
+	display: none
+	position: absolute
+	top: 100%
+	right: 0
+	left: 0
+	z-index: 9999
+	margin: 0
+	padding: 0
+	list-style: none
+	background-color: #fff
+	border-left: 1px solid rgba(0, 0, 0, 0.08)
+	border-right: 1px solid rgba(0, 0, 0, 0.08)
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+
+.select-options li
+	margin: 0
+	height: 47px
+	padding: 14px 16px
+	position: relative
+	transition: all 0.3s
+	font-family: $m-font
+	font-style: normal
+	font-weight: 500
+	font-size: 14px
+	line-height: 17px
+	&:after
+		content: ''
+		position: absolute
+		width: calc(100% - 20px)
+		height: 1px
+		background: rgba(0, 0, 0, 0.08)
+		left: 0
+		z-index: 99
+		top: 0
+		margin: 0 10px
+
+.select-options li:hover
+	color: #fff
+	background: $accent
+
+.select-options li[rel=hide]
+	display: none
+
+.payment
+	min-height: 600px
+	position: relative
+	padding-bottom: 75px
+	.tabs
+		.tabs__wrap
+			border-bottom: 1px solid rgba(0, 0, 0, 0.06)
+			.tabs__caption
+				list-style-type: none
+				display: inline-flex
+				align-items: center
+				margin: 0
+				padding: 90px 0 10px
+				width: 100%
+				justify-content: space-around
+				li
+					display: inline-flex
+					align-items: center
+					font-style: normal
+					font-weight: 800
+					font-size: 20px
+					line-height: 23px
+					letter-spacing: 0.01em
+					min-height: 40px
+					position: relative
+					padding-right: 5px
+					i
+						font-size: 37px
+						line-height: 37px
+						color: #C4C4C4
+						vertical-align: middle
+						margin-right: 8px
+						transition: all 0.3s
+					&:after
+						transition: background 0.3s
+					&:hover
+						cursor: pointer
+						i
+							color: $accent
+							&:after
+								content: ''
+								position: absolute
+								left: 0
+								bottom: -10px
+								height: 3px
+								width: 100%
+								background: $accent
+					&:first-child
+						i
+							font-size: 32px
+					&:nth-child(4)
+						i
+							font-size: 22px
+							margin-right: 24px
+				li.active
+					&:after
+						content: ''
+						position: absolute
+						left: 0
+						bottom: -10px
+						height: 3px
+						width: 100%
+						background: $accent
+					i
+						color: $accent
+	.tabs__content
+		display: none
+		margin-top: 60px
+	.tabs__content.active
+		display: block
+	.tabs__content_block
+		margin-bottom: 20px
+		.tabs__content_title
+			font-style: normal
+			font-weight: 800
+			font-size: 18px
+			line-height: 24px
+		ul
+			list-style-type: none
+			margin: 0
+			padding: 0
+			li
+				margin-bottom: 30px
+				span
+					font-style: italic
+					font-weight: 600
+					font-size: 16px
+					line-height: 24px
+					img
+						height: 48px
+						width: 48px
+						margin-right: 15px
+						object-fit: cover
+						object-position: 50% 50%
+				p
+					font-style: normal
+					font-weight: 500
+					font-size: 16px
+					line-height: 24px
+					padding-top: 10px
+				a
+					margin-top: 10px
+	.tabs__content_img
+		width: 100%
+		height: 471px
+		max-height: 100%
+		object-fit: cover
+		object-position: 50% 50%
+.payment.payment__product
+	.tabs
+		.tabs__wrap
+			.tabs__caption
+				padding: 30px 0 10px
+				li
+					span
+						padding: 0 20px
+						font-weight: 600
+						font-size: 18px
+						line-height: 21px
+						color: #5B5B5B
+					&:hover
+						&:after
+							content: ''
+							position: absolute
+							left: 0
+							bottom: -10px
+							height: 3px
+							width: 100%
+							background: #337D5A
+						span
+							color: #1A2F3F !important
+				li.active
+					span
+						color: #1A2F3F
+	.tabs__content_img
+		margin-bottom: 20px
+	.tabs__content_product
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 25px
+		strong
+			font-family: $m-font
+			font-style: normal
+			font-weight: 600
+			font-size: 15px
+			line-height: 16px
+			display: block
+			margin-bottom: 15px
+		ul
+			list-style-type: none
+			margin: 0 0 0 15px
+			padding: 0
+			li
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 15px
+				line-height: 16px
+				margin-bottom: 15px
+				&:before
+					content: "\2022"
+					color: $accent
+					font-weight: bold
+					display: inline-block
+					width: 1em
+					margin-left: -1em
+
+.no-bg
+	min-height: 100% !important
+	.breadcrumbs
+		// padding-top: 15px
+		li, li a
+			font-style: normal
+			font-weight: 600
+			font-size: 14px
+			line-height: 16px
+			letter-spacing: 0.02em
+			color: #8A8A8A
+
+.sticky
+	&:before, &:after
+		content: ''
+		display: table
+
+.single-news
+	margin-bottom: 75px
+	&__data
+		font-family: $m-font
+		font-style: normal
+		font-weight: 500
+		font-size: 15px
+		line-height: 22px
+		letter-spacing: 0.01em
+		color: #8A8A8A
+		margin: 10px 0 30px
+	h1
+		font-style: normal
+		font-weight: bold
+		font-size: 32px
+		line-height: 35px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		margin-top: 60px
+	main
+		img
+			width: 100%
+			min-height: 595px
+			object-fit: cover
+			object-position: 50% 50%
+		p
+			font-style: normal
+			font-weight: 500
+			font-size: 16px
+			line-height: 25px
+			padding-top: 20px
+			margin-bottom: 0
+		h2
+			font-style: normal
+			font-weight: bold
+			font-size: 24px
+			line-height: 28px
+			letter-spacing: 0.01em
+			padding-top: 30px
+		strong
+			font-style: normal
+			font-weight: bold
+			font-size: 16px
+			line-height: 28px
+			letter-spacing: 0.01em
+			margin-top: 20px
+			margin-bottom: 10px
+			display: block
+		ul
+			margin: 0 0 30px 15px
+			padding: 0
+			list-style-type: none
+			li
+				font-style: normal
+				font-weight: 500
+				font-size: 16px
+				line-height: 25px
+				margin-bottom: 3px
+				&:before
+					content: "\2022"
+					color: $accent
+					font-weight: bold
+					display: inline-block
+					width: 1em
+					margin-left: -1em
+	.aside
+		position: absolute
+		top: 0
+		left: 0
+		width: 100%
+		height: 100%
+		.sidebar__inner
+			position: sticky
+			top: 0
+		&__title
+			font-style: normal
+			font-weight: bold
+			font-size: 24px
+			line-height: 26px
+			text-align: center
+			letter-spacing: 0.01em
+			margin: 0 30px
+			padding: 30px 0 20px
+			background: #FCFCFC
+		ul
+			list-style-type: none
+			margin: 0
+			padding: 0
+			display: flex
+			justify-content: center
+			flex-direction: column
+			width: 260px
+			min-height: 300px
+			padding: 0 20px
+			margin: 0 auto
+			background: #FCFCFC
+		&__item
+			margin-bottom: 30px
+		&__item_img
+			img
+				width: 220px
+				height: 163px
+				object-fit: cover
+				object-position: 50% 50%
+		&__item_data
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 13px
+			line-height: 22px
+			letter-spacing: 0.01em
+			color: #8A8A8A
+			margin-top: 10px
+		&__item_title
+			font-style: normal
+			font-weight: bold
+			font-size: 15px
+			line-height: 16px
+			letter-spacing: 0.01em
+			margin-top: 10px
+		a
+			font-style: normal
+			font-weight: bold
+			font-size: 13px
+			line-height: 20px
+			letter-spacing: 0.01em
+			display: block
+			margin-top: 10px
+			i
+				font-size: 8px
+				vertical-align: middle
+	.banner
+		background: $accent
+		width: 260px
+		min-height: 226px
+		margin: 30px auto 0
+		padding: 30px
+		display: flex
+		justify-content: space-around
+		flex-direction: column
+		&__title
+			font-style: normal
+			font-weight: 800
+			font-size: 20px
+			line-height: 23px
+			text-align: center
+			letter-spacing: 0.02em
+			color: #fff
+			margin-bottom: 20px
+		&__descr
+			font-style: normal
+			font-weight: 600
+			font-size: 17px
+			line-height: 20px
+			text-align: center
+			letter-spacing: 0.02em
+			color: #fff
+			margin-bottom: 20px
+		&__social
+			list-style-type: none !important
+			margin: 0 !important
+			padding: 0 !important
+			display: flex !important
+			justify-content: center !important
+			background: transparent !important
+			width: 100% !important
+			min-height: 100% !important
+			flex-direction: row !important
+			li
+				display: inline-block
+				margin-right: -26px
+				a
+					color: #323232
+					font-size: 13px
+					padding: 0 20px
+					display: inline-block !important
+					color: #fff
+					i
+						font-size: 12px
+				&:first-child
+					a
+						padding-left: 0
+
+
+
+// #sidebar
+// 	will-change: min-height
+
+// .sidebar__inner
+// 	transform: translate(0, 0)
+// 	transform: translate3d(0, 0, 0)
+// 	will-change: position, transform
+
+.product
+	min-height: 600px
+	background: #fff
+	padding: 90px 0
+	.swiper-container
+		position: initial
+	h2
+		text-align: center
+		margin-bottom: 30px
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 18px
+		line-height: 22px
+		text-align: center
+		letter-spacing: 0.01em
+		margin-bottom: 60px
+	.wrapper
+		display: flex
+		align-items: flex-end
+		width: 100%
+		min-height: 120px
+		justify-content: center
+	&__item
+		min-height: 571px
+		max-height: 100%
+		width: 100%
+		background: #FCFCFC
+		border: 1px solid rgba(0, 0, 0, 0.08)
+		position: relative
+		display: flex
+		align-items: center
+		margin-bottom: 20px
+		&:hover
+			border: 1px solid #93B474
+			.products-container
+				&:hover
+					cursor: pointer
+				.swiper-button-next,
+				.swiper-button-prev
+					opacity: 1
+		.products-container
+			height: 431px
+			background: #FCFCFC
+			img
+				width: 100%
+				height: 431px
+				object-fit: scale-down
+				object-position: 50% 50%
+			&:hover
+				.zoom
+					opacity: 1
+			.zoom
+				position: absolute
+				width: 45px
+				height: 45px
+				top: 10px
+				right: 10px
+				z-index: 99
+				opacity: 0
+			.swiper-button-next
+				background-image: none
+				opacity: 0
+				&:after
+					content: '\e803'
+					font-family: "nut"
+					position: relative
+					float: right
+					font-size: 22px
+					top: 25%
+					right: 20px
+					color: #C4C4C4
+					line-height: initial
+				&:hover,
+				&:focus
+					&:after
+						color: $accent
+			.swiper-button-prev
+				background-image: none
+				opacity: 0
+				&:after
+					content: '\e827'
+					font-family: "nut"
+					position: relative
+					font-size: 24px
+					float: left
+					top: 22%
+					left: 20px
+					color: #C4C4C4
+					line-height: initial
+				&:hover,
+				&:focus
+					&:after
+						color: $accent
+		&_title
+			font-style: normal
+			font-weight: bold
+			font-size: 18px
+			line-height: 21px
+			padding: 20px 30px 0 20px
+			letter-spacing: 0.01em
+		&_art
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 18px
+			padding: 5px 30px 0 20px
+			letter-spacing: 0.01em
+			color: #8A8A8A
+		&_descr
+			font-style: normal
+			font-weight: 600
+			font-size: 16px
+			line-height: 22px
+			letter-spacing: 0.01em
+			color: #000
+			padding: 10px 30px 0 20px
+		&_weight
+			display: flex
+			justify-content: space-between
+			padding: 10px 30px 20px 20px
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+			.weight_item
+				display: flex
+				align-items: center
+				&_descr
+					p
+						margin: 0
+						padding: 0
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 14px
+						line-height: 17px
+						letter-spacing: 0.01em
+						color: #8A8A8A
+						text-align: left
+						span
+							color: $accent
+							i
+								font-style: normal
+				&_icon
+					i
+						color: $accent
+						padding-right: 5px
+		&_sum
+			padding: 15px 20px
+			display: flex
+			justify-content: space-between
+			align-items: center
+			.sum_item
+				display: flex
+				align-items: flex-end
+				flex-wrap: wrap
+				&_title
+					padding-right: 5px
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 15px
+						line-height: 18px
+						letter-spacing: 0.01em
+						margin: 0
+						padding: 0
+				&_new
+					padding-right: 5px
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 20px
+						line-height: 24px
+						letter-spacing: 0.01em
+						color: $accent
+						padding: 0
+						margin: 0
+						i
+							font-family: $m-font
+							font-style: normal
+							font-weight: 600
+							font-size: 15px
+							line-height: 18px
+							letter-spacing: 0.01em
+				&_old
+					p
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 16px
+						line-height: 20px
+						letter-spacing: 0.01em
+						padding: 0
+						margin: 0
+						text-decoration: line-through
+						color: #8A8A8A
+						i
+							font-family: $m-font
+							font-style: normal
+							font-weight: 500
+							font-size: 12px
+							line-height: 16px
+							letter-spacing: 0.01em
+	&__content
+		margin-left: 75px
+	&__content_name
+		font-style: normal
+		font-weight: bold
+		font-size: 18px
+		line-height: 21px
+		text-align: left
+		letter-spacing: 0.01em
+		color: $accent
+	&__content_art
+		font-family: $m-font
+		font-style: normal
+		font-weight: 500
+		font-size: 16px
+		line-height: 20px
+		text-align: right
+		letter-spacing: 0.01em
+		color: #5B5B5B
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 30px
+		line-height: 32px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		margin: 20px 0 30px
+	&__content_descr
+		ul
+			list-style-type: none
+			margin: 0
+			padding: 0
+			li
+				margin-bottom: 10px
+				min-height: 60px
+				strong
+					font-style: normal
+					font-weight: bold
+					font-size: 16px
+					line-height: 17px
+					letter-spacing: 0.02em
+					color: #000
+				span
+					font-family: $m-font
+					font-style: normal
+					font-weight: 500
+					font-size: 15px
+					line-height: 17px
+					color: #5B5B5B
+	.warning
+		display: flex
+		background: #FCFCFC
+		border: 1px solid rgba(0, 0, 0, 0.08)
+		min-height: 110px
+		align-items: center
+		i
+			height: 28px
+			width: 28px
+			background: #93B474
+			border-radius: 20em
+			color: #fff
+			margin: 0 30px
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 17px
+			padding: 20px 0
+			margin: 0
+			text-align: left
+	&__content_sum
+		padding: 30px 0 0
+		display: flex
+		justify-content: flex-end
+		align-items: center
+		.sum_item
+			display: flex
+			align-items: flex-end
+			flex-wrap: wrap
+			&_title
+				padding-right: 5px
+				p
+					font-family: $m-font
+					font-style: normal
+					font-weight: 600
+					font-size: 18px
+					line-height: 22px
+					letter-spacing: 0.01em
+					margin: 0
+					padding: 0
+			&_new
+				margin-left: 5px
+				p
+					font-family: $m-font
+					font-style: normal
+					font-weight: 600
+					font-size: 24px
+					line-height: 29px
+					letter-spacing: 0.01em
+					color: $accent
+					padding: 0
+					margin: 0
+					i
+						font-family: $m-font
+						font-style: normal
+						font-weight: 600
+						font-size: 16px
+						line-height: 20px
+						letter-spacing: 0.01em
+			&_old
+				margin-left: 5px
+				p
+					font-family: $m-font
+					font-style: normal
+					font-weight: 500
+					font-size: 18px
+					line-height: 22px
+					letter-spacing: 0.01em
+					padding: 0
+					margin: 0
+					text-decoration: line-through
+					color: #8A8A8A
+					i
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 14px
+						line-height: 18px
+						letter-spacing: 0.01em
+			.sum_item_button
+				margin-left: 20px
+				a
+					font-style: normal
+					font-weight: bold
+					font-size: 16px
+					line-height: 19px
+					letter-spacing: 0.02em
+
+.registration
+	margin-bottom: 90px
+	.mini_link
+		text-align: center
+		a
+			font-family: $m-font
+			font-style: normal
+			font-weight: 600
+			font-size: 13px
+			line-height: 32px
+			letter-spacing: 0.01em
+			color: $accent
+			&:hover
+				text-decoration: underline
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 32px
+		line-height: 32px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		margin-top: 30px
+		margin-bottom: 20px
+	.tabs
+		width: 100%
+		margin: 0 15px
+	.tabs__content
+		display: none
+		margin-top: 30px
+	.tabs__content.active
+		display: block
+	.tabs__wrap
+		border-bottom: 1px solid rgba(0, 0, 0, 0.15)
+		.tabs__caption
+			list-style-type: none
+			margin: 0
+			padding: 0
+			display: flex
+			justify-content: space-between
+			li
+				display: inline-block
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 15px
+				line-height: 17px
+				padding: 20px
+				color: #000
+				position: relative
+				width: 50%
+				transition: all 0.2s
+				text-align: center
+				margin: 0 20px
+				&:hover
+					color: #1A2F3F
+					cursor: pointer
+					font-weight: bold
+					&:after
+						background: #337D5A
+						content: ''
+						position: absolute
+						bottom: 0
+						left: 0
+						width: 100%
+						height: 2.5px
+			li.active
+				color: #1A2F3F
+				font-weight: bold
+				&:after
+					background: #337D5A
+					content: ''
+					position: absolute
+					bottom: 0
+					left: 0
+					width: 100%
+					height: 2.5px
+			li
+				&:first-child
+					margin-left: -2px
+			li
+				&:last-child
+					margin-right: -2px
+	.form__title
+		font-family: $m-font
+		font-style: normal
+		font-weight: bold
+		font-size: 17px
+		line-height: 32px
+		letter-spacing: 0.01em
+		margin-bottom: 20px
+	form
+		width: 100%
+		.form__title
+			margin: 30px 0 20px
+		.select-styled
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+		.select
+			margin-bottom: 15px
+		input
+			border: 0.5px solid rgba(0, 0, 0, 0.15)
+			padding: 16px 17px
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+			color: $text
+			width: 100%
+			margin-bottom: 15px
+			&::-webkit-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&::-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-ms-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+		input[type=checkbox]
+			outline: 2px solid $accent
+
+		button
+			width: 100%
+			margin-top: 15px
+			transition: all 0.3s
+			font-style: normal
+			font-weight: bold
+			font-size: 16px
+			line-height: 17px
+			padding: 16px 17px
+			margin-bottom: 10px
+	.wrapper
+		margin-top: -70px
+	.box-wrap
+		div
+			&:last-child
+				display: none
+
+
+.checkbox-custom, .radio-custom
+	opacity: 0
+	position: absolute
+
+.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label
+	display: inline-block
+	vertical-align: middle
+	margin: 5px 5px 5px 0
+	cursor: pointer
+
+.checkbox-custom-label, .radio-custom-label
+	position: relative
+	outline: none !important
+	font-family: $m-font
+	font-style: normal
+	font-weight: 500
+	font-size: 13px
+	line-height: 23px
+	letter-spacing: 0.01em
+	color: #8A8A8A
+	a
+		color: #337D5A
+
+.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before
+	content: ''
+	background: #fff
+	border: 2px solid $accent
+	display: inline-block
+	vertical-align: middle
+	width: 14px
+	height: 14px
+	padding: 0.5px
+	margin-right: 10px
+	text-align: center
+
+.checkbox-custom:checked + .checkbox-custom-label:before
+	background: $accent
+	box-shadow: inset 0px 0px 0px 1px #fff
+
+.radio-custom + .radio-custom-label:before
+	border-radius: 50%
+
+.radio-custom:checked + .radio-custom-label:before
+	background: $accent
+	box-shadow: inset 0px 0px 0px 1px #fff
+
+.checkbox-custom:focus + .checkbox-custom-label, .radio-custom:focus + .radio-custom-label
+	outline: 1px solid $accent
+
+.checkbox-custom-label
+	span
+		vertical-align: middle
+
+.inputfile
+	width: 0.1px
+	height: 0.1px
+	opacity: 0
+	overflow: hidden
+	position: absolute
+	z-index: -1
+
+.inputfile + label
+	font-size: 1.25em
+	font-weight: 700
+	color: white
+	background-color: black
+	display: inline-block
+	width: 131.01px
+	height: 170px
+	background-image: url('../img/pic.png')
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: center
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+	&:before
+		content: ''
+		position: absolute
+		background: rgba(51, 125, 90, 0.6)
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+		z-index: 1
+	span
+		z-index: 9
+		position: relative
+		font-family: $m-font
+		font-style: normal
+		font-weight: 600
+		font-size: 13px
+		line-height: 17px
+		text-align: center
+		text-decoration-style: dashed
+		text-decoration-line: underline
+
+.inputfile + label.label__photo
+	font-size: 1.25em
+	font-weight: 700
+	color: white
+	background-color: black
+	display: inline-block
+	width: 131.01px
+	height: 170px
+	background-image: url('../img/pic.png')
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: center
+	position: relative
+	display: flex
+	align-items: center
+	justify-content: center
+	&:before
+		content: ''
+		position: absolute
+		background: rgba(0, 0, 0, 0.3)
+		top: 0
+		left: 0
+		bottom: 0
+		right: 0
+		z-index: 1
+	span
+		z-index: 9
+		position: relative
+		font-family: $m-font
+		font-style: normal
+		font-weight: 600
+		font-size: 13px
+		line-height: 17px
+		text-align: center
+		text-decoration-style: dashed
+		text-decoration-line: underline
+
+.inputfile:focus + label,
+.inputfile + label:hover
+	background-color: red
+
+.inputfile + label
+	cursor: pointer
+
+.radio__wrap
+	display: flex
+	flex-direction: column
+	span
+		vertical-align: middle
+
+.radio__wrapper
+	display: flex
+	flex-direction: column
+	span
+		vertical-align: middle
+
+.accaunt
+	margin-bottom: 90px
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 32px
+		line-height: 32px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		margin-top: 30px
+		margin-bottom: 20px
+	.tabs
+		width: 100%
+		margin: 0 15px
+	.tabs__content
+		display: none
+		margin-top: 30px
+	.tabs__content.active
+		display: block
+	.tabs__wrap
+		border-bottom: 1px solid rgba(0, 0, 0, 0.15)
+		.tabs__caption
+			list-style-type: none
+			margin: 0
+			padding: 0
+			display: flex
+			justify-content: space-between
+			li
+				display: inline-block
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 15px
+				line-height: 17px
+				padding: 20px
+				color: #000
+				position: relative
+				width: 50%
+				transition: all 0.2s
+				text-align: center
+				margin: 0 20px
+				&:hover
+					color: #1A2F3F
+					cursor: pointer
+					font-weight: bold
+					&:after
+						background: #337D5A
+						content: ''
+						position: absolute
+						bottom: 0
+						left: 0
+						width: 100%
+						height: 2.5px
+			li.active
+				color: #1A2F3F
+				font-weight: bold
+				&:after
+					background: #337D5A
+					content: ''
+					position: absolute
+					bottom: 0
+					left: 0
+					width: 100%
+					height: 2.5px
+			li
+				&:first-child
+					margin-left: -2px
+			li
+				&:last-child
+					margin-right: -2px
+	.form__title
+		font-family: $m-font
+		font-style: normal
+		font-weight: bold
+		font-size: 17px
+		line-height: 32px
+		letter-spacing: 0.01em
+		margin-bottom: 20px
+	form
+		width: 100%
+		.form__title
+			margin: 20px 0 20px
+		.select-styled
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+		.select
+			margin-bottom: 15px
+		input
+			border: 0.5px solid rgba(0, 0, 0, 0.15)
+			padding: 16px 17px
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+			color: $text
+			width: 100%
+			margin-bottom: 15px
+			&::-webkit-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&::-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-ms-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+		input[type=checkbox]
+			outline: 2px solid $accent
+
+		button
+			width: auto
+			margin-top: 15px
+			transition: all 0.3s
+			padding: 17px 70px
+			float: right
+			font-style: normal
+			font-weight: bold
+			font-size: 16px
+			line-height: 17px
+	.wrapper
+		margin-top: -70px
+	.box-wrap
+		div
+			&:last-child
+				display: none
+	&__manager
+		margin-top: 30px
+		margin-bottom: 20px
+		ul
+			list-style-type: none
+			margin: 0
+			padding: 0
+			li
+				p
+					font-style: normal
+					font-weight: 500
+					font-size: 16px
+					line-height: 32px
+					letter-spacing: 0.01em
+					margin: 0
+				a
+					font-family: $m-font
+					font-style: normal
+					font-weight: 600
+					font-size: 14px
+					line-height: 32px
+					letter-spacing: 0.01em
+					color: $accent
+				i
+					color: $accent
+					font-size: 14px
+					vertical-align: middle
+					line-height: 14px
+	.navigation
+		p
+			font-style: normal
+			font-weight: bold
+			font-size: 18px
+			line-height: 32px
+			letter-spacing: 0.01em
+			margin-top: 30px
+		ul
+			list-style-type: none
+			padding: 0
+			margin: 0
+			li
+				a
+					font-style: normal
+					font-weight: 500
+					font-size: 16px
+					line-height: 32px
+					letter-spacing: 0.01em
+					&:hover
+						color: $accent
+						text-decoration: underline
+				a.active
+					color: $accent
+					text-decoration: underline
+	.address__img
+		min-height: 852px
+		width: 100%
+		background-repeat: no-repeat
+		background-size: cover
+		background-position: center center
+		padding: 40px
+		height: 2px
+		margin-top: 20px
+		.wrap
+			min-height: 852px
+			display: flex
+			justify-content: center
+			align-items: center
+			flex-direction: column
+			h2
+				font-style: normal
+				font-weight: 800
+				font-size: 42px
+				line-height: 44px
+				text-align: center
+				letter-spacing: 0.01em
+				text-align: center
+				color: #fff
+				z-index: 9
+				margin-bottom: 20px
+			p
+				font-style: normal
+				font-weight: 600
+				font-size: 20px
+				line-height: 23px
+				text-align: center
+				letter-spacing: 0.01em
+				color: #fff
+				z-index: 9
+	.item_quantity
+		display: flex
+		button
+			border: 0
+			background: #fff
+			padding: 0
+			outline: none
+			i
+				font-size: 10px
+				color: #8A8A8A
+				vertical-align: middle
+			&:first-child
+				padding-right: 8px
+			&:last-child
+				padding-left: 8px !important
+			&:hover
+				cursor: pointer
+				i
+					color: $accent
+		input
+			width: 44px
+			height: 28px
+			border: 1px solid rgba(0, 0, 0, 0.15)
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 32px
+			text-align: center
+	.after_table
+		margin-top: 15px
+		.with_arrow
+			margin-top: 20px
+	.popup__cart_sum
+		.sum_item_new
+			margin-right: 25px
+		.sum_item .sum_item_button a
+			padding: 17px 60px
+	.no_log-in
+		text-align: center
+		margin-top: 65px
+		h2
+			font-style: normal
+			font-weight: 800
+			font-size: 28px
+			line-height: 32px
+			letter-spacing: 0.01em
+		.no_log-in_link
+			a
+				font-style: normal
+				font-weight: 600
+				font-size: 18px
+				line-height: 32px
+				letter-spacing: 0.01em
+				color: #337D5A
+				&:hover
+					text-decoration: underline
+			span
+				font-style: normal
+				font-weight: 500
+				font-size: 18px
+				line-height: 32px
+				letter-spacing: 0.01em
+	.bt-content
+		.item_quantity
+			button,
+			input
+				background: transparent
+	.radio__wrapper
+		label
+			&:nth-child(2)
+				margin-bottom: 15px
+			&:nth-child(5)
+				margin-bottom: 15px
+		.box
+			&:nth-child(6)
+				display: none
+	.radio__wrapper.radio__wrapper_second
+			label
+				&:nth-child(2)
+					margin-bottom: 5px
+	.sticker
+		position: absolute
+		top: -5px
+		left: 30%
+		z-index: 999
+		.p
+			padding: 0 !important
+			margin: 0 !important
+			position: absolute
+			top: 0
+			left: 16px
+			color: #fff
+			// font-family: $m-font
+			font-family: Raleway
+			font-style: normal
+			font-weight: 800
+			font-size: 10px
+			line-height: 32px
+			letter-spacing: 0.06em
+			text-transform: uppercase
+		.icons-actciya
+			font-size: 42px
+			line-height: 42px
+			color: #DD133B
+			&:after
+				content: ''
+				position: absolute
+				top: 7px
+				left: 10px
+				height: 20px
+				width: 75px
+				background: #DD133B
+		.icons-novinka
+			font-size: 42px
+			line-height: 42px
+			color: #E1843E
+			&:after
+				content: ''
+				position: absolute
+				top: 7px
+				left: 10px
+				height: 20px
+				width: 75px
+				background: #E1843E
+
+.accaunt.accaunt__order
+	h1
+		font-family: $m-font
+
+
+
+table
+	width: 100%
+	margin-top: 20px
+	thead
+		border: 0
+		background: #FBFBFB
+		th
+			font-style: normal
+			font-weight: bold
+			font-size: 16px
+			line-height: 20px
+			padding: 30px
+			position: relative
+			text-align: center
+			span
+				position: relative
+				&:after
+					content: "\e825"
+					font-family: "nut"
+					display: block
+					font-size: 6.5px
+					position: absolute
+					color: #93B474
+					top: 2px
+					right: -18px
+	tbody
+		tr
+			border-bottom: 1px solid rgba(0, 0, 0, 0.08)
+			transition: all 0.3s
+			&:hover
+				background: rgba(51, 125, 90, 0.1)
+				td
+					.item_quantity
+						button
+							background: transparent
+						input
+							background: transparent
+			td
+				padding: 22px 0
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 20px
+				text-align: center
+				.icons_wrap
+					a:first-child
+						font-size: 21px
+						vertical-align: middle
+					a:last-child
+						font-size: 21px
+						vertical-align: middle
+					span
+						vertical-align: middle
+				.item_quantity
+					display: flex
+					justify-content: center
+					button
+						border: 0
+						background: #fff
+						padding: 0
+						outline: none
+						transition: all 0.3s
+						i
+							font-size: 10px
+							color: #8A8A8A
+							vertical-align: middle
+						&:first-child
+							padding-right: 8px
+						&:last-child
+							padding-left: 8px !important
+						&:hover
+							cursor: pointer
+							i
+								color: $accent
+					input
+						width: 44px
+						height: 28px
+						border: 1px solid rgba(0, 0, 0, 0.15)
+						font-family: $m-font
+						font-style: normal
+						font-weight: 500
+						font-size: 14px
+						line-height: 32px
+						text-align: center
+						transition: all 0.3s
+
+.table__message
+	font-family: $m-font
+	font-style: normal
+	font-weight: bold
+	font-size: 14px
+	line-height: 32px
+	text-align: right
+	margin: 30px 0
+
+button
+	&:hover
+		cursor: pointer
+
+.discount
+	font-family: $m-font
+	font-style: normal
+	font-weight: 600
+	font-size: 16px
+	line-height: 20px
+	color: $accent
+	float: right
+	margin-top: 30px
+	margin-bottom: 20px
+
+.tooltip
+		opacity: 1
+		position: relative
+		display: inline
+
+.tooltipster-sidetip .tooltipster-box
+	border: 0
+	background: #337D5A
+	border-radius: 0
+.tooltipster-sidetip .tooltipster-content
+	padding: 5px 10px
+	font-style: normal
+	font-weight: bold
+	font-size: 13px
+	line-height: 14px
+	text-align: center
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-border,
+.tooltipster-sidetip.tooltipster-top .tooltipster-arrow-background
+	border-top-color: #337D5A
+
+.password
+	margin-bottom: 90px
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 32px
+		line-height: 32px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		margin-top: 30px
+		margin-bottom: 20px
+	.tabs
+		width: 100%
+		margin: 0 15px
+	.tabs__content
+		display: none
+		margin-top: 30px
+	.tabs__content.active
+		display: block
+	.tabs__wrap
+		border-bottom: 1px solid rgba(0, 0, 0, 0.15)
+		.tabs__caption
+			list-style-type: none
+			margin: 0
+			padding: 0
+			display: flex
+			justify-content: space-between
+			li
+				display: inline-block
+				font-family: $m-font
+				font-style: normal
+				font-weight: 500
+				font-size: 15px
+				line-height: 17px
+				padding: 20px
+				color: #000
+				position: relative
+				width: 50%
+				transition: all 0.2s
+				text-align: center
+				margin: 0 20px
+				&:hover
+					color: #1A2F3F
+					cursor: pointer
+					font-weight: bold
+					&:after
+						background: #337D5A
+						content: ''
+						position: absolute
+						bottom: 0
+						left: 0
+						width: 100%
+						height: 2.5px
+			li.active
+				color: #1A2F3F
+				font-weight: bold
+				&:after
+					background: #337D5A
+					content: ''
+					position: absolute
+					bottom: 0
+					left: 0
+					width: 100%
+					height: 2.5px
+			li
+				&:first-child
+					margin-left: -2px
+			li
+				&:last-child
+					margin-right: -2px
+	.form__title
+		font-family: $m-font
+		font-style: normal
+		font-weight: bold
+		font-size: 17px
+		line-height: 32px
+		letter-spacing: 0.01em
+		margin-bottom: 20px
+	form
+		width: 100%
+		text-align: center
+		.form__title
+			margin: 30px 0 20px
+		.select-styled
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+		.select
+			margin-bottom: 15px
+		input
+			border: 0.5px solid rgba(0, 0, 0, 0.15)
+			padding: 16px 17px
+			font-family: $m-font
+			font-style: normal
+			font-weight: 500
+			font-size: 14px
+			line-height: 17px
+			color: $text
+			width: 100%
+			margin-bottom: 15px
+			&::-webkit-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&::-moz-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+			&:-ms-input-placeholder
+				font-family: $m-font
+				color: $text
+				font-style: normal
+				font-weight: 500
+				font-size: 14px
+				line-height: 17px
+				opacity: 1
+		input[type=checkbox]
+			outline: 2px solid $accent
+
+		button
+			width: auto
+			margin-top: 15px
+			transition: all 0.3s
+			font-style: normal
+			font-weight: bold
+			font-size: 16px
+			line-height: 17px
+			padding: 16px 55px
+			margin-bottom: 30px
+	.wrapper
+		margin-top: -70px
+	.box-wrap
+		div
+			&:last-child
+				display: none
+	&__link
+		text-align: center
+		p
+			font-style: normal
+			font-weight: 500
+			font-size: 15px
+			line-height: 20px
+			text-align: center
+			letter-spacing: 0.01em
+			color: #8A8A8A
+		.wrap
+			margin-bottom: 20px
+			span
+				font-style: normal
+				font-weight: 600
+				font-size: 18px
+				line-height: 32px
+				letter-spacing: 0.01em
+				vertical-align: middle
+			i
+				font-size: 19px
+				line-height: 19px
+				color: $accent
+				vertical-align: middle
+
+.thanks
+	position: relative
+	min-height: 500px
+	background-size: cover
+	background-repeat: no-repeat
+	background-position: center center
+	.row
+		min-height: 500px
+		.wrap
+			z-index: 99
+			h1
+				font-weight: 800
+				font-size: 45px
+				line-height: 32px
+				margin-bottom: 30px
+				text-align: center
+			p
+				font-style: normal
+				font-weight: 500
+				font-size: 24px
+				line-height: 30px
+				text-align: center
+				letter-spacing: 0.01em
+				color: #FFFFFF
+				text-align: center
+
+a.with_arrow
+	font-size: 16px
+	line-height: 17px
+	padding: 17px 30px
+	i
+		font-size: 22px
+		vertical-align: middle
+	b
+		vertical-align: middle
+		font-weight: bold !important
+
+.term
+	position: relative
+	margin-bottom: 90px
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 26px
+		line-height: 31px
+		letter-spacing: 0.01em
+		color: #1A2F3F
+		text-align: center
+		margin: 60px 0 30px
+	p
+		font-style: normal
+		font-weight: 500
+		font-size: 15px
+		line-height: 25px
+		letter-spacing: 0.02em
+		color: #000000
+
+
+
+
+@import "media" // Always at the end

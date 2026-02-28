@@ -1,0 +1,15 @@
+{
+    "name": "frontend",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "sass": "^1.97.3",
+        "vite": "^7.3.1"
+    },
+    "dependencies": {
+        "inputmask": "^5.0.9"
+    }
+}

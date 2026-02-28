@@ -1,0 +1,623 @@
+@import "vars"
+
+/*==========  max  ==========*/
+
+@media only screen and (max-width : 1920px)
+	/**/
+
+
+@media only screen and (max-width : 1680px)
+	/**/
+
+
+@media only screen and (max-width : 1600px)
+	/**/
+
+
+@media only screen and (max-width : 1440px)
+	/**/
+
+
+
+@media only screen and (max-width : 1366px)
+	/**/
+
+
+@media only screen and (max-width : 1280px)
+	/**/
+	.footer__bottom .bottom_menu .menu_main_ul li
+		padding: 0 15px
+
+
+
+@media only screen and (max-width : 1200px)
+	/**/
+	table thead th
+		padding: 30px 10px
+
+
+@media only screen and (max-width : 1180px)
+	/**/
+	.top-header__menu nav ul li
+		padding: 0 5px
+	.footer__bottom .menu_main_ul
+		display: none !important
+
+@media only screen and (max-width : 992px)
+	/**/
+	.top-header__logo .logo
+		flex-direction: column
+		justify-content: center
+		text-align: center
+		width: 115px
+		margin: 0 auto
+		span
+			font-style: normal
+			font-weight: 800
+			font-size: 11px
+			line-height: 13px
+			text-align: center
+			letter-spacing: 0.02em
+			margin-left: 0
+			margin-top: 5px
+		img
+			width: 29px
+			height: 28px
+
+	.top-header__line .row.align-items-center .wrap .lang-menu .title
+		border: 1.5px solid $accent
+	.top-header__line .row.align-items-center .wrap .lang-menu .title::after
+		content: "\e825"
+		font-family: "nut"
+		display: block
+		font-size: 5px
+		position: absolute
+		color: #93B474
+		top: 10px
+		right: 5px
+	.top-header__logo .wraper .logo_number i
+		font-size: 22px
+	.top-header__logo .wraper .logo_number span
+		left: 17px
+		width: 13px
+		height: 13px
+		line-height: 12px
+	.mobile-menu
+		display: none
+	.mobile-menu
+		position: relative
+		.logo
+			display: flex
+			align-items: center
+			width: 220px
+			padding: 12px
+			img
+				height: 33px
+				width: 34px
+			span
+				font-style: normal
+				font-weight: 800
+				font-size: 12px
+				line-height: 14px
+				letter-spacing: 0.02em
+				margin-left: 8px
+			&:hover,
+			&:focus
+				color: $text
+		i.icons-close-button
+			position: absolute
+			top: 15px
+			right: 30px
+			&:hover
+				cursor: pointer
+		.log_in
+			list-style-type: none
+			margin: 0 0 5px 0
+			padding: 0
+			li
+				font-style: normal
+				font-weight: 500
+				font-size: 13px
+				line-height: 15px
+				letter-spacing: 0.02em
+				display: inline-block
+				vertical-align: middle
+				a
+					display: flex
+					i
+						color: #93B474
+						font-size: 11px
+					span
+						display: inline-block
+				&:last-child
+					a
+						padding-left: 20px
+						padding-right: 40px
+						span
+							border-bottom: 2px solid #93B474
+				&:first-child
+					a
+						i
+							padding-right: 5px
+		.mobile-line
+			justify-content: space-between
+			flex-direction: row-reverse
+			background: #FAFAFA
+			padding: 12px
+			.log_in
+				padding: 0
+				margin: 0
+			.line_social
+				list-style-type: none
+				margin: 0 15px 0 0
+				padding: 0
+				li
+					display: inline-block
+					// margin-right: -26px
+					a
+						color: #323232
+						font-size: 13px
+						padding: 0 20px
+						&:hover,
+						&:focus
+							color: $hover
+					&:first-child
+						a
+							padding-left: 0
+		.menu_main_ul
+			list-style-type: none
+			padding: 0
+			margin: 0
+			li
+				background: #fff
+				padding: 12px
+				position: relative
+				transition: all 0.3s
+				a
+					font-style: normal
+					font-weight: 500
+					font-size: 15px
+					line-height: 18px
+					letter-spacing: 0.02em
+				&:hover,
+				&:focus
+					background: $accent
+					cursor: pointer
+					a
+						color: #fff
+				&:after
+					content: ''
+					position: absolute
+					width: calc(100% - 20px)
+					height: 1px
+					background: rgba(0, 0, 0, 0.08)
+					left: 0
+					bottom: 0
+					z-index: 99
+					margin: 0 12px
+
+	.logo_tel_mobile
+		list-style-type: none
+		margin: 0 0 0 0
+		padding: 0
+		li
+			margin-bottom: 2.5px
+			a
+				font-family: $m-font
+				font-style: normal
+				font-weight: 600
+				font-size: 13px
+				line-height: 16px
+				display: block
+				span
+					color: $accent
+
+	.logo_button_mobile
+		list-style-type: none
+		padding: 0
+		margin: 0
+		li
+			a
+				font-style: normal
+				font-weight: 600
+				font-size: 13px
+				line-height: 15px
+				letter-spacing: 0.02em
+				background: transparent
+				border-top: 0
+				border-bottom: 1px solid #337D5A
+				border-left: 0
+				border-right: 0
+				color: $accent
+				padding: 0
+				display: inline
+				width: 100px
+				&:hover,
+				&:focus
+					background: transparent
+					border-left: 0
+					border-right: 0
+					border-top: 0
+
+	.top-header__line .row.align-items-center .wrap
+		justify-content: space-between
+	.logo_button_mobile
+		list-style-type: none
+		padding: 0
+		margin: 0
+		margin-left: 0px
+		position: absolute
+		left: 160px
+		top: 1px
+
+	.top-header__logo .wraper
+		justify-content: flex-end
+
+	.top-header__discount
+		justify-content: center
+		align-items: center
+		min-height: 35px
+		p
+			font-family: $m-font
+			font-style: normal
+			font-weight: 600
+			font-size: 13px
+			line-height: 16px
+			padding: 0
+			margin: 0
+			color: $accent
+
+	h1
+		font-style: normal
+		font-weight: 800
+		font-size: 28px
+		line-height: 33px
+		letter-spacing: 0.01em
+
+	.first-section .row a p
+		font-style: normal
+		font-weight: 600
+		font-size: 17px
+		line-height: 20px
+		text-align: center
+		letter-spacing: 0.01em
+	.first-section .row a span,
+	.goal .row a span
+		height: 45px
+		width: 45px
+	.first-section .row a span i,
+	.goal .row a span i
+		color: #fff
+		font-size: 45px
+		line-height: 40px
+	.first-section .row a span i::before,
+	.goal .row a span i::before
+		margin-left: -2px
+	.first-section,
+	.first-section .row
+		min-height: 400px
+	.footer__bottom .bottom_menu .wraper
+		display: flex
+		justify-content: center
+	h2
+		font-size: 26px !important
+		line-height: 30px !important
+	.footer__bottom
+		padding-top: 30px
+	.footer__bottom .bottom_social
+		margin-top: 20px
+		margin-bottom: 20px
+	.footer__bottom .bottom_mail
+		margin-bottom: 20px
+	.footer__bottom #map
+		margin-top: 30px
+	.eco
+		min-height: 400px
+		.row
+			min-height: 400px
+			a
+				p
+					font-style: normal
+					font-weight: 600
+					font-size: 17px
+					line-height: 20px
+					text-align: center
+					letter-spacing: 0.01em
+				i
+					font-size: 50px
+
+	.benefit
+		h3
+			font-size: 24px
+		p
+			font-size: 16px
+	.eco .row a h2,
+	.eco .row a i,
+	.news h2,
+	.benefit h2
+		margin-bottom: 10px
+	.timer__single
+		padding-bottom: 0
+		font-size: 58px
+		line-height: 58px
+	sup
+		line-height: 48px !important
+	.timer__descr
+		margin-bottom: 20px
+	.popup__cart
+		margin-right: -240px
+		right: 50%
+		top: 0
+
+	.manufacturer__item_video
+		&:before
+			margin-top: -22.5px !important
+			margin-left: -22.5px !important
+			height: 45px !important
+			width: 45px !important
+			font-size: 45px !important
+			line-height: 45px !important
+
+	.benefit__item_video
+		&:before
+			margin-top: -22.5px !important
+			margin-left: -22.5px !important
+			height: 45px !important
+			width: 45px !important
+			font-size: 40px !important
+			line-height: 40px !important
+	.news__item_video
+		span
+			&:before
+				margin-top: -22.5px !important
+				margin-left: -22.5px !important
+				height: 45px !important
+				width: 45px !important
+				font-size: 45px !important
+				line-height: 45px !important
+	.history__content
+		margin-left: 0
+		margin-top: 30px
+	.production__filter_title,
+	.select,
+	.production__filter_price,
+	.production__filter_button
+		margin-bottom: 20px
+	.manufacturer h2
+		line-height: 36px
+	.payment .tabs .tabs__wrap .tabs__caption
+		flex-wrap: wrap
+		li
+			font-size: 16px
+			margin-top: 30px
+	.customers
+		padding-bottom: 0
+	.customers__title
+		margin-bottom: 30px
+	.payment .tabs .tabs__wrap .tabs__caption
+		padding-top: 30px
+	.customers__title
+		font-size: 30px
+		line-height: 34px
+	.first-section .row .wrap p
+		font-size: 18px
+		line-height: 22px
+	.benefit-news h1
+		font-size: 34px
+		line-height: 40px
+	.benefit-news
+		.news__item_video span::before
+			margin-top: -22.5px !important
+			margin-left: -22.5px !important
+			height: 45px !important
+			width: 45px !important
+			font-size: 40px !important
+			line-height: 40px !important
+	.benefit-news .benefit-news__item_video_text span
+		width: 45px
+		height: 45px
+		i
+			font-size: 40px
+			line-height: 40px
+			&:before
+				margin-left: 0
+	.product__content
+		margin-left: 30px
+	.product h1
+		font-size: 28px
+		line-height: 32px
+	.accaunt .address__img .wrap p
+		font-size: 16px
+		line-height: 20px
+	.discount
+		float: left
+
+@media only screen and (max-width : 960px)
+	/**/
+
+
+
+@media only screen and (max-width : 768px)
+	/**/
+	.accaunt .popup__cart_sum
+		justify-content: center
+	.first-section__error h1
+		font-size: 150px
+		line-height: 150px
+	.thanks .row .wrap h1
+		font-size: 30px
+	.thanks .row .wrap p
+		font-size: 18px !important
+		line-height: !important
+	.registration .wrapper
+		margin-top: 0
+	.accaunt .wrapper
+		margin-top: 20px
+	.product__content_art
+		text-align: left
+		margin-top: 20px
+	.product__content
+		margin-left: 0
+	.manufacturer-container
+		margin-top: 30px
+	.footer__bottom .copy p
+		text-align: center
+		padding: 10px 0
+	.footer__bottom .copy__social
+		justify-content: center
+	.news .swiper-container
+		margin-top: 30px
+	.news__descr
+		margin-bottom: 30px
+	.news h2
+		margin-bottom: 20px
+	.news
+		padding-top: 30px
+		padding-bottom: 30px
+	.news p
+		font-size: 16px
+	.goal .row a h2
+		line-height: 43px
+	.payment .tabs .tabs__wrap .tabs__caption
+		flex-direction: column
+	.payment .tabs .tabs__wrap .tabs__caption li
+		margin-bottom: 50px
+	table thead th span::after
+		display: none
+	table thead th
+		text-align: center
+
+
+@media only screen and (max-width : 576px)
+	/**/
+	table.bt tbody td
+		display: flex
+		justify-content: space-between
+		align-items: center
+		background: #FBFBFB
+	table tbody tr td
+		text-align: left
+		padding: 30px 10px
+	.footer__bottom #map
+		min-height: 300px
+	.single-news main img
+		min-height: 300px
+	.single-news h1
+		font-size: 28px
+		line-height: 32px
+	.accaunt .sticker
+		left: 60%
+
+@media only screen and (max-width : 480px)
+	/**/
+	.first-section__error a
+		font-size: 14px
+		padding: 15px
+	.first-section__error h1
+		font-size: 100px
+		line-height: 100px
+	.registration .tabs__wrap .tabs__caption li
+		padding: 20px 0
+	.mobile-menu .mobile-line .line_social li a
+		padding: 0 5px
+	.mobile-menu .log_in li:last-child a
+		padding-right: 5px
+	.top-header__line #lang-menu.lang-menu
+		margin-right: -15px
+	.footer__bottom .bottom_social
+		flex-direction: column
+		align-items: flex-start
+	.footer__bottom .bottom_social .bottom_social_tel
+		margin-bottom: 20px
+	.production__item_sum
+		flex-direction: column
+		.sum_item_button
+			margin-top: 10px
+	.popup__cart .wrap
+		width: 280px
+	.popup__cart
+		margin-right: -172px
+		right: 50%
+		top: 0
+	.popup__cart_sum
+		justify-content: center
+
+@media only screen and (max-width : 340px)
+	/**/
+	.top-header__line .row.align-items-center .wrap .lang-menu .title
+		width: 40px
+		height: 38px
+		padding: 10px 8px
+
+
+/*==========  min  ==========*/
+
+
+@media only screen and (min-width : 320px)
+	/**/
+
+
+
+@media only screen and (min-width : 480px)
+	/**/
+
+
+
+@media only screen and (min-width : 576px)
+	/**/
+
+
+
+@media only screen and (min-width : 768px)
+	/**/
+
+
+
+@media only screen and (min-width : 992px)
+	/**/
+
+
+
+@media only screen and (min-width : 1200px)
+	/**/
+	.container
+		max-width: 100% !important
+
+@media only screen and (min-width : 1300px)
+	/**/
+	.container
+		max-width: 1290px !important
+
+
+
+@media only screen and (min-width : 1366px)
+	/**/
+
+
+
+@media only screen and (min-width : 1367px)
+	/**/
+
+
+
+
+@media only screen and (min-width : 1440px)
+	/**/
+
+
+
+
+@media only screen and (min-width : 1441px)
+	/**/
+
+
+
+
+@media only screen and (min-width : 1680px)
+	/**/
+
+
+
+
+@media only screen and (min-width : 1920px)
+	/**/

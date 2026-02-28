@@ -1,0 +1,92 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{# Обертка col... #}
+<div class="{{ self.size|default:'col-12' }} mb-4">
+
+    {# Используем класс wrap как в карточках. Высота 400px. #}
+    <div class="wrap" style="height: 400px; position: relative; overflow: hidden; border-radius: 8px; background-color: #000;">
+
+        {# --- ВАРИАНТ 1: ВИДЕО --- #}
+        {% if self.video %}
+            <div class="video-wrapper" onclick="playGalleryItemVideo(this)" style="cursor: pointer; width: 100%; height: 100%; position: relative;">
+
+                {# Видео растянуто на 100% высоты и ширины #}
+                <video class="gallery-video" playsinline preload="metadata"
+                       style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                    <source src="{{ self.video.url }}" type="video/mp4">
+                </video>
+
+                {# Затемнение #}
+                <div class="video-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); transition: opacity 0.5s;"></div>
+
+                {# Кнопка Play и текст #}
+                <div class="video-content" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%; padding: 0 15px; transition: opacity 0.5s; z-index: 10;">
+                    <span style="display: block; margin-bottom: 15px;">
+                        <i class="nut-icon icons-play-icon" style="font-size: 60px; color: #fff;"></i>
+                    </span>
+                    <h3 style="color: #fff; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ self.title }}</h3>
+                    {% if self.subtitle %}
+                        <p style="color: #fff; font-size: 16px; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ self.subtitle }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+        {# --- ВАРИАНТ 2: КАРТИНКА --- #}
+        {% elif self.image %}
+            {% image self.image fill-1200x800 as img_data %}
+
+            <div class="image-wrapper" style="width: 100%; height: 100%; position: relative;">
+                 <img src="{{ img_data.url }}" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0;" alt="{{ self.title }}">
+
+                 <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3);"></div>
+
+                 <div class="content" style="position: absolute; bottom: 30px; left: 30px; padding-right: 20px; z-index: 2;">
+                    <h3 style="color: #fff; margin-bottom: 5px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ self.title }}</h3>
+                    {% if self.subtitle %}
+                        <p style="color: #fff; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">{{ self.subtitle }}</p>
+                    {% endif %}
+                 </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    if (typeof playGalleryItemVideo === 'undefined') {
+        function playGalleryItemVideo(wrapper) {
+            var video = wrapper.querySelector('.gallery-video');
+            var overlay = wrapper.querySelector('.video-overlay');
+            var content = wrapper.querySelector('.video-content');
+
+            if (video && video.paused) {
+                video.play();
+                video.controls = true;
+
+                if(overlay) overlay.style.opacity = '0';
+                if(content) content.style.opacity = '0';
+
+                setTimeout(function() {
+                    if(overlay) overlay.style.display = 'none';
+                    if(content) content.style.display = 'none';
+                }, 500);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener('ended', function(e){
+                if(e.target.classList.contains('gallery-video')){
+                    var video = e.target;
+                    var wrapper = video.closest('.video-wrapper');
+                    var overlay = wrapper.querySelector('.video-overlay');
+                    var content = wrapper.querySelector('.video-content');
+
+                    video.controls = false;
+                    video.currentTime = 0;
+
+                    if(overlay) { overlay.style.display = 'block'; setTimeout(()=>overlay.style.opacity='1',10); }
+                    if(content) { content.style.display = 'block'; setTimeout(()=>content.style.opacity='1',10); }
+                }
+            }, true);
+        });
+    }
+</script>

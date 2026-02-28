@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags static %}
+
+{% block content %}
+<section class="news gray_section">
+    <div class="container">
+        <div class="row align-items-center justify-content-center mb-5">
+            <div class="col-lg-8 col-12 text-center">
+                <h2>{% if page.custom_title %}{{ page.custom_title }}{% else %}{{ page.title }}{% endif %}</h2>
+                {% if page.intro %}
+                    <p class="news__descr" style="color: #555;">{{ page.intro }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        {# Контейнер для списка новостей #}
+        {# Сюда HTMX будет добавлять контент, если использовать hx-target на кнопку #}
+        {# Но в includes/news_list.html мы используем логику замены кнопки, поэтому здесь просто include #}
+        <div class="row" id="news-grid">
+            {% include "news/includes/news_list.html" %}
+        </div>
+    </div>
+</section>
+
+{% for block in page.footer_blocks %}
+    {% include_block block %}
+{% endfor %}
+
+{# Подключаем HTMX если еще не подключен в base.html #}
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+{% endblock %}

@@ -1,0 +1,1956 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-23 20:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: backend/about/blocks/about_page.py:11
+msgid "Изображение основателя"
+msgstr "Image of the founder"
+
+#: backend/about/blocks/about_page.py:12
+msgid "Имя основателя"
+msgstr "Founder's name"
+
+#: backend/about/blocks/about_page.py:13
+msgid "Должность"
+msgstr "Position"
+
+#: backend/about/blocks/about_page.py:14
+msgid "Цитата"
+msgstr "Quote"
+
+#: backend/about/blocks/about_page.py:15
+#: backend/about/blocks/wholesale_page.py:113 backend/home/blocks.py:26
+msgid "Текст кнопки"
+msgstr "Button text"
+
+#: backend/about/blocks/about_page.py:16
+msgid "Ссылка кнопки"
+msgstr "Button link"
+
+#: backend/about/blocks/about_page.py:19
+msgid "История предприятия"
+msgstr "History of the company"
+
+#: backend/about/blocks/about_page.py:19
+msgid "Заголовок истории"
+msgstr "Story title"
+
+#: backend/about/blocks/about_page.py:21
+msgid "Текст истории"
+msgstr "Text of the story"
+
+#: backend/about/blocks/about_page.py:23
+msgid "Фоновое изображение истории"
+msgstr "Background image of history"
+
+#: backend/about/blocks/about_page.py:28
+msgid "Блок истории и основателя"
+msgstr "History and Founder Section"
+
+#: backend/about/blocks/wholesale_page.py:13
+msgid "Заголовок (слева)"
+msgstr "Title (left)"
+
+#: backend/about/blocks/wholesale_page.py:15
+msgid "Текст (правая часть, колонка 1)"
+msgstr "Text (right side, column 1)"
+
+#: backend/about/blocks/wholesale_page.py:20
+msgid "Текст (правая часть, колонка 2)"
+msgstr "Text (right side, column 2)"
+
+#: backend/about/blocks/wholesale_page.py:27
+msgid "Интро (Заголовок + 2 колонки)"
+msgstr "Intro (Title + 2 columns)"
+
+#: backend/about/blocks/wholesale_page.py:39
+#: backend/about/blocks/wholesale_page.py:71 backend/gallery/blocks.py:13
+msgid "Картинка"
+msgstr "Picture"
+
+#: backend/about/blocks/wholesale_page.py:40
+#: backend/about/blocks/wholesale_page.py:72
+msgid "Иконочный шрифт"
+msgstr "Icon font"
+
+#: backend/about/blocks/wholesale_page.py:43
+msgid "Тип иконки"
+msgstr "Icon type"
+
+#: backend/about/blocks/wholesale_page.py:45
+msgid "Иконка (Картинка)"
+msgstr "Icon (Picture)"
+
+#: backend/about/blocks/wholesale_page.py:48
+msgid "Класс иконки (Шрифт)"
+msgstr "Icon class (Font)"
+
+#: backend/about/blocks/wholesale_page.py:49
+msgid "Например: icons-delivery"
+msgstr "For example: icons-delivery"
+
+#: backend/about/blocks/wholesale_page.py:51 backend/gallery/blocks.py:14
+#: backend/gallery/blocks.py:33 backend/home/blocks.py:21
+#: backend/home/blocks.py:51 backend/home/blocks.py:96
+#: backend/home/blocks.py:124 backend/home/blocks.py:137
+#: backend/home/blocks.py:182
+msgid "Заголовок"
+msgstr "Title"
+
+#: backend/about/blocks/wholesale_page.py:52 backend/home/blocks.py:71
+#: backend/home/blocks.py:97 backend/home/blocks.py:183
+#: templates/users/includes/transaction_modal.html:16
+msgid "Описание"
+msgstr "Description"
+
+#: backend/about/blocks/wholesale_page.py:56
+msgid "Элемент с иконкой"
+msgstr "Element with icon"
+
+#: backend/about/blocks/wholesale_page.py:66
+msgid "Название таба (в меню)"
+msgstr "Name of tobacco (on the menu)"
+
+#: backend/about/blocks/wholesale_page.py:66
+msgid "Например: 'Безналичный расчет'"
+msgstr "For example: 'Cashless payment'"
+
+#: backend/about/blocks/wholesale_page.py:75
+msgid "Тип иконки таба"
+msgstr "Tab icon type"
+
+#: backend/about/blocks/wholesale_page.py:79
+msgid "Иконка таба (Картинка)"
+msgstr "Tab icon (Image)"
+
+#: backend/about/blocks/wholesale_page.py:83
+msgid "Класс иконки таба"
+msgstr "Tab icon class"
+
+#: backend/about/blocks/wholesale_page.py:84
+msgid "Например: icons-card"
+msgstr "For example: icons-card"
+
+#: backend/about/blocks/wholesale_page.py:89
+msgid "Главный заголовок контента"
+msgstr "Main content heading"
+
+#: backend/about/blocks/wholesale_page.py:90
+msgid "Например: Оплата банковскими картами (Без переплат)"
+msgstr "For example: Payment by bank card (no extra charges)"
+
+#: backend/about/blocks/wholesale_page.py:101
+msgid "Текстовый абзац"
+msgstr "Text paragraph"
+
+#: backend/about/blocks/wholesale_page.py:103
+msgid "Простой текстовый абзац без иконки"
+msgstr "Simple text paragraph without icon"
+
+#: backend/about/blocks/wholesale_page.py:107
+msgid "Содержимое (иконки + текст или просто текст)"
+msgstr "Content (icons + text or text only)"
+
+#: backend/about/blocks/wholesale_page.py:113
+msgid "Например: 'Написать нам'"
+msgstr "For example: 'Write to us'"
+
+#: backend/about/blocks/wholesale_page.py:117
+msgid "URL кнопки"
+msgstr "Button URL"
+
+#: backend/about/blocks/wholesale_page.py:118
+msgid "Например: /contacts/ или https://example.com"
+msgstr "For example: /contacts/ or https://example.com"
+
+#: backend/about/blocks/wholesale_page.py:122 backend/shop/blocks.py:18
+msgid "Картинка справа"
+msgstr "The picture on the right"
+
+#: backend/about/blocks/wholesale_page.py:126 backend/shop/blocks.py:30
+msgid "Таб"
+msgstr "Tab"
+
+#: backend/about/blocks/wholesale_page.py:134 backend/shop/blocks.py:38
+msgid "Список табов"
+msgstr "List of tabs"
+
+#: backend/about/blocks/wholesale_page.py:139
+msgid "Секция табов (Оплата/Доставка)"
+msgstr "Tabs section (Payment/Delivery)"
+
+#: backend/about/models.py:41
+msgid "Страница галереи"
+msgstr "Gallery page"
+
+#: backend/about/models.py:47
+msgid "Количество элементов"
+msgstr "Number of elements"
+
+#: backend/about/models.py:52
+msgid "Импорт галереи"
+msgstr "Import gallery"
+
+#: backend/about/models.py:58 backend/about/models.py:84
+#: backend/about/models.py:110 backend/gallery/models.py:30
+#: backend/home/models.py:38
+msgid "Контент страницы"
+msgstr "Page content"
+
+#: backend/about/models.py:67 backend/about/models.py:68
+msgid "О компании"
+msgstr "About the company"
+
+#: backend/about/models.py:93 backend/about/models.py:94
+msgid "Опт и корпоративные клиенты"
+msgstr "Wholesale and corporate clients"
+
+#: backend/about/models.py:119 backend/about/models.py:120
+msgid "Оплата и доставка"
+msgstr "Payment and delivery"
+
+#: backend/contacts/blocks.py:21 backend/home/blocks.py:39
+#: backend/news/blocks.py:18 backend/shop/admin.py:28 backend/shop/blocks.py:16
+#: backend/shop/models/products.py:75
+msgid "Изображение"
+msgstr "Image"
+
+#: backend/contacts/blocks.py:22
+msgid "Шрифт Иконка"
+msgstr "Font Icon"
+
+#: backend/contacts/blocks.py:25
+msgid "Тип значка"
+msgstr "Icon type"
+
+#: backend/contacts/blocks.py:28
+msgid "Иконка (изображение)"
+msgstr "Icon (image)"
+
+#: backend/contacts/blocks.py:31
+msgid "Класс Icon"
+msgstr "Icon class"
+
+#: backend/contacts/blocks.py:32
+msgid "Пример: icons-phone, icons-post, icons-home"
+msgstr "Example: phone icons, post icons, house icons"
+
+#: backend/contacts/blocks.py:45 backend/core/models.py:42
+msgid "Ссылка"
+msgstr "Reference"
+
+#: backend/contacts/blocks.py:49
+msgid "Социальная связь"
+msgstr "Social connection"
+
+#: backend/contacts/blocks.py:58
+msgid "Номер телефона"
+msgstr "Phone number"
+
+#: backend/contacts/blocks.py:59
+msgid "Список телефонов"
+msgstr "List of phone numbers"
+
+#: backend/contacts/blocks.py:63 backend/core/models.py:49
+#: backend/news/blocks.py:41
+msgid "Социальные сети"
+msgstr "Social networks"
+
+#: backend/contacts/blocks.py:67
+msgid "Раздел Телефон"
+msgstr "Phone section"
+
+#: backend/contacts/blocks.py:77
+msgid "Адрес электронной почты"
+msgstr "Email address"
+
+#: backend/contacts/blocks.py:78
+msgid "Список адресов электронной почты"
+msgstr "List of email addresses"
+
+#: backend/contacts/blocks.py:83
+msgid "Раздел Электронная почта"
+msgstr "Email section"
+
+#: backend/contacts/blocks.py:92
+msgid "Филиал/Название"
+msgstr "Branch/Name"
+
+#: backend/contacts/blocks.py:94
+msgid "Текст адреса"
+msgstr "Address text"
+
+#: backend/contacts/blocks.py:100 backend/users/forms.py:213
+#: backend/users/models/user.py:63
+#: templates/users/includes/profile_sidebar.html:31
+#: templates/users/profile_address.html:81
+msgid "Адрес"
+msgstr "Address"
+
+#: backend/contacts/blocks.py:111
+msgid "Контакты"
+msgstr "Contacts"
+
+#: backend/contacts/blocks.py:111
+msgid "Основное название"
+msgstr "Main title"
+
+#: backend/contacts/blocks.py:115
+msgid "Телефоны и социальные сети"
+msgstr "backgrounds and social networks"
+
+#: backend/contacts/blocks.py:118
+msgid "Блокировка электронной почты"
+msgstr "Email blocking"
+
+#: backend/contacts/blocks.py:122
+msgid "Список адресов"
+msgstr "List of addresses"
+
+#: backend/contacts/blocks.py:126
+msgid "Код для вставки карты (iframe Google Maps)"
+msgstr "Code for embedding a map (Google Maps iframe)"
+
+#: backend/contacts/blocks.py:132 backend/contacts/models.py:24
+msgid "Подробные контакты"
+msgstr "Detailed contact information"
+
+#: backend/contacts/blocks.py:143
+msgid "Выберите страницу Контакты"
+msgstr "Select the Contacts page"
+
+#: backend/contacts/blocks.py:150
+msgid "Импорт контактов"
+msgstr "Import contacts"
+
+#: backend/contacts/models.py:23
+msgid "Блок героя"
+msgstr "Hero block"
+
+#: backend/contacts/models.py:26
+msgid "Текстовое содержание"
+msgstr "Text content"
+
+#: backend/contacts/models.py:31
+msgid "Содержание страницы Контакты"
+msgstr "Page content Contacts"
+
+#: backend/contacts/models.py:39 backend/contacts/models.py:40
+msgid "Страница контактов"
+msgstr "Contact page"
+
+#: backend/core/models.py:36
+msgid "Социальная сеть (Вверху слева и в подвале)"
+msgstr "Social network (Top left and bottom)"
+
+#: backend/core/models.py:37
+msgid "Мессенджер (Возле номеров телефонов)"
+msgstr "Messenger (Next to phone numbers)"
+
+#: backend/core/models.py:40
+msgid "Платформа/Иконка"
+msgstr "Platform/Icon"
+
+#: backend/core/models.py:41
+msgid "Расположение"
+msgstr "Location"
+
+#: backend/core/models.py:48
+msgid "Социальная сеть"
+msgstr "Social network"
+
+#: backend/core/models.py:73
+msgid "Логотип"
+msgstr "Logo"
+
+#: backend/core/models.py:76
+msgid "Текст логотипа"
+msgstr "Logo text"
+
+#: backend/core/models.py:77
+msgid "Текст скидки"
+msgstr "Discount text"
+
+#: backend/core/models.py:77
+msgid "Скидка -10% на первый заказ"
+msgstr "10% discount on your first order"
+
+#: backend/core/models.py:79
+msgid "Код 1"
+msgstr "Code 1"
+
+#: backend/core/models.py:80
+msgid "Номер 1"
+msgstr "Number 1"
+
+#: backend/core/models.py:81
+msgid "Код 2"
+msgstr "Code 2"
+
+#: backend/core/models.py:82
+msgid "Номер 2"
+msgstr "Number 2"
+
+#: backend/core/models.py:83
+msgid "Текст звонка"
+msgstr "Call text"
+
+#: backend/core/models.py:83 templates/includes/header.html:117
+#: templates/includes/header.html:120
+msgid "Заказать звонок"
+msgstr "Request a call"
+
+#: backend/core/models.py:86
+msgid "Текст разработчика"
+msgstr "Developer text"
+
+#: backend/core/models.py:90
+msgid "Копирайт"
+msgstr "Copyright"
+
+#: backend/core/models.py:90
+msgid "Copyright © 2019. Все права защищены"
+msgstr "Copyright © 2019. All rights reserved."
+
+#: backend/core/models.py:102
+msgid "Шапка: Логотип и скидка"
+msgstr "Hat: Logo and discount"
+
+#: backend/core/models.py:112
+msgid "Шапка: Контакты"
+msgstr "Header: Contacts"
+
+#: backend/core/models.py:121
+msgid "Подвал сайта"
+msgstr "Site basement"
+
+#: backend/core/models.py:123
+msgid "Ссылки на соцсети"
+msgstr "Links to social networks"
+
+#: backend/core/models.py:130
+msgid "Настройки сайта"
+msgstr "Site settings"
+
+#: backend/gallery/blocks.py:12
+msgid "Видео (приоритет)"
+msgstr "Video (priority)"
+
+#: backend/gallery/blocks.py:15 backend/home/blocks.py:23
+#: backend/home/blocks.py:138 backend/news/blocks.py:40
+msgid "Подзаголовок"
+msgstr "Subtitle"
+
+#: backend/gallery/blocks.py:17
+msgid "100%"
+msgstr "100%"
+
+#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:38
+msgid "50%"
+msgstr "50%"
+
+#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:37
+msgid "33%"
+msgstr "33%"
+
+#: backend/gallery/blocks.py:19 backend/gallery/blocks.py:42
+msgid "Размер"
+msgstr "Size"
+
+#: backend/gallery/blocks.py:25
+msgid "Видео/Баннер"
+msgstr "Video/Banner"
+
+#: backend/gallery/blocks.py:31
+msgid "Фоновая картинка"
+msgstr "Background image"
+
+#: backend/gallery/blocks.py:32 backend/home/blocks.py:95
+#: backend/home/blocks.py:123
+msgid "Иконка"
+msgstr "Icon"
+
+#: backend/gallery/blocks.py:34 backend/home/blocks.py:54
+#: backend/home/blocks.py:125 backend/shop/blocks.py:23
+msgid "Текст"
+msgstr "Text"
+
+#: backend/gallery/blocks.py:39
+msgid "25%"
+msgstr "25%"
+
+#: backend/gallery/blocks.py:48
+msgid "Карточка"
+msgstr "Card"
+
+#: backend/gallery/blocks.py:56
+msgid "Наша галерея"
+msgstr "Our gallery"
+
+#: backend/gallery/blocks.py:56
+msgid "Заголовок секции"
+msgstr "Section heading"
+
+#: backend/gallery/blocks.py:57
+msgid "Описание секции"
+msgstr "Section description"
+
+#: backend/gallery/blocks.py:61
+msgid "Элементов на странице (для пагинации)"
+msgstr "Elements on page (for pagination)"
+
+#: backend/gallery/blocks.py:63
+msgid ""
+"Сколько карточек показывать за раз. Работает только на детальной странице "
+"галереи."
+msgstr ""
+"How many cards to display at a time. Only works on the detailed page of the "
+"gallery."
+
+#: backend/gallery/blocks.py:72
+msgid "Элементы галереи"
+msgstr "Gallery elements"
+
+#: backend/gallery/blocks.py:78
+msgid "Секция: Галерея"
+msgstr "Section: Gallery"
+
+#: backend/gallery/models.py:25 backend/gallery/models.py:27
+msgid "Основное"
+msgstr "Main"
+
+#: backend/gallery/models.py:43
+msgid "Галерея"
+msgstr "Gallery"
+
+#: backend/gallery/models.py:44
+msgid "Галереи"
+msgstr "Galleries"
+
+#: backend/home/blocks.py:15 backend/home/blocks.py:40
+#: backend/news/blocks.py:19
+msgid "Видео"
+msgstr "Video"
+
+#: backend/home/blocks.py:17
+msgid "Фоновая картинка (если нет видео)"
+msgstr "Background image (if there is no video)"
+
+#: backend/home/blocks.py:21
+msgid "Орех Причерноморья"
+msgstr "Black Sea walnut"
+
+#: backend/home/blocks.py:26
+msgid "Смотреть видео"
+msgstr "Watch the video"
+
+#: backend/home/blocks.py:33 backend/home/models.py:28
+msgid "Главный экран (Hero)"
+msgstr "Main screen (Hero)"
+
+#: backend/home/blocks.py:45
+msgid "Медиа галерея"
+msgstr "Media gallery"
+
+#: backend/home/blocks.py:51
+msgid "О производителе"
+msgstr "About the manufacturer"
+
+#: backend/home/blocks.py:56
+msgid "Ссылка на страницу"
+msgstr "Link to page"
+
+#: backend/home/blocks.py:57
+msgid "Галерея (Слайдер)"
+msgstr "Gallery (Slider)"
+
+#: backend/home/blocks.py:63 backend/home/models.py:29
+msgid "Блок 'О производителе'"
+msgstr "About the manufacturer section"
+
+#: backend/home/blocks.py:69
+msgid "Значение (цифра)"
+msgstr "Value (number)"
+
+#: backend/home/blocks.py:70
+msgid "Единица измерения"
+msgstr "Unit of measurement"
+
+#: backend/home/blocks.py:76
+msgid "Элемент статистики"
+msgstr "Statistics element"
+
+#: backend/home/blocks.py:82
+msgid "Список статистики"
+msgstr "List of statistics"
+
+#: backend/home/blocks.py:88 backend/home/models.py:31
+msgid "Блок статистики"
+msgstr "Statistics block"
+
+#: backend/home/blocks.py:94 backend/home/blocks.py:122
+msgid "Фоновое изображение"
+msgstr "Background image"
+
+#: backend/home/blocks.py:102
+msgid "Карточка преимущества"
+msgstr "Advantages card"
+
+#: backend/home/blocks.py:108
+msgid "Заголовок блока"
+msgstr "Block title"
+
+#: backend/home/blocks.py:109
+msgid "Описание блока"
+msgstr "Block description"
+
+#: backend/home/blocks.py:110
+msgid "Карточки преимуществ"
+msgstr "Advantage cards"
+
+#: backend/home/blocks.py:116 backend/home/models.py:32
+msgid "Блок преимуществ"
+msgstr "Advantages block"
+
+#: backend/home/blocks.py:124
+msgid "Эко продукция"
+msgstr "Eco products"
+
+#: backend/home/blocks.py:131 backend/home/models.py:33
+msgid "Эко баннер"
+msgstr "Eco banner"
+
+#: backend/home/blocks.py:137
+msgid "Новости"
+msgstr "News"
+
+#: backend/home/blocks.py:139
+msgid "Количество новостей"
+msgstr "Number of news items"
+
+#: backend/home/blocks.py:144
+msgid "Страница новостей (для кнопки 'Все новости')"
+msgstr "News page (for the 'All news' button)"
+
+#: backend/home/blocks.py:152
+msgid "Слайдер последних новостей"
+msgstr "Latest news slider"
+
+#: backend/home/blocks.py:182
+msgid "Продукция"
+msgstr "Products"
+
+#: backend/home/blocks.py:184 backend/shop/models/ecommerce.py:152
+msgid "Количество товаров"
+msgstr "Number of items"
+
+#: backend/home/blocks.py:191
+msgid "Блок товаров"
+msgstr "Product group"
+
+#: backend/home/models.py:30
+msgid "Блок продуктов"
+msgstr "Product block"
+
+#: backend/home/models.py:34
+msgid "Последние новости"
+msgstr "Latest news"
+
+#: backend/home/models.py:35 backend/users/models/profile.py:50
+msgid "Блок контактов"
+msgstr "Contact block"
+
+#: backend/home/models.py:49
+msgid "Главная страница"
+msgstr "Home page"
+
+#: backend/home/models.py:50
+msgid "Главные страницы"
+msgstr "Home pages"
+
+#: backend/mysite/settings/base.py:163
+msgid "Russian"
+msgstr "Russian"
+
+#: backend/mysite/settings/base.py:164
+msgid "Ukrainian"
+msgstr "Ukrainian"
+
+#: backend/mysite/settings/base.py:165
+msgid "English"
+msgstr "English"
+
+#: backend/mysite/settings/base.py:261
+msgid "Nuts Admin"
+msgstr "Nuts Admin"
+
+#: backend/mysite/settings/base.py:262
+msgid "Nuts Administration"
+msgstr "Nuts Administration"
+
+#: backend/mysite/settings/base.py:284
+msgid "Навигация"
+msgstr "Navigation"
+
+#: backend/mysite/settings/base.py:288
+msgid "Панель управления"
+msgstr "Control panel"
+
+#: backend/mysite/settings/base.py:296
+msgid "Магазин"
+msgstr "Shop"
+
+#: backend/mysite/settings/base.py:300 backend/shop/models/products.py:149
+msgid "Товары"
+msgstr "Products"
+
+#: backend/mysite/settings/base.py:311
+msgid "Доступ и права"
+msgstr "Access and rights"
+
+#: backend/mysite/settings/base.py:315 backend/users/models/user.py:73
+msgid "Пользователи"
+msgstr "Users"
+
+#: backend/mysite/settings/base.py:321
+msgid "Группы"
+msgstr "Groups"
+
+#: backend/news/blocks.py:23
+msgid "Текст над медиа"
+msgstr "Text above media"
+
+#: backend/news/blocks.py:25
+msgid "Этот текст будет отображаться поверх изображения или видео."
+msgstr "This text will be displayed over the image or video."
+
+#: backend/news/blocks.py:31
+msgid "Медиа с текстом"
+msgstr "Media with text"
+
+#: backend/news/blocks.py:39
+msgid "Название"
+msgstr "Title"
+
+#: backend/news/blocks.py:39
+msgid "Присоединяйтесь к нам"
+msgstr "Join us"
+
+#: backend/news/blocks.py:46
+msgid "Виджет социальной сети в боковой панели"
+msgstr "Social network widget in the sidebar"
+
+#: backend/news/models.py:25
+msgid "Дата публикации"
+msgstr "Date of publication"
+
+#: backend/news/models.py:27
+msgid "Полная ширина (широкий)?"
+msgstr "Full width (wide)?"
+
+#: backend/news/models.py:30
+msgid ""
+"Если этот флажок установлен, новость будет занимать всю ширину (col-12) в "
+"списке."
+msgstr ""
+"If this checkbox is selected, the news item will occupy the entire width "
+"(col-12) in the list."
+
+#: backend/news/models.py:36
+msgid "Показать название/вступление над превью?"
+msgstr "Show title/introduction above preview?"
+
+#: backend/news/models.py:39
+msgid ""
+"Если флажок установлен: заголовок и введение будут выровнены по центру над "
+"изображением/видео (белый текст). Если флажок не установлен: под "
+"изображением (черный текст)."
+msgstr ""
+"If the checkbox is selected: the title and introduction will be centered "
+"above the image/video (white text). If the checkbox is not selected: below "
+"the image (black text)."
+
+#: backend/news/models.py:46
+msgid "Краткое описание"
+msgstr "Brief description"
+
+#: backend/news/models.py:46
+msgid "Для списка новостей"
+msgstr "For the news list"
+
+#: backend/news/models.py:56
+msgid "Предварительный просмотр: Изображение"
+msgstr "Preview: Image"
+
+#: backend/news/models.py:66
+msgid "Предварительный просмотр: Видео"
+msgstr "Preview: Video"
+
+#: backend/news/models.py:74
+msgid "Текстовый блок"
+msgstr "Text block"
+
+#: backend/news/models.py:88
+msgid "Медиа (фото/видео) + текст"
+msgstr "Media (photo/video) + text"
+
+#: backend/news/models.py:89
+msgid "Эко-баннер"
+msgstr "Eco-banner"
+
+#: backend/news/models.py:92
+msgid "Конструктор контента"
+msgstr "Content builder"
+
+#: backend/news/models.py:105
+msgid "Настройки предварительного просмотра"
+msgstr "Preview settings"
+
+#: backend/news/models.py:107
+msgid "Новости Содержание"
+msgstr "News Contents"
+
+#: backend/news/models.py:116
+msgid "Страница новостей"
+msgstr "News page"
+
+#: backend/news/models.py:141
+msgid "H1 Заголовок"
+msgstr "H1 Heading"
+
+#: backend/news/models.py:142
+msgid "Описание раздела"
+msgstr "Section description"
+
+#: backend/news/models.py:143
+msgid "Новости на странице"
+msgstr "News on the page"
+
+#: backend/news/models.py:145
+msgid "Количество последних новостей в боковой панели"
+msgstr "Number of latest news items in the sidebar"
+
+#: backend/news/models.py:154
+msgid "Социальный виджет боковой панели"
+msgstr "Sidebar social widget"
+
+#: backend/news/models.py:176
+msgid "Настройки боковой панели"
+msgstr "Sidebar settings"
+
+#: backend/shop/admin.py:29 backend/shop/models/products.py:168
+msgid "Галерея изображений"
+msgstr "Image gallery"
+
+#: backend/shop/admin.py:56
+msgid "Основная информация"
+msgstr "Basic information"
+
+#: backend/shop/admin.py:70
+msgid "Маркетинг"
+msgstr "Marketing"
+
+#: backend/shop/admin.py:77
+msgid "Характеристики"
+msgstr "Specifications"
+
+#: backend/shop/admin.py:83
+msgid "Связи"
+msgstr "Connections"
+
+#: backend/shop/admin.py:90
+msgid "Фото"
+msgstr "Photo"
+
+#: backend/shop/admin.py:98
+msgid "✗ Нет фото"
+msgstr "✗ No photo"
+
+#: backend/shop/admin.py:100
+msgid "Опубликовать выбранные товары"
+msgstr "Publish selected products"
+
+#: backend/shop/api.py:133
+msgid "Товар успешно добавлен в корзину"
+msgstr "The item has been successfully added to your cart."
+
+#: backend/shop/blocks.py:15
+msgid "Заголовок таба"
+msgstr "Tab heading"
+
+#: backend/shop/blocks.py:18
+msgid "Картинка слева"
+msgstr "The picture on the left"
+
+#: backend/shop/blocks.py:20
+msgid "Расположение картинки"
+msgstr "Image placement"
+
+#: backend/shop/blocks.py:47
+msgid "Секция с табами"
+msgstr "Section with tabs"
+
+#: backend/shop/forms.py:36
+msgid "Компания"
+msgstr "Company"
+
+#: backend/shop/forms.py:37 backend/users/forms.py:234
+msgid "Контактное лицо*"
+msgstr "Contact person*"
+
+#: backend/shop/forms.py:39 backend/users/forms.py:108
+#: backend/users/forms.py:240
+msgid "Телефон*"
+msgstr "Phone*"
+
+#: backend/shop/forms.py:40 backend/users/forms.py:210
+msgid "Город*"
+msgstr "City*"
+
+#: backend/shop/forms.py:42 templates/shop/checkout.html:143
+msgid "Улица, дом, квартира*"
+msgstr "Street, house, apartment*"
+
+#: backend/shop/forms.py:44 backend/users/forms.py:99
+#: backend/users/models/user.py:46 templates/users/register.html:215
+msgid "ОКПО / ЕДРПОУ"
+msgstr "OKPO / EDRPOU"
+
+#: backend/shop/forms.py:62
+msgid "Укажите город для доставки Новой Почтой."
+msgstr "Please specify the city for delivery by Nova Poshta."
+
+#: backend/shop/forms.py:66
+msgid "Укажите номер отделения Новой Почты."
+msgstr "Please indicate the Nova Poshta branch number."
+
+#: backend/shop/forms.py:74
+msgid "Укажите город для курьерской доставки."
+msgstr "Please specify the city for courier delivery."
+
+#: backend/shop/forms.py:76
+msgid "Укажите улицу, дом и квартиру."
+msgstr "Please indicate the street, house, and apartment number."
+
+#: backend/shop/models/ecommerce.py:54 backend/shop/models/ecommerce.py:135
+#: backend/users/models/user.py:72
+msgid "Пользователь"
+msgstr "User"
+
+#: backend/shop/models/ecommerce.py:57
+msgid "Ключ сессии"
+msgstr "Session key"
+
+#: backend/shop/models/ecommerce.py:59
+msgid "Создана"
+msgstr "Created"
+
+#: backend/shop/models/ecommerce.py:72 backend/shop/models/ecommerce.py:80
+#: templates/shop/cart.html:12
+msgid "Корзина"
+msgstr "Shopping cart"
+
+#: backend/shop/models/ecommerce.py:73
+msgid "Корзины"
+msgstr "Shopping carts"
+
+#: backend/shop/models/ecommerce.py:83 backend/shop/models/ecommerce.py:190
+#: backend/shop/models/products.py:148
+#: templates/shop/includes/cart_table.html:4
+msgid "Товар"
+msgstr "Product"
+
+#: backend/shop/models/ecommerce.py:85 backend/shop/models/ecommerce.py:196
+msgid "Количество"
+msgstr "Quantity"
+
+#: backend/shop/models/ecommerce.py:98
+msgid "Элемент корзины"
+msgstr "Basket item"
+
+#: backend/shop/models/ecommerce.py:99
+msgid "Элементы корзины"
+msgstr "Basket items"
+
+#: backend/shop/models/ecommerce.py:108
+msgid "Новый"
+msgstr "New"
+
+#: backend/shop/models/ecommerce.py:109
+msgid "В обработке"
+msgstr "In processing"
+
+#: backend/shop/models/ecommerce.py:110
+msgid "Выполнен"
+msgstr "Completed"
+
+#: backend/shop/models/ecommerce.py:117
+msgid "Новая почта (по Украине оплата за счет Клиента)"
+msgstr "New mail (within Ukraine, payment at the expense of the Customer)"
+
+#: backend/shop/models/ecommerce.py:119
+msgid "Курьер по Одессе"
+msgstr "Courier in Odessa"
+
+#: backend/shop/models/ecommerce.py:120
+msgid "Самовывоз со склада"
+msgstr "Pickup from warehouse"
+
+#: backend/shop/models/ecommerce.py:125
+msgid "Безналичный расчет"
+msgstr "accurate calculation"
+
+#: backend/shop/models/ecommerce.py:126
+msgid "LiqPay / Приват24"
+msgstr "LiqPay / Privat24"
+
+#: backend/shop/models/ecommerce.py:127
+msgid "Наличными при получении (Наложенным платежом)"
+msgstr "Cash on delivery (COD)"
+
+#: backend/shop/models/ecommerce.py:143
+msgid "Менеджер"
+msgstr "Manager"
+
+#: backend/shop/models/ecommerce.py:146
+msgid "Номер заказа"
+msgstr "Order number"
+
+#: backend/shop/models/ecommerce.py:147
+msgid "Создан"
+msgstr "Created"
+
+#: backend/shop/models/ecommerce.py:149
+#: templates/users/includes/order_modal.html:14
+#: templates/users/includes/transaction_modal.html:21
+#: templates/users/profile_orders.html:32
+#: templates/users/profile_transactions.html:30
+msgid "Статус"
+msgstr "Status"
+
+#: backend/shop/models/ecommerce.py:151
+#: templates/users/includes/transaction_modal.html:26
+#: templates/users/profile_transactions.html:31
+msgid "Сумма"
+msgstr "Amount"
+
+#: backend/shop/models/ecommerce.py:155 templates/shop/checkout.html:67
+msgid "Способ доставки"
+msgstr "Delivery method"
+
+#: backend/shop/models/ecommerce.py:161 templates/shop/checkout.html:89
+msgid "Способ оплаты"
+msgstr "Payment method"
+
+#: backend/shop/models/ecommerce.py:164
+msgid "Имя"
+msgstr "Name"
+
+#: backend/shop/models/ecommerce.py:165 backend/users/models/user.py:40
+msgid "Телефон"
+msgstr "Phone"
+
+#: backend/shop/models/ecommerce.py:166
+msgid "Email"
+msgstr "Email"
+
+#: backend/shop/models/ecommerce.py:168 backend/users/forms.py:97
+#: backend/users/models/user.py:62
+msgid "Город"
+msgstr "City"
+
+#: backend/shop/models/ecommerce.py:169
+msgid "Адрес/Отделение"
+msgstr "Address/Branch"
+
+#: backend/shop/models/ecommerce.py:170 backend/users/forms.py:98
+#: backend/users/models/user.py:45
+msgid "Название компании"
+msgstr "Company name"
+
+#: backend/shop/models/ecommerce.py:171 backend/users/forms.py:203
+msgid "ОКПО"
+msgstr "OKPO"
+
+#: backend/shop/models/ecommerce.py:180 templates/shop/payment.html:10
+#: templates/users/includes/order_modal.html:8
+msgid "Заказ"
+msgstr "Order"
+
+#: backend/shop/models/ecommerce.py:181
+msgid "Заказы"
+msgstr "Orders"
+
+#: backend/shop/models/ecommerce.py:193
+msgid "Название товара (на момент заказа)"
+msgstr "Product name (at the time of order)"
+
+#: backend/shop/models/ecommerce.py:195 backend/shop/models/products.py:105
+#: templates/shop/includes/product_list.html:112
+msgid "Цена"
+msgstr "Price"
+
+#: backend/shop/models/ecommerce.py:207
+msgid "Товар в заказе"
+msgstr "Items in order"
+
+#: backend/shop/models/ecommerce.py:208
+msgid "Товары в заказе"
+msgstr "Items in order"
+
+#: backend/shop/models/ecommerce.py:239 backend/users/models/profile.py:37
+msgid "Ваш личный менеджер Олег"
+msgstr "Your personal manager Oleg"
+
+#: backend/shop/models/ecommerce.py:240 backend/users/models/profile.py:38
+msgid "Текст 'Личный менеджер'"
+msgstr "Text 'Personal Manager'"
+
+#: backend/shop/models/ecommerce.py:243 backend/users/models/profile.py:41
+#: backend/users/models/user.py:67
+msgid "Телефон менеджера"
+msgstr "Manager's phone number"
+
+#: backend/shop/models/ecommerce.py:280 templates/shop/cart.html:54
+#: templates/shop/checkout.html:117 templates/shop/includes/mini_cart.html:30
+msgid "Ваша корзина пуста."
+msgstr "Your cart is empty."
+
+#: backend/shop/models/ecommerce.py:325
+msgid "Заказ успешно оформлен!"
+msgstr "Your order has been successfully placed!"
+
+#: backend/shop/models/ecommerce.py:335
+msgid "Произошла ошибка при оформлении заказа. Попробуйте еще раз."
+msgstr "An error occurred while processing your order. Please try again."
+
+#: backend/shop/models/ecommerce.py:373
+msgid "Баннер (Hero)"
+msgstr "Banner (Hero)"
+
+#: backend/shop/models/products.py:42
+msgid "Общие табы для всех товаров"
+msgstr "Common tabs for all products"
+
+#: backend/shop/models/products.py:51
+msgid "Подвал (контакты)"
+msgstr "Basement (contacts)"
+
+#: backend/shop/models/products.py:87
+msgid "Изображение галереи"
+msgstr "Gallery image"
+
+#: backend/shop/models/products.py:88
+msgid "Изображения галереи"
+msgstr "Gallery images"
+
+#: backend/shop/models/products.py:96
+msgid "Название товара"
+msgstr "Product name"
+
+#: backend/shop/models/products.py:98
+msgid "URL (slug)"
+msgstr "URL (slug)"
+
+#: backend/shop/models/products.py:101
+msgid "Часть ссылки, например: greckiy-oreh"
+msgstr "Part of the link, for example: greckiy-oreh"
+
+#: backend/shop/models/products.py:104
+msgid "Артикул"
+msgstr "Item number"
+
+#: backend/shop/models/products.py:107
+msgid "Старая цена"
+msgstr "Old price"
+
+#: backend/shop/models/products.py:115 backend/shop/models/snippets.py:51
+#: backend/shop/models/snippets.py:60
+msgid "Вес"
+msgstr "Weight"
+
+#: backend/shop/models/products.py:120
+msgid "Энерг. ценность"
+msgstr "Energy value"
+
+#: backend/shop/models/products.py:120
+msgid "654 Ккал."
+msgstr "654 kcal."
+
+#: backend/shop/models/products.py:122 templates/shop/product_page.html:118
+msgid "Срок годности"
+msgstr "Expiration date"
+
+#: backend/shop/models/products.py:123 templates/shop/product_page.html:97
+msgid "Состав"
+msgstr "Composition"
+
+#: backend/shop/models/products.py:126
+msgid "Условия хранения"
+msgstr "Storage conditions"
+
+#: backend/shop/models/products.py:126
+msgid "Хранить в помещениях при..."
+msgstr "Store indoors at..."
+
+#: backend/shop/models/products.py:129
+msgid "Вкусы"
+msgstr "Tastes"
+
+#: backend/shop/models/products.py:135 backend/shop/models/snippets.py:84
+#: backend/shop/models/snippets.py:91
+#: templates/shop/includes/product_list.html:102
+msgid "Упаковка"
+msgstr "Packaging"
+
+#: backend/shop/models/products.py:138
+#: templates/shop/includes/product_list.html:30
+#: templates/shop/product_page.html:55
+msgid "Новинка"
+msgstr "New"
+
+#: backend/shop/models/products.py:139
+#: templates/shop/includes/product_list.html:23
+#: templates/shop/product_page.html:52
+msgid "Акция"
+msgstr "Promotion"
+
+#: backend/shop/models/products.py:140
+msgid "Опубликовано"
+msgstr "Published"
+
+#: backend/shop/models/products.py:205
+msgid "Контент страницы (сверху)"
+msgstr "Page content (top)"
+
+#: backend/shop/models/products.py:220
+msgid "Товаров на страницу"
+msgstr "Products per page"
+
+#: backend/shop/models/products.py:222
+msgid ""
+"Укажите, сколько товаров показывать изначально и при нажатии 'Показать еще'"
+msgstr ""
+"Specify how many items to display initially and when clicking 'Show more'"
+
+#: backend/shop/models/snippets.py:19 backend/shop/models/snippets.py:26
+#: templates/shop/shop_index_page.html:51
+msgid "Вкус"
+msgstr "Taste"
+
+#: backend/shop/models/snippets.py:27
+msgid "Справочник: Вкусы"
+msgstr "Reference: Tastes"
+
+#: backend/shop/models/snippets.py:51
+msgid "Например: 40г, 100г, 200г"
+msgstr "For example: 40g, 100g, 200g"
+
+#: backend/shop/models/snippets.py:53
+msgid "Значение в граммах"
+msgstr "Value in grams"
+
+#: backend/shop/models/snippets.py:53
+msgid "Для сортировки"
+msgstr "For sorting"
+
+#: backend/shop/models/snippets.py:61
+msgid "Справочник: Вес"
+msgstr "Reference: Weight"
+
+#: backend/shop/models/snippets.py:92
+msgid "Справочник: Упаковки"
+msgstr "Reference: Packaging"
+
+#: backend/users/admin.py:30
+msgid "Дополнительная информация"
+msgstr "Additional information"
+
+#: backend/users/forms.py:66 templates/users/profile_address.html:128
+msgid "Выберите страну"
+msgstr "Select a country"
+
+#: backend/users/forms.py:100
+msgid "Индекс"
+msgstr "Index"
+
+#: backend/users/forms.py:102
+msgid "Адрес (улица, дом, кв.)"
+msgstr "Address (street, house number, apartment number)"
+
+#: backend/users/forms.py:104
+msgid "Имя*"
+msgstr "Name*"
+
+#: backend/users/forms.py:105
+msgid "Фамилия*"
+msgstr "Last name*"
+
+#: backend/users/forms.py:106 backend/users/models/user.py:33
+#: templates/users/register.html:107
+msgid "Отчество"
+msgstr "Middle name"
+
+#: backend/users/forms.py:107 backend/users/forms.py:237
+#: templates/users/password_reset.html:22
+msgid "Email*"
+msgstr "Email*"
+
+#: backend/users/forms.py:137
+msgid "Название компании обязательно для юридических лиц."
+msgstr "The company name is mandatory for legal entities."
+
+#: backend/users/forms.py:143
+msgid "Код ЕДРПОУ обязателен для юридических лиц."
+msgstr "The EDRPOU code is mandatory for legal entities."
+
+#: backend/users/forms.py:231
+msgid "Компания*"
+msgstr "Company*"
+
+#: backend/users/models/profile.py:176
+msgid "Данные успешно сохранены!"
+msgstr "Data successfully saved!"
+
+#: backend/users/models/profile.py:215
+msgid "Контактная информация успешно сохранена!"
+msgstr "Contact information successfully saved!"
+
+#: backend/users/models/profile.py:254
+msgid "Ваш пароль успешно изменен!"
+msgstr "Your password has been successfully changed!"
+
+#: backend/users/models/profile.py:262
+msgid "Пожалуйста, исправьте ошибки ниже."
+msgstr "Please correct the errors below."
+
+#: backend/users/models/user.py:21 templates/users/register.html:66
+msgid "Физическое лицо"
+msgstr "Natural person"
+
+#: backend/users/models/user.py:22 templates/users/register.html:70
+msgid "Юридическое лицо"
+msgstr "Legal entity"
+
+#: backend/users/models/user.py:23
+msgid "ФОП"
+msgstr "Sole proprietorship"
+
+#: backend/users/models/user.py:29
+msgid "Тип пользователя"
+msgstr "User type"
+
+#: backend/users/models/user.py:31 templates/users/register.html:199
+msgid "Являюсь ФОП"
+msgstr "I am a sole proprietor."
+
+#: backend/users/models/user.py:37
+msgid "Номер телефона должен быть в формате: '+999 99 999 99 99'"
+msgstr "The phone number must be in the format: '+999 99 999 99 99'"
+
+#: backend/users/models/user.py:43 templates/users/profile_contact_info.html:73
+msgid "Аватар"
+msgstr "Avatar"
+
+#: backend/users/models/user.py:53
+msgid "Страна"
+msgstr "Country"
+
+#: backend/users/models/user.py:60
+msgid "Область/Регион"
+msgstr "State/Region"
+
+#: backend/users/models/user.py:64 templates/users/register.html:153
+msgid "Почтовый индекс"
+msgstr "Postal code"
+
+#: backend/users/models/user.py:66
+msgid "Имя менеджера"
+msgstr "Manager's name"
+
+#: backend/users/models/user.py:94
+msgid "Не указан"
+msgstr "Not specified"
+
+#: backend/users/views.py:39
+#, python-brace-format
+msgid "Добро пожаловать, {name}!"
+msgstr "Welcome, {name}!"
+
+#: backend/users/views.py:50
+msgid "Пожалуйста, исправьте ошибки в форме."
+msgstr "Please correct the errors in the form."
+
+#: backend/users/views.py:86
+msgid "Пароль успешно изменен! Вы авторизованы."
+msgstr "Password successfully changed! You are now logged in."
+
+#: templates/404.html:4 templates/404.html:21
+msgid "Страница не найдена"
+msgstr "GaPage not found"
+
+#: templates/404.html:27
+msgid "Вернуться на Главную страницу"
+msgstr "Return to Home Page"
+
+#: templates/about/blocks/gallery_import_wrapper.html:15
+msgid "На выбранной странице нет секции галереи."
+msgstr "There is no gallery section on the selected page."
+
+#: templates/contacts/blocks/contact_import_wrapper.html:14
+msgid ""
+"На выбранной странице контактов секция \"detailed_contacts\" не найдена."
+msgstr ""
+"On the selected contact page, the section \"detailed_contacts\" not found."
+
+#: templates/gallery/blocks/gallery_section.html:40
+#: templates/gallery/includes/gallery_items.html:17
+#: templates/news/includes/news_list.html:17
+msgid "Посмотреть еще"
+msgstr "See more"
+
+#: templates/gallery/blocks/gallery_section.html:44
+#: templates/gallery/includes/gallery_items.html:21
+#: templates/news/includes/news_list.html:20
+#: templates/users/profile_address.html:138
+msgid "Загрузка..."
+msgstr "Loading..."
+
+#: templates/gallery/blocks/gallery_section.html:62
+msgid "Смотреть всю галерею"
+msgstr "View the entire gallery"
+
+#: templates/home/blocks/about_block.html:12
+msgid "Подробнее"
+msgstr "More details"
+
+#: templates/home/blocks/featured_products.html:22
+#: templates/home/blocks/product_section.html:27 templates/shop/cart.html:55
+msgid "Перейти в магазин"
+msgstr "Go to the store"
+
+#: templates/home/blocks/latest_news.html:99
+msgid "Читать"
+msgstr "Read"
+
+#: templates/home/blocks/latest_news.html:110
+msgid "Новостей пока нет."
+msgstr "No news yetю."
+
+#: templates/home/blocks/latest_news.html:120
+msgid "Смотреть все новости"
+msgstr "See all news"
+
+#: templates/includes/header.html:35
+msgid "Выход"
+msgstr "Exit"
+
+#: templates/includes/header.html:42
+msgid "Вход"
+msgstr "Entrance"
+
+#: templates/includes/header.html:47 templates/users/login.html:44
+#: templates/users/register.html:49
+msgid "Регистрация"
+msgstr "Registration"
+
+#: templates/news/includes/news_card.html:106
+msgid "Читать далее"
+msgstr "Read more"
+
+#: templates/news/news_page.html:26
+msgid "Последние публикации"
+msgstr "Latest publications"
+
+#: templates/shop/cart.html:30 templates/shop/checkout.html:104
+#: templates/shop/order_success_page.html:30
+msgid "Продолжить покупки"
+msgstr "Continue shopping"
+
+#: templates/shop/cart.html:35 templates/shop/checkout.html:47
+#: templates/shop/checkout.html:109 templates/shop/includes/mini_cart.html:22
+msgid "Всего"
+msgstr "Total"
+
+#: templates/shop/cart.html:35 templates/shop/checkout.html:47
+#: templates/shop/checkout.html:109 templates/shop/includes/cart_table.html:25
+#: templates/shop/includes/cart_table.html:29
+#: templates/shop/includes/mini_cart.html:14
+#: templates/shop/includes/mini_cart.html:24
+#: templates/shop/includes/product_list.html:116
+#: templates/shop/includes/product_list.html:119
+#: templates/shop/includes/product_list.html:123 templates/shop/payment.html:14
+#: templates/shop/product_page.html:134 templates/shop/product_page.html:136
+#: templates/users/includes/order_modal.html:24
+#: templates/users/includes/order_modal.html:33
+#: templates/users/includes/transaction_modal.html:27
+#: templates/users/profile_orders.html:43
+#: templates/users/profile_transactions.html:39
+msgid "грн."
+msgstr "UAH"
+
+#: templates/shop/cart.html:37 templates/shop/checkout.html:111
+msgid "Оформить заказ"
+msgstr "Place an order"
+
+#: templates/shop/cart.html:43
+msgid "Для оформления заказа необходимо"
+msgstr "To place an order, you need to"
+
+#: templates/shop/cart.html:45
+msgid "Авторизоваться"
+msgstr "Log in"
+
+#: templates/shop/cart.html:46
+msgid "или"
+msgstr "or"
+
+#: templates/shop/cart.html:47 templates/users/register.html:178
+msgid "Зарегистрироваться"
+msgstr "Sign up"
+
+#: templates/shop/checkout.html:27
+msgid "Оформление заказа"
+msgstr "Order processing"
+
+#: templates/shop/checkout.html:54
+msgid "Контактные данные"
+msgstr "Contact details"
+
+#: templates/shop/checkout.html:76
+msgid "бесплатно"
+msgstr "free of charge"
+
+#: templates/shop/checkout.html:141
+msgid "Номер отделения или почтомата*"
+msgstr "Branch or post office box number*"
+
+#: templates/shop/includes/cart_table.html:5
+msgid "Кол - во"
+msgstr "Count - in"
+
+#: templates/shop/includes/cart_table.html:6
+msgid "Цена за товар"
+msgstr "Price for goods"
+
+#: templates/shop/includes/cart_table.html:7
+msgid "Итоговая стоимость"
+msgstr "Total cost"
+
+#: templates/shop/includes/mini_cart.html:26
+msgid "Перейти в корзину"
+msgstr "Go to cart"
+
+#: templates/shop/includes/product_list.html:74
+#: templates/shop/product_page.html:87
+msgid "Арт"
+msgstr "Art"
+
+#: templates/shop/includes/product_list.html:92
+#: templates/shop/shop_index_page.html:62
+msgid "Масса"
+msgstr "Mass"
+
+#: templates/shop/includes/product_list.html:135
+msgid "Купить"
+msgstr "Buy"
+
+#: templates/shop/includes/product_list.html:155
+msgid "Показать еще"
+msgstr "Show more"
+
+#: templates/shop/order_success_page.html:18
+msgid "Спасибо за заказ!"
+msgstr "Thank you for your order!"
+
+#: templates/shop/order_success_page.html:22
+msgid "Ваш заказ"
+msgstr "Your order"
+
+#: templates/shop/order_success_page.html:22
+msgid "успешно оформлен."
+msgstr "successfully completed."
+
+#: templates/shop/order_success_page.html:27
+msgid ""
+"Наш менеджер свяжется с вами в ближайшее время для подтверждения деталей."
+msgstr "Our manager will contact you shortly to confirm the details."
+
+#: templates/shop/payment.html:9
+msgid "Оплата заказа"
+msgstr "Payment for order"
+
+#: templates/shop/payment.html:13
+msgid "К оплате"
+msgstr "For payment"
+
+#: templates/shop/payment.html:20
+msgid "Номер карты"
+msgstr "Card number"
+
+#: templates/shop/payment.html:26
+msgid "Срок действия"
+msgstr "Validity period"
+
+#: templates/shop/payment.html:36
+msgid "Оплатить"
+msgstr "Pay"
+
+#: templates/shop/payment.html:41
+msgid "Платеж защищен шифрованием"
+msgstr "Payment is protected by encryption"
+
+#: templates/shop/product_page.html:104
+msgid "Масса нетто"
+msgstr "Net weight"
+
+#: templates/shop/product_page.html:111
+msgid "Энергетическая ценность"
+msgstr "Energy value"
+
+#: templates/shop/product_page.html:132
+msgid "Ваша цена"
+msgstr "Your price"
+
+#: templates/shop/product_page.html:145
+msgid "В корзину"
+msgstr "Add to cart"
+
+#: templates/shop/shop_index_page.html:44
+msgid "Фильтр"
+msgstr "Filter"
+
+#: templates/shop/shop_index_page.html:77
+#: templates/users/profile_orders.html:33
+msgid "Стоимость"
+msgstr "Cost"
+
+#: templates/shop/shop_index_page.html:86
+msgid "Применить"
+msgstr "Apply"
+
+#: templates/shop/shop_index_page.html:88
+msgid "Сбросить"
+msgstr "Reset"
+
+#: templates/users/includes/order_modal.html:11
+#: templates/users/includes/transaction_modal.html:11
+#: templates/users/profile_orders.html:30
+msgid "Дата"
+msgstr ""
+
+#: templates/users/includes/order_modal.html:12
+msgid "Доставка"
+msgstr "Delivery"
+
+#: templates/users/includes/order_modal.html:13
+msgid "Оплата"
+msgstr "Payment"
+
+#: templates/users/includes/order_modal.html:17
+msgid "Состав заказа"
+msgstr "Order details"
+
+#: templates/users/includes/order_modal.html:23
+msgid "шт."
+msgstr "pcs."
+
+#: templates/users/includes/order_modal.html:27
+msgid "Нет товаров"
+msgstr "No products"
+
+#: templates/users/includes/order_modal.html:32
+msgid "Итого"
+msgstr "Total"
+
+#: templates/users/includes/profile_sidebar.html:3
+msgid "Мои заказы"
+msgstr "My orders"
+
+#: templates/users/includes/profile_sidebar.html:7
+msgid "История заказов"
+msgstr "Order history"
+
+#: templates/users/includes/profile_sidebar.html:12
+msgid "История транзакций"
+msgstr "Transaction history"
+
+#: templates/users/includes/profile_sidebar.html:17
+msgid "Моя учетная запись"
+msgstr "My account"
+
+#: templates/users/includes/profile_sidebar.html:21
+msgid "Контактная информация"
+msgstr "Contact information"
+
+#: templates/users/includes/profile_sidebar.html:26
+#: templates/users/login.html:28 templates/users/login.html:30
+msgid "Пароль"
+msgstr "Password"
+
+#: templates/users/includes/transaction_modal.html:8
+msgid "Детали транзакции"
+msgstr "Transaction details"
+
+#: templates/users/includes/transaction_modal.html:22
+msgid "Успешно"
+msgstr "Successfully"
+
+#: templates/users/login.html:10
+msgid "Войти в личный кабинет"
+msgstr "Log in to your personal account"
+
+#: templates/users/login.html:16
+msgid "Неверное имя пользователя или пароль."
+msgstr "Incorrect username or password."
+
+#: templates/users/login.html:20 templates/users/login.html:22
+msgid "Email или Логин"
+msgstr "Email or Login"
+
+#: templates/users/login.html:36 templates/users/password_reset.html:14
+msgid "Забыли пароль?"
+msgstr "Forgot your password?"
+
+#: templates/users/login.html:40
+msgid "Войти"
+msgstr "Log in"
+
+#: templates/users/password_reset.html:10
+msgid "Восстановление пароля"
+msgstr "Password recovery"
+
+#: templates/users/password_reset.html:17
+msgid ""
+"Введите Email Вашего аккаунта. Вам будет выслана ссылка для восстановления "
+"пароля."
+msgstr ""
+"Enter your account email address. A link to reset your password will be sent "
+"to you."
+
+#: templates/users/password_reset.html:26
+msgid "Отправить ссылку"
+msgstr "Send link"
+
+#: templates/users/password_reset_confirm.html:9
+msgid "Новый пароль"
+msgstr "New password"
+
+#: templates/users/password_reset_confirm.html:15
+msgid "Пароли не совпадают или слишком простые."
+msgstr "Passwords do not match or are too simple."
+
+#: templates/users/password_reset_confirm.html:34
+msgid "Сохранить и войти"
+msgstr "Save and log in"
+
+#: templates/users/password_reset_done.html:10
+msgid "Проверьте вашу почту"
+msgstr "Check your email"
+
+#: templates/users/password_reset_done.html:17
+msgid ""
+"\n"
+"                    Мы отправили инструкцию по восстановлению пароля на "
+"указанный Email.<br>\n"
+"                    Пожалуйста, проверьте папку \"Входящие\" (и \"Спам\", "
+"если письма нет).\n"
+msgstr ""
+"\n"
+"                    We have sent password recovery instructions to "
+"the specified email address.<br>\n"
+"                    Please check the folder. \"Incoming\" (and \"Spam\", "
+"if there is no letter).\n"
+
+#: templates/users/password_reset_done.html:23
+msgid "Вернуться ко входу"
+msgstr "Return to login"
+
+#: templates/users/password_reset_email.html:2
+msgid "Здравствуйте!"
+msgstr "Hello!"
+
+#: templates/users/password_reset_email.html:4
+#, python-format
+msgid "Для смены пароля аккаунта %(username)s перейдите по ссылке:"
+msgstr "To change the password for the %(username)s account, follow this link:"
+
+#: templates/users/password_reset_email.html:8
+msgid "Если вы этого не запрашивали, просто удалите письмо."
+msgstr "If you did not request this, simply delete the email."
+
+#: templates/users/profile_address.html:46
+#: templates/users/profile_contact_info.html:26
+#: templates/users/profile_orders.html:11
+#: templates/users/profile_password.html:27
+#: templates/users/profile_transactions.html:11
+msgid "Учетная запись"
+msgstr "Account"
+
+#: templates/users/profile_address.html:74 templates/users/register.html:204
+msgid "Реквизиты"
+msgstr "Details"
+
+#: templates/users/profile_address.html:100
+#: templates/users/profile_contact_info.html:65
+msgid "Сохранить"
+msgstr "SSave"
+
+#: templates/users/profile_address.html:129
+msgid "Выберите область"
+msgstr "SelSelect an area"
+
+#: templates/users/profile_address.html:141
+msgid "Сначала выберите страну"
+msgstr "First, select your country"
+
+#: templates/users/profile_address.html:153
+msgid "Выберите регион"
+msgstr "Select a region"
+
+#: templates/users/profile_address.html:161
+msgid "В этой стране нет регионов"
+msgstr "There are no regions in this country"
+
+#: templates/users/profile_address.html:166
+msgid "Ошибка загрузки"
+msgstr "Download error"
+
+#: templates/users/profile_contact_info.html:79
+msgid "Изменить фото"
+msgstr "Change photo"
+
+#: templates/users/profile_orders.html:29
+msgid "Заказа"
+msgstr "Order"
+
+#: templates/users/profile_orders.html:31
+msgid "Кол - во товаров"
+msgstr "Number of items"
+
+#: templates/users/profile_orders.html:34
+msgid "Функции"
+msgstr "Functions"
+
+#: templates/users/profile_orders.html:47
+msgid "Просмотреть заказ"
+msgstr "View order"
+
+#: templates/users/profile_orders.html:54
+msgid "Номер заказа скопирован!"
+msgstr "Order number copied"
+
+#: templates/users/profile_orders.html:54
+msgid "Скопировать номер заказа"
+msgstr "Copy order number"
+
+#: templates/users/profile_orders.html:67
+msgid "У вас не было заказов!"
+msgstr "You had no orders!"
+
+#: templates/users/profile_password.html:52
+msgid "Смена пароля"
+msgstr "Password change"
+
+#: templates/users/profile_password.html:80
+msgid "Сохранить пароль"
+msgstr "Save password"
+
+#: templates/users/profile_transactions.html:29
+msgid "Добавлено"
+msgstr "Added"
+
+#: templates/users/profile_transactions.html:37
+msgid "Платеж принят"
+msgstr "Payment accepted"
+
+#: templates/users/profile_transactions.html:41
+msgid "Детали"
+msgstr "Details"
+
+#: templates/users/profile_transactions.html:53
+msgid "У вас не было транзакций!"
+msgstr "You have no transactions!"
+
+#: templates/users/register.html:77
+msgid "Пожалуйста, исправьте следующие ошибки:"
+msgstr "Please correct the following errors:"
+
+#: templates/users/register.html:91
+msgid "1. Контактные данные"
+msgstr "1. Contact details"
+
+#: templates/users/register.html:95
+msgid "Имя *"
+msgstr "Name *"
+
+#: templates/users/register.html:101
+msgid "Фамилия *"
+msgstr "Last name *"
+
+#: templates/users/register.html:113
+msgid "Email *"
+msgstr "Email *"
+
+#: templates/users/register.html:119
+msgid "Телефон (например: +38 067 123 45 67) *"
+msgstr "Phone number (for example: +38 067 123 45 67) *"
+
+#: templates/users/register.html:125
+msgid "Логин *"
+msgstr "Login *"
+
+#: templates/users/register.html:129
+msgid "2. Адрес"
+msgstr "2. Address"
+
+#: templates/users/register.html:141
+msgid "Город *"
+msgstr "City *"
+
+#: templates/users/register.html:147
+msgid "Адрес (улица, дом, квартира)"
+msgstr "Address (street, house, apartment)"
+
+#: templates/users/register.html:157
+msgid "3. Пароль"
+msgstr "3. Password"
+
+#: templates/users/register.html:161
+msgid "Пароль *"
+msgstr "Password *"
+
+#: templates/users/register.html:166
+msgid "Подтвердите пароль *"
+msgstr "Confirm password *"
+
+#: templates/users/register.html:172
+msgid "Я согласен с"
+msgstr "I agree with"
+
+#: templates/users/register.html:172
+msgid "Условиями регистрации"
+msgstr "Terms and conditions of registration"
+
+#: templates/users/register.html:208
+msgid "Название компании / ФИО ФОП"
+msgstr "Company name / Full name of sole proprietor"
+
+#~ msgid "Загрузить еще"
+#~ msgstr "Download more"

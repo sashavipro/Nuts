@@ -3,24 +3,45 @@
 
 {% block extra_css %}
 <style>
-    /* --- СТАРЫЕ СТИЛИ ОСТАВЛЯЕМ БЕЗ ИЗМЕНЕНИЙ --- */
     .stickers-container { position: absolute; top: 20px; left: -9px; z-index: 20; display: flex; flex-direction: column; gap: 5px; }
     .product__item .sticker { position: relative !important; top: auto !important; left: auto !important; margin: 0 !important; transform: none !important; }
-    .zoom-icon-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 5; pointer-events: none; opacity: 0.7; }
-    .product__item > .zoom, .products-container > .zoom { display: none !important; }
-    .zoomLens { border: 1px solid #82b440 !important; background-color: rgba(255, 255, 255, 0.4); cursor: crosshair; }
-    .zoomContainer { z-index: 999; }
-    .product__item .products-container { width: 100%; height: 500px; margin: 0 auto; position: relative; overflow: hidden; }
+    .zoom-icon-center { display: none !important; }
+
+    .swiper-zoom-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+    .product__item .isolated-product-slider { width: 100%; height: 500px; margin: 0 auto; position: relative; overflow: hidden; z-index: 1; }
     .product__item .swiper-slide { display: flex; justify-content: center; align-items: center; background: #fff; height: 100%; width: 100%; }
     .product__item .main-image { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
-    .product__item .swiper-button-prev, .product__item .swiper-button-next { width: 50px; height: 50px; margin-top: 0; top: 50%; transform: translateY(-50%); outline: none; z-index: 30; }
+
+    /* =========================================
+       ФИКС СТРЕЛОК
+       ========================================= */
+    /* 1. Жёстко убиваем дефолтные синие стрелки Swiper */
+    .product__item .swiper-button-prev::after,
+    .product__item .swiper-button-next::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    /* 2. Настраиваем контейнер для нашей стрелки */
+    .product__item .swiper-button-prev,
+    .product__item .swiper-button-next {
+        width: 40px; height: 40px; margin-top: 0; top: 50%; transform: translateY(-50%); outline: none;
+        z-index: 1000 !important; pointer-events: auto !important; cursor: pointer;
+        background: transparent; display: flex; justify-content: center; align-items: center;
+    }
     .product__item .swiper-button-prev { left: 10px !important; }
     .product__item .swiper-button-next { right: 10px !important; }
-    .product__item .swiper-button-prev:after, .product__item .swiper-button-next:after { color: #b5b5b5; font-size: 28px !important; font-weight: bold; }
-    .product__item .swiper-button-prev:hover:after, .product__item .swiper-button-next:hover:after { color: #337d5a; }
-    @media (max-width: 767px) { .product__item .products-container { height: 350px; } }
 
-    /* --- НОВЫЕ СТИЛИ ДЛЯ ШАПКИ ТОВАРА --- */
+    /* 3. Красим саму иконку в фирменный зеленый */
+    .product__item .swiper-button-prev .nut-icon,
+    .product__item .swiper-button-next .nut-icon {
+        font-size: 35px;
+        color: #337d5a !important;
+    }
+
+    @media (max-width: 767px) { .product__item .isolated-product-slider { height: 350px; } }
+
+    /* СТИЛИ ДЛЯ ШАПКИ ТОВАРА */
     .product-header-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
     .product-title-green { color: #337d5a; font-weight: 700; font-size: 28px; margin: 0; line-height: 1.2; margin-right: 20px; flex-grow: 1; }
     .product-sku { color: #888; font-weight: normal; font-size: 14px; white-space: nowrap; }
@@ -43,7 +64,6 @@
     <div class="container">
         <div class="row no-gutters">
 
-            {# --- ЛЕВАЯ КОЛОНКА: ФОТО --- #}
             <div class="col-lg-5 col-md-6">
                 <div class="wrap">
                     <div class="product__item">
@@ -56,29 +76,36 @@
                             {% endif %}
                         </div>
 
-                        <div class="products-container swiper-container">
+                        <div class="isolated-product-slider swiper" id="product-main-slider">
                             <div class="swiper-wrapper">
                                 {% for item in product.gallery_images.all %}
                                     <div class="swiper-slide">
-                                        {% image item.image original as full_img %}
-                                        {% image item.image max-1000x1000 class="img-fluid main-image" data-zoom-image=full_img.url %}
+                                        <div class="swiper-zoom-container">
+                                            {% image item.image original as full_img %}
+                                            {% image item.image max-1000x1000 class="img-fluid main-image" %}
+                                        </div>
                                     </div>
                                 {% empty %}
                                     <div class="swiper-slide">
-                                        <img src="{% vite_asset_url 'app/img/placeholder.jpg' %}" alt="placeholder" class="img-fluid main-image">
+                                        <div class="swiper-zoom-container">
+                                            <img src="{% vite_asset_url 'app/img/placeholder.jpg' %}" alt="placeholder" class="img-fluid main-image">
+                                        </div>
                                     </div>
                                 {% endfor %}
                             </div>
                             {% if product.gallery_images.count > 1 %}
-                                <div class="swiper-button-prev"></div>
-                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev" id="product-main-prev">
+                                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#337d5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </div>
+                                <div class="swiper-button-next" id="product-main-next">
+                                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#337d5a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </div>
                             {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
 
-            {# --- ПРАВАЯ КОЛОНКА: ИНФО О ТОВАРЕ --- #}
             <div class="col-lg-7 col-md-6">
                 <div class="product__content" style="padding-left: 40px;">
 
@@ -137,13 +164,13 @@
                             {% endif %}
                         </div>
                         <button hx-post="/shop/api/cart/add/{{ product.id }}/"
-                                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                hx-target="#cart-counter"
-                                hx-swap="outerHTML"
-                                class="button button-green"
-                                style="margin-left: 20px; border: none; cursor: pointer;">
-                            {% trans "В корзину" %}
-                        </button>
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-target="#cart-counter"
+        hx-swap="innerHTML"
+        class="button button-green"
+        style="margin-left: 20px; border: none; cursor: pointer;">
+    {% trans "В корзину" %}
+</button>
                     </div>
 
                 </div>
@@ -165,43 +192,45 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/2.2.3/jquery.elevatezoom.min.js" integrity="sha512-UH428GPLVbCa8xDVryhlGugrQFqAivETqIqrQrpBeimiuuuCR5F/0XXQsmEUK5XUg/yOQII39dM5Jt2T0h+cbQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script>
-    function initZoomForSlider(sliderElement) {
-        var activeSlide = sliderElement.querySelector('.swiper-slide-active:not(.swiper-slide-duplicate)');
-        if (!activeSlide) activeSlide = sliderElement.querySelector('.swiper-slide-active');
-        if (!activeSlide) activeSlide = sliderElement.querySelector('.swiper-slide:not(.swiper-slide-duplicate)');
+    // 1. ТАБЫ
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('ul.tabs__caption li');
+        const contents = document.querySelectorAll('div.tabs__content');
+        if (tabs.length > 0) {
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault(); e.stopPropagation();
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    if (contents[index]) contents[index].classList.add('active');
+                });
+            });
+        }
+    });
 
-        if (activeSlide) {
-            var img = $(activeSlide).find('.main-image');
-            $('.zoomContainer').remove();
-            $('.main-image').removeData('elevateZoom');
+    // 2. ИЗОЛИРОВАННЫЙ СЛАЙДЕР С ЗУМОМ
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            var sliderEl = document.getElementById('product-main-slider');
+            if (sliderEl && typeof Swiper !== 'undefined') {
+                var nextBtn = document.getElementById('product-main-next');
+                var prevBtn = document.getElementById('product-main-prev');
 
-            if (img.length > 0) {
-                img.elevateZoom({
-                    zoomType: "lens",
-                    lensShape: "round",
-                    lensSize: 200,
-                    borderSize: 1,
-                    borderColor: "#82b440",
-                    containLensZoom: true
+                new Swiper(sliderEl, {
+                    slidesPerView: 1,
+                    spaceBetween: 30,
+                    loop: sliderEl.querySelectorAll('.swiper-slide').length > 1,
+                    zoom: true,
+                    navigation: (nextBtn && prevBtn) ? {
+                        nextEl: nextBtn,
+                        prevEl: prevBtn,
+                    } : false
                 });
             }
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var productSlider = document.querySelector('.products-container');
-        if (!productSlider || !productSlider.swiper) return;
-
-        var swiperInstance = productSlider.swiper;
-
-        $(productSlider).on('mouseenter', function() { initZoomForSlider(productSlider); });
-        $(productSlider).on('mouseleave', function() { $('.zoomContainer').remove(); });
-
-        swiperInstance.on('slideChange', function() { $('.zoomContainer').remove(); });
-        swiperInstance.on('slideChangeTransitionEnd', function() { initZoomForSlider(productSlider); });
+        }, 500);
     });
 </script>
 {% endblock %}

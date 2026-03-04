@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-23 20:48+0000\n"
+"POT-Creation-Date: 2026-03-04 16:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -251,7 +251,7 @@ msgstr "Icon class"
 msgid "Пример: icons-phone, icons-post, icons-home"
 msgstr "Example: phone icons, post icons, house icons"
 
-#: backend/contacts/blocks.py:45 backend/core/models.py:42
+#: backend/contacts/blocks.py:45 backend/core/models.py:46
 msgid "Ссылка"
 msgstr "Reference"
 
@@ -267,7 +267,7 @@ msgstr "Phone number"
 msgid "Список телефонов"
 msgstr "List of phone numbers"
 
-#: backend/contacts/blocks.py:63 backend/core/models.py:49
+#: backend/contacts/blocks.py:63 backend/core/models.py:54
 #: backend/news/blocks.py:41
 msgid "Социальные сети"
 msgstr "Social networks"
@@ -343,15 +343,15 @@ msgstr "Import contacts"
 msgid "Блок героя"
 msgstr "Hero block"
 
-#: backend/contacts/models.py:26
+#: backend/contacts/models.py:28
 msgid "Текстовое содержание"
 msgstr "Text content"
 
-#: backend/contacts/models.py:31
+#: backend/contacts/models.py:34
 msgid "Содержание страницы Контакты"
 msgstr "Page content Contacts"
 
-#: backend/contacts/models.py:39 backend/contacts/models.py:40
+#: backend/contacts/models.py:42 backend/contacts/models.py:43
 msgid "Страница контактов"
 msgstr "Contact page"
 
@@ -363,88 +363,88 @@ msgstr "Social network (Top left and bottom)"
 msgid "Мессенджер (Возле номеров телефонов)"
 msgstr "Messenger (Next to phone numbers)"
 
-#: backend/core/models.py:40
+#: backend/core/models.py:41
 msgid "Платформа/Иконка"
 msgstr "Platform/Icon"
 
-#: backend/core/models.py:41
+#: backend/core/models.py:44
 msgid "Расположение"
 msgstr "Location"
 
-#: backend/core/models.py:48
+#: backend/core/models.py:53
 msgid "Социальная сеть"
 msgstr "Social network"
 
-#: backend/core/models.py:73
+#: backend/core/models.py:78
 msgid "Логотип"
 msgstr "Logo"
 
-#: backend/core/models.py:76
+#: backend/core/models.py:81
 msgid "Текст логотипа"
 msgstr "Logo text"
 
-#: backend/core/models.py:77
+#: backend/core/models.py:83
 msgid "Текст скидки"
 msgstr "Discount text"
 
-#: backend/core/models.py:77
+#: backend/core/models.py:83
 msgid "Скидка -10% на первый заказ"
 msgstr "10% discount on your first order"
 
-#: backend/core/models.py:79
+#: backend/core/models.py:86
 msgid "Код 1"
 msgstr "Code 1"
 
-#: backend/core/models.py:80
+#: backend/core/models.py:87
 msgid "Номер 1"
 msgstr "Number 1"
 
-#: backend/core/models.py:81
+#: backend/core/models.py:88
 msgid "Код 2"
 msgstr "Code 2"
 
-#: backend/core/models.py:82
+#: backend/core/models.py:89
 msgid "Номер 2"
 msgstr "Number 2"
 
-#: backend/core/models.py:83
+#: backend/core/models.py:91
 msgid "Текст звонка"
 msgstr "Call text"
 
-#: backend/core/models.py:83 templates/includes/header.html:117
-#: templates/includes/header.html:120
+#: backend/core/models.py:91 templates/includes/header.html:112
+#: templates/includes/header.html:115
 msgid "Заказать звонок"
 msgstr "Request a call"
 
-#: backend/core/models.py:86
+#: backend/core/models.py:95
 msgid "Текст разработчика"
 msgstr "Developer text"
 
-#: backend/core/models.py:90
+#: backend/core/models.py:99
 msgid "Копирайт"
 msgstr "Copyright"
 
-#: backend/core/models.py:90
+#: backend/core/models.py:99
 msgid "Copyright © 2019. Все права защищены"
 msgstr "Copyright © 2019. All rights reserved."
 
-#: backend/core/models.py:102
+#: backend/core/models.py:113
 msgid "Шапка: Логотип и скидка"
 msgstr "Hat: Logo and discount"
 
-#: backend/core/models.py:112
+#: backend/core/models.py:125
 msgid "Шапка: Контакты"
 msgstr "Header: Contacts"
 
-#: backend/core/models.py:121
+#: backend/core/models.py:136
 msgid "Подвал сайта"
 msgstr "Site basement"
 
-#: backend/core/models.py:123
+#: backend/core/models.py:138
 msgid "Ссылки на соцсети"
 msgstr "Links to social networks"
 
-#: backend/core/models.py:130
+#: backend/core/models.py:146
 msgid "Настройки сайта"
 msgstr "Site settings"
 
@@ -684,51 +684,51 @@ msgstr "Home page"
 msgid "Главные страницы"
 msgstr "Home pages"
 
-#: backend/mysite/settings/base.py:163
+#: backend/mysite/settings/base.py:162
 msgid "Russian"
 msgstr "Russian"
 
-#: backend/mysite/settings/base.py:164
+#: backend/mysite/settings/base.py:163
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: backend/mysite/settings/base.py:165
+#: backend/mysite/settings/base.py:164
 msgid "English"
 msgstr "English"
 
-#: backend/mysite/settings/base.py:261
+#: backend/mysite/settings/base.py:259
 msgid "Nuts Admin"
 msgstr "Nuts Admin"
 
-#: backend/mysite/settings/base.py:262
+#: backend/mysite/settings/base.py:260
 msgid "Nuts Administration"
 msgstr "Nuts Administration"
 
-#: backend/mysite/settings/base.py:284
+#: backend/mysite/settings/base.py:282
 msgid "Навигация"
 msgstr "Navigation"
 
-#: backend/mysite/settings/base.py:288
+#: backend/mysite/settings/base.py:286
 msgid "Панель управления"
 msgstr "Control panel"
 
-#: backend/mysite/settings/base.py:296
+#: backend/mysite/settings/base.py:294
 msgid "Магазин"
 msgstr "Shop"
 
-#: backend/mysite/settings/base.py:300 backend/shop/models/products.py:149
+#: backend/mysite/settings/base.py:298 backend/shop/models/products.py:149
 msgid "Товары"
 msgstr "Products"
 
-#: backend/mysite/settings/base.py:311
+#: backend/mysite/settings/base.py:309
 msgid "Доступ и права"
 msgstr "Access and rights"
 
-#: backend/mysite/settings/base.py:315 backend/users/models/user.py:73
+#: backend/mysite/settings/base.py:313 backend/users/models/user.py:73
 msgid "Пользователи"
 msgstr "Users"
 
-#: backend/mysite/settings/base.py:321
+#: backend/mysite/settings/base.py:319
 msgid "Группы"
 msgstr "Groups"
 
@@ -1102,7 +1102,7 @@ msgid "Название товара (на момент заказа)"
 msgstr "Product name (at the time of order)"
 
 #: backend/shop/models/ecommerce.py:195 backend/shop/models/products.py:105
-#: templates/shop/includes/product_list.html:112
+#: templates/shop/includes/product_list.html:131
 msgid "Цена"
 msgstr "Price"
 
@@ -1140,7 +1140,7 @@ msgstr "Your order has been successfully placed!"
 msgid "Произошла ошибка при оформлении заказа. Попробуйте еще раз."
 msgstr "An error occurred while processing your order. Please try again."
 
-#: backend/shop/models/ecommerce.py:373
+#: backend/shop/models/ecommerce.py:372
 msgid "Баннер (Hero)"
 msgstr "Banner (Hero)"
 
@@ -1193,11 +1193,11 @@ msgstr "Energy value"
 msgid "654 Ккал."
 msgstr "654 kcal."
 
-#: backend/shop/models/products.py:122 templates/shop/product_page.html:118
+#: backend/shop/models/products.py:122 templates/shop/product_page.html:145
 msgid "Срок годности"
 msgstr "Expiration date"
 
-#: backend/shop/models/products.py:123 templates/shop/product_page.html:97
+#: backend/shop/models/products.py:123 templates/shop/product_page.html:124
 msgid "Состав"
 msgstr "Composition"
 
@@ -1215,19 +1215,19 @@ msgstr "Tastes"
 
 #: backend/shop/models/products.py:135 backend/shop/models/snippets.py:84
 #: backend/shop/models/snippets.py:91
-#: templates/shop/includes/product_list.html:102
+#: templates/shop/includes/product_list.html:121
 msgid "Упаковка"
 msgstr "Packaging"
 
 #: backend/shop/models/products.py:138
-#: templates/shop/includes/product_list.html:30
-#: templates/shop/product_page.html:55
+#: templates/shop/includes/product_list.html:42
+#: templates/shop/product_page.html:75
 msgid "Новинка"
 msgstr "New"
 
 #: backend/shop/models/products.py:139
-#: templates/shop/includes/product_list.html:23
-#: templates/shop/product_page.html:52
+#: templates/shop/includes/product_list.html:35
+#: templates/shop/product_page.html:72
 msgid "Акция"
 msgstr "Promotion"
 
@@ -1250,7 +1250,7 @@ msgstr ""
 "Specify how many items to display initially and when clicking 'Show more'"
 
 #: backend/shop/models/snippets.py:19 backend/shop/models/snippets.py:26
-#: templates/shop/shop_index_page.html:51
+#: templates/shop/shop_index_page.html:52
 msgid "Вкус"
 msgstr "Taste"
 
@@ -1457,6 +1457,30 @@ msgstr "No news yetю."
 msgid "Смотреть все новости"
 msgstr "See all news"
 
+#: templates/includes/breadcrumbs.html:26
+msgid "Адрес и реквизиты"
+msgstr "Address and details"
+
+#: templates/includes/breadcrumbs.html:28
+#: templates/users/includes/profile_sidebar.html:3
+msgid "Мои заказы"
+msgstr "My orders"
+
+#: templates/includes/breadcrumbs.html:30
+#: templates/users/includes/profile_sidebar.html:12
+msgid "История транзакций"
+msgstr "Transaction history"
+
+#: templates/includes/breadcrumbs.html:32
+#: templates/users/profile_password.html:52
+msgid "Смена пароля"
+msgstr "Password change"
+
+#: templates/includes/breadcrumbs.html:34
+#: templates/users/includes/profile_sidebar.html:21
+msgid "Контактная информация"
+msgstr "Contact information"
+
 #: templates/includes/header.html:35
 msgid "Выход"
 msgstr "Exit"
@@ -1493,10 +1517,10 @@ msgstr "Total"
 #: templates/shop/includes/cart_table.html:29
 #: templates/shop/includes/mini_cart.html:14
 #: templates/shop/includes/mini_cart.html:24
-#: templates/shop/includes/product_list.html:116
-#: templates/shop/includes/product_list.html:119
-#: templates/shop/includes/product_list.html:123 templates/shop/payment.html:14
-#: templates/shop/product_page.html:134 templates/shop/product_page.html:136
+#: templates/shop/includes/product_list.html:135
+#: templates/shop/includes/product_list.html:138
+#: templates/shop/includes/product_list.html:142 templates/shop/payment.html:14
+#: templates/shop/product_page.html:161 templates/shop/product_page.html:163
 #: templates/users/includes/order_modal.html:24
 #: templates/users/includes/order_modal.html:33
 #: templates/users/includes/transaction_modal.html:27
@@ -1557,21 +1581,21 @@ msgstr "Total cost"
 msgid "Перейти в корзину"
 msgstr "Go to cart"
 
-#: templates/shop/includes/product_list.html:74
-#: templates/shop/product_page.html:87
+#: templates/shop/includes/product_list.html:93
+#: templates/shop/product_page.html:114
 msgid "Арт"
 msgstr "Art"
 
-#: templates/shop/includes/product_list.html:92
-#: templates/shop/shop_index_page.html:62
+#: templates/shop/includes/product_list.html:111
+#: templates/shop/shop_index_page.html:63
 msgid "Масса"
 msgstr "Mass"
 
-#: templates/shop/includes/product_list.html:135
+#: templates/shop/includes/product_list.html:154
 msgid "Купить"
 msgstr "Buy"
 
-#: templates/shop/includes/product_list.html:155
+#: templates/shop/includes/product_list.html:174
 msgid "Показать еще"
 msgstr "Show more"
 
@@ -1616,36 +1640,36 @@ msgstr "Pay"
 msgid "Платеж защищен шифрованием"
 msgstr "Payment is protected by encryption"
 
-#: templates/shop/product_page.html:104
+#: templates/shop/product_page.html:131
 msgid "Масса нетто"
 msgstr "Net weight"
 
-#: templates/shop/product_page.html:111
+#: templates/shop/product_page.html:138
 msgid "Энергетическая ценность"
 msgstr "Energy value"
 
-#: templates/shop/product_page.html:132
+#: templates/shop/product_page.html:159
 msgid "Ваша цена"
 msgstr "Your price"
 
-#: templates/shop/product_page.html:145
+#: templates/shop/product_page.html:172
 msgid "В корзину"
 msgstr "Add to cart"
 
-#: templates/shop/shop_index_page.html:44
+#: templates/shop/shop_index_page.html:45
 msgid "Фильтр"
 msgstr "Filter"
 
-#: templates/shop/shop_index_page.html:77
+#: templates/shop/shop_index_page.html:78
 #: templates/users/profile_orders.html:33
 msgid "Стоимость"
 msgstr "Cost"
 
-#: templates/shop/shop_index_page.html:86
+#: templates/shop/shop_index_page.html:87
 msgid "Применить"
 msgstr "Apply"
 
-#: templates/shop/shop_index_page.html:88
+#: templates/shop/shop_index_page.html:89
 msgid "Сбросить"
 msgstr "Reset"
 
@@ -1679,25 +1703,13 @@ msgstr "No products"
 msgid "Итого"
 msgstr "Total"
 
-#: templates/users/includes/profile_sidebar.html:3
-msgid "Мои заказы"
-msgstr "My orders"
-
 #: templates/users/includes/profile_sidebar.html:7
 msgid "История заказов"
 msgstr "Order history"
 
-#: templates/users/includes/profile_sidebar.html:12
-msgid "История транзакций"
-msgstr "Transaction history"
-
 #: templates/users/includes/profile_sidebar.html:17
 msgid "Моя учетная запись"
 msgstr "My account"
-
-#: templates/users/includes/profile_sidebar.html:21
-msgid "Контактная информация"
-msgstr "Contact information"
 
 #: templates/users/includes/profile_sidebar.html:26
 #: templates/users/login.html:28 templates/users/login.html:30
@@ -1765,18 +1777,26 @@ msgid "Проверьте вашу почту"
 msgstr "Check your email"
 
 #: templates/users/password_reset_done.html:17
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "                    Мы отправили инструкцию по восстановлению пароля на "
+#| "указанный Email.<br>\n"
+#| "                    Пожалуйста, проверьте папку \"Входящие\" (и \"Спам\", "
+#| "если письма нет).\n"
 msgid ""
 "\n"
 "                    Мы отправили инструкцию по восстановлению пароля на "
 "указанный Email.<br>\n"
 "                    Пожалуйста, проверьте папку \"Входящие\" (и \"Спам\", "
 "если письма нет).\n"
+"                    "
 msgstr ""
 "\n"
-"                    We have sent password recovery instructions to "
-"the specified email address.<br>\n"
-"                    Please check the folder. \"Incoming\" (and \"Spam\", "
-"if there is no letter).\n"
+"                    We have sent password recovery instructions to the "
+"specified email address.<br>\n"
+"                    Please check the folder. \"Incoming\" (and \"Spam\", if "
+"there is no letter).\n"
 
 #: templates/users/password_reset_done.html:23
 msgid "Вернуться ко входу"
@@ -1863,10 +1883,6 @@ msgstr "Copy order number"
 #: templates/users/profile_orders.html:67
 msgid "У вас не было заказов!"
 msgstr "You had no orders!"
-
-#: templates/users/profile_password.html:52
-msgid "Смена пароля"
-msgstr "Password change"
 
 #: templates/users/profile_password.html:80
 msgid "Сохранить пароль"

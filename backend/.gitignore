@@ -52,7 +52,6 @@ coverage.xml
 cover/
 
 # Translations
-*.mo
 *.pot
 
 # Django stuff:
@@ -216,3 +215,12 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+
+media/
+backend/media/
+static/
+backend/static/
+staticfiles/
+static_vite/
+backend/static_vite/

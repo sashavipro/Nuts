@@ -1,11 +1,12 @@
 """core/templatetags/navigation_tags.py."""
 
 import logging
+
 from django import template
-from wagtail.models import Page, Site, Locale
 from django.templatetags.static import static
-from django_vite.templatetags.django_vite import vite_asset_url
 from django_vite.core.exceptions import DjangoViteAssetNotFoundError
+from django_vite.templatetags.django_vite import vite_asset_url
+from wagtail.models import Locale, Page, Site
 
 logger = logging.getLogger(__name__)
 register = template.Library()
@@ -13,9 +14,9 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def get_site_root(context):
-    """
-    Returns the root page of the current site corresponding to
-    the currently active language (Locale).
+    """Return the root page of the current site corresponding to the locale.
+
+    Corresponds to the currently active language (Locale).
     """
     request = context.get("request")
     if not request:
@@ -41,9 +42,9 @@ def get_site_root(context):
 
 @register.simple_tag(takes_context=True)
 def get_top_menu(context):
-    """
-    Returns the menu items (child pages of the localized root)
-    that are live and marked 'Show in menus'.
+    """Return the menu items (child pages of the localized root).
+
+    Only includes pages that are live and marked 'Show in menus'.
     """
     site_root = get_site_root(context)
 
@@ -54,14 +55,14 @@ def get_top_menu(context):
 
 
 @register.inclusion_tag("includes/breadcrumbs.html", takes_context=True)
-def breadcrumbs(context, is_hero=False):
-    """
-    Renders breadcrumbs for the current page.
+def breadcrumbs(context, is_hero=False):  # noqa: FBT002
+    """Render breadcrumbs for the current page.
+
     Excludes the root page and checks page depth.
     """
     page = context.get("page")
 
-    if not isinstance(page, Page) or page.depth <= 2:
+    if not isinstance(page, Page) or page.depth <= 2:  # noqa: PLR2004
         ancestors = []
     else:
         ancestors = Page.objects.ancestor_of(page, inclusive=True).filter(depth__gt=1)
@@ -75,21 +76,28 @@ def breadcrumbs(context, is_hero=False):
 
 @register.simple_tag(takes_context=True)
 def has_hero_block(context):
-    """
-    Checks if the 'hero' block is present in the page's body streamfield.
-    """
+    """Check if the 'hero' block is present in the page's body streamfield."""
     page = context.get("page")
     if not page or not hasattr(page, "body"):
         return False
 
-    for block in page.body:
-        if block.block_type == "hero":
-            return True
+    body = getattr(page, "body", "")
+
+    if isinstance(body, str):
+        return False
+
+    try:
+        for block in body:
+            if hasattr(block, "block_type") and block.block_type == "hero":
+                return True
+    except TypeError:
+        pass
+
     return False
 
 
 def _get_localized_page_url(model_class, request):
-    """A universal assistant for searching for a page URL based on language."""
+    """Find and return a page URL based on language."""
     current_locale = Locale.get_active()
     page = model_class.objects.filter(live=True, locale=current_locale).first()
 
@@ -101,7 +109,7 @@ def _get_localized_page_url(model_class, request):
 
 @register.simple_tag(takes_context=True)
 def get_shop_url(context):
-    """Returns the current URL of the shop page for the active language."""
+    """Return the current URL of the shop page for the active language."""
     from shop.models import ShopIndexPage
 
     return _get_localized_page_url(ShopIndexPage, context.get("request"))
@@ -109,7 +117,7 @@ def get_shop_url(context):
 
 @register.simple_tag(takes_context=True)
 def get_cart_url(context):
-    """Returns the current URL of the shopping cart page for the active language."""
+    """Return the current URL of the shopping cart page for the active language."""
     from shop.models import CartPage
 
     return _get_localized_page_url(CartPage, context.get("request"))
@@ -117,7 +125,7 @@ def get_cart_url(context):
 
 @register.simple_tag(takes_context=True)
 def get_profile_url(context):
-    """Returns the current URL of the user profile page for the active language."""
+    """Return the current URL of the user profile page for the active language."""
     from users.models import ProfilePage
 
     return _get_localized_page_url(ProfilePage, context.get("request"))
@@ -125,7 +133,7 @@ def get_profile_url(context):
 
 @register.simple_tag(takes_context=True)
 def get_checkout_url(context):
-    """Returns the current URL of the checkout page for the active language."""
+    """Return the current URL of the checkout page for the active language."""
     from shop.models import CheckoutPage
 
     return _get_localized_page_url(CheckoutPage, context.get("request"))
@@ -133,14 +141,14 @@ def get_checkout_url(context):
 
 @register.simple_tag(takes_context=True)
 def safe_vite_asset(context, path):
-    """
-    Attempts to load the path via Vite.
+    """Attempt to load the path via Vite.
+
     If the file is not in the manifest, it does not crash the server,
     but writes a warning to the log and returns the usual static.
     """
     try:
         return vite_asset_url(path)
     except DjangoViteAssetNotFoundError:
-        logger.warning(f"Vite asset missing: {path}")
+        logger.warning("Vite asset missing: %s", path)
         # Если Vite не нашел файл, отдаем через стандартный static
         return static(path)

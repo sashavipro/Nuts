@@ -1,20 +1,20 @@
-"""core/models.py"""
+"""core/models.py."""
 
 import logging
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.models import Orderable
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.models import Orderable
 
 logger = logging.getLogger(__name__)
 
 
 class SocialMediaLink(Orderable):
-    """
-    Model representing an individual social media or messenger link.
+    """Model representing an individual social media or messenger link.
 
     Inherits from Orderable to allow manual sorting in the Wagtail admin.
     """
@@ -46,24 +46,19 @@ class SocialMediaLink(Orderable):
     url = models.URLField(_("Ссылка"))
 
     class Meta:
-        """
-        Meta options for the SocialMediaLink model.
-        """
+        """Meta options for the SocialMediaLink model."""
 
         verbose_name = _("Социальная сеть")
         verbose_name_plural = _("Социальные сети")
 
     def __str__(self):
-        """
-        Returns the string representation of the social link based on its platform.
-        """
+        """Return the string representation of the social link."""
         return f"{self.platform}: {self.url}"
 
 
 @register_setting
 class SiteSettings(BaseSiteSetting, ClusterableModel):
-    """
-    Global site settings managed via Wagtail.
+    """Global site settings managed via Wagtail.
 
     Includes global header/footer content, contact information, and logo settings.
     Uses ClusterableModel to support InlinePanel for social media links.
@@ -139,21 +134,15 @@ class SiteSettings(BaseSiteSetting, ClusterableModel):
     ]
 
     class Meta:
-        """
-        Meta options for SiteSettings.
-        """
+        """Meta options for SiteSettings."""
 
         verbose_name = _("Настройки сайта")
 
     def save(self, *args, **kwargs):
-        """
-        Overrides the save method to log site setting updates.
-        """
+        """Override the save method to log site setting updates."""
         logger.info("SiteSettings are being updated by user.")
         super().save(*args, **kwargs)
 
     def __str__(self):
-        """
-        Returns a generic string representation for SiteSettings.
-        """
+        """Return a generic string representation for SiteSettings."""
         return "Global Site Settings"

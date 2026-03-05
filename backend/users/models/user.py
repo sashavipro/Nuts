@@ -1,15 +1,14 @@
 """users/models/user.py."""
 
-from django.contrib.auth.models import AbstractUser
-from django.db import models
-from django.core.validators import RegexValidator
-from django.utils.translation import gettext_lazy as _
 from cities_light.models import Country, Region
+from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUser(AbstractUser):
-    """
-    Custom user model extending AbstractUser.
+    """Custom user model extending AbstractUser.
 
     Includes additional fields for profile management, location (country/region),
     and separation between physical and legal entities.
@@ -73,22 +72,17 @@ class CustomUser(AbstractUser):
         verbose_name_plural = _("Пользователи")
 
     def __str__(self):
-        """
-        Returns the string representation of the user.
+        """Return the string representation of the user.
+
         Usually the email or username.
         """
         return self.email or self.username
 
     def get_full_name(self):
-        """
-        Returns the full name including the middle name.
-        """
+        """Return the full name including the middle name."""
         parts = [self.first_name, self.middle_name, self.last_name]
-        full_name = " ".join(filter(None, parts))
-        return full_name
+        return " ".join(filter(None, parts))
 
     def get_display_phone(self):
-        """
-        Returns the formatted phone number or a default message.
-        """
+        """Return the formatted phone number or a default message."""
         return self.phone if self.phone else _("Не указан")

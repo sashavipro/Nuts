@@ -1,22 +1,23 @@
 """about/models.py."""
 
+from contacts.blocks import ContactImportBlock
 from django.utils.translation import gettext_lazy as _
-from wagtail import blocks
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel
 from home.blocks import (
     AboutBlock,
-    StatsBlock,
     EcoBannerBlock,
     HeroBlock,
+    StatsBlock,
 )
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+
 from about.blocks import (
     FounderHistoryBlock,
     WholesaleIntroBlock,
     WholesaleTabsBlock,
 )
-from contacts.blocks import ContactImportBlock
 
 # pylint: disable=too-few-public-methods
 
@@ -59,7 +60,7 @@ class AboutPage(Page):  # pylint: disable=too-many-ancestors
     )
     max_count = 1
     parent_page_types = ["home.HomePage"]
-    content_panels = Page.content_panels + [FieldPanel("body")]
+    content_panels = [*Page.content_panels, FieldPanel("body")]
 
     class Meta:
         """Meta options for AboutPage."""
@@ -85,7 +86,7 @@ class WholesalePage(Page):  # pylint: disable=too-many-ancestors
     )
     max_count = 1
     parent_page_types = ["home.HomePage"]
-    content_panels = Page.content_panels + [FieldPanel("body")]
+    content_panels = [*Page.content_panels, FieldPanel("body")]
 
     class Meta:
         """Meta options for WholesalePage."""
@@ -111,7 +112,7 @@ class DeliveryPage(Page):  # pylint: disable=too-many-ancestors
     )
     max_count = 1
     parent_page_types = ["home.HomePage"]
-    content_panels = Page.content_panels + [FieldPanel("body")]
+    content_panels = [*Page.content_panels, FieldPanel("body")]
 
     class Meta:
         """Meta options for DeliveryPage."""

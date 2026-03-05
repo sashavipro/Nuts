@@ -1,6 +1,7 @@
 """users/tasks.py."""
 
 import logging
+
 from celery import shared_task
 from django.core.mail import send_mail
 
@@ -13,11 +14,9 @@ def send_reset_email_task(
     body: str,
     from_email: str,
     recipient_list: list,
-    html_message: str = None,
+    html_message: str | None = None,
 ):
-    """
-    Async task to send password reset emails via Celery.
-    """
+    """Async task to send password reset emails via Celery."""
     logger.info("Starting email task for recipients: %s", recipient_list)
 
     try:
@@ -30,6 +29,6 @@ def send_reset_email_task(
             fail_silently=False,
         )
         logger.info("Email successfully sent to %s", recipient_list)
-    except Exception as e:
-        logger.error("Failed to send email to %s. Error: %s", recipient_list, e)
-        raise e
+    except Exception:
+        logger.exception("Failed to send email to %s", recipient_list)
+        raise

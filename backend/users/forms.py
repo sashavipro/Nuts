@@ -1,11 +1,13 @@
 """users/forms.py."""
 
 import logging
+
+from cities_light.models import Region
 from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.template import loader
 from django.utils.translation import gettext_lazy as _
-from cities_light.models import Region
+
 from .models import CustomUser
 from .tasks import send_reset_email_task
 
@@ -15,8 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ancestors
-    """
-    Form for registering a new CustomUser.
+    """Form for registering a new CustomUser.
 
     Handles dynamic loading of regions based on the selected country
     and conditional validation for user types (Physical, Legal, FOP).
@@ -53,9 +54,7 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
         }
 
     def __init__(self, *args, **kwargs):
-        """
-        Initializes the form, sets CSS classes, and handles dynamic region loading.
-        """
+        """Initialize the form, set CSS classes, and handle dynamic region loading."""
         super().__init__(*args, **kwargs)
 
         logger.debug("Initializing CustomUserCreationForm")
@@ -108,8 +107,7 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
         self.fields["phone"].widget.attrs["placeholder"] = _("Телефон*")
 
     def clean(self):
-        """
-        Validates the form data based on the selected user type.
+        """Validate the form data based on the selected user type.
 
         Cleans up irrelevant fields (e.g., company info for physical users)
         and enforces requirements for legal entities.
@@ -147,11 +145,9 @@ class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ance
 
 
 class CustomPasswordResetForm(PasswordResetForm):
-    """
-    Custom password reset form that delegates email sending to Celery.
-    """
+    """Custom password reset form that delegates email sending to Celery."""
 
-    def send_mail(
+    def send_mail(  # noqa: PLR0913
         self,
         subject_template_name,
         email_template_name,
@@ -160,8 +156,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         to_email,
         html_email_template_name=None,
     ):  # pylint: disable=too-many-arguments, too-many-positional-arguments
-        """
-        Overrides the default synchronous send_mail method.
+        """Override the default synchronous send_mail method.
 
         Renders templates to strings and schedules a Celery task.
         """
@@ -188,9 +183,7 @@ class CustomPasswordResetForm(PasswordResetForm):
 
 
 class UserAddressForm(forms.ModelForm):
-    """
-    Form for editing user billing details and address.
-    """
+    """Form for editing user billing details and address."""
 
     class Meta:
         """Meta options for UserAddressForm."""
@@ -216,9 +209,7 @@ class UserAddressForm(forms.ModelForm):
 
 
 class UserContactInfoForm(forms.ModelForm):
-    """
-    Form for editing user contact information and avatar.
-    """
+    """Form for editing user contact information and avatar."""
 
     class Meta:
         """Meta options for UserContactInfoForm."""

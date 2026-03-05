@@ -23,6 +23,8 @@ class FounderHistoryBlock(blocks.StructBlock):
         required=False, label=_("Фоновое изображение истории")
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for FounderHistoryBlock."""
+
         template = "about/blocks/founder_history_block.html"
         label = _("Блок истории и основателя")

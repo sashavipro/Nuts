@@ -6,9 +6,7 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class WholesaleIntroBlock(blocks.StructBlock):
-    """
-    Introductory block: Title on the left, two text columns on the right.
-    """
+    """Introductory block: Title on the left, two text columns on the right."""
 
     title = blocks.CharBlock(label=_("Заголовок (слева)"))
     column_1 = blocks.RichTextBlock(
@@ -21,15 +19,17 @@ class WholesaleIntroBlock(blocks.StructBlock):
         features=["h3", "h4", "bold", "italic", "ol", "ul", "link"],
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for WholesaleIntroBlock."""
+
         template = "about/blocks/wholesale_intro.html"
         icon = "title"
         label = _("Интро (Заголовок + 2 колонки)")
 
 
 class TabMiniItemBlock(blocks.StructBlock):
-    """
-    Mini-block inside tab content (Icon + Title + Description).
+    """Mini-block inside tab content (Icon + Title + Description).
+
     Example: 'Cashless payment' + description.
     """
 
@@ -51,15 +51,15 @@ class TabMiniItemBlock(blocks.StructBlock):
     title = blocks.CharBlock(label=_("Заголовок"))
     description = blocks.TextBlock(label=_("Описание"))
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for TabMiniItemBlock."""
+
         icon = "list-ul"
         label = _("Элемент с иконкой")
 
 
 class TabItemBlock(blocks.StructBlock):
-    """
-    Represents a single tab: its label in the menu and its content area.
-    """
+    """Represents a single tab: its label in the menu and its content area."""
 
     # НАВИГАЦИЯ (МЕНЮ ТАБОВ)
     tab_label = blocks.CharBlock(
@@ -121,19 +121,21 @@ class TabItemBlock(blocks.StructBlock):
     # ПРАВАЯ ЧАСТЬ КОНТЕНТА
     image = ImageChooserBlock(label=_("Картинка справа"))
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for TabItemBlock."""
+
         icon = "doc-full"
         label = _("Таб")
 
 
 class WholesaleTabsBlock(blocks.StructBlock):
-    """
-    Section containing a set of tabs.
-    """
+    """Section containing a set of tabs."""
 
     tabs = blocks.ListBlock(TabItemBlock(), label=_("Список табов"))
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for WholesaleTabsBlock."""
+
         template = "about/blocks/wholesale_tabs.html"
         icon = "folder-open-inverse"
         label = _("Секция табов (Оплата/Доставка)")

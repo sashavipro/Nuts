@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-04 16:19+0000\n"
+"POT-Creation-Date: 2026-03-04 18:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,7 +226,7 @@ msgid "Оплата и доставка"
 msgstr "Payment and delivery"
 
 #: backend/contacts/blocks.py:21 backend/home/blocks.py:39
-#: backend/news/blocks.py:18 backend/shop/admin.py:28 backend/shop/blocks.py:16
+#: backend/news/blocks.py:18 backend/shop/admin.py:34 backend/shop/blocks.py:16
 #: backend/shop/models/products.py:75
 msgid "Изображение"
 msgstr "Image"
@@ -854,35 +854,35 @@ msgstr "Sidebar social widget"
 msgid "Настройки боковой панели"
 msgstr "Sidebar settings"
 
-#: backend/shop/admin.py:29 backend/shop/models/products.py:168
+#: backend/shop/admin.py:35 backend/shop/models/products.py:168
 msgid "Галерея изображений"
 msgstr "Image gallery"
 
-#: backend/shop/admin.py:56
+#: backend/shop/admin.py:62
 msgid "Основная информация"
 msgstr "Basic information"
 
-#: backend/shop/admin.py:70
+#: backend/shop/admin.py:76
 msgid "Маркетинг"
 msgstr "Marketing"
 
-#: backend/shop/admin.py:77
+#: backend/shop/admin.py:83
 msgid "Характеристики"
 msgstr "Specifications"
 
-#: backend/shop/admin.py:83
+#: backend/shop/admin.py:89
 msgid "Связи"
 msgstr "Connections"
 
-#: backend/shop/admin.py:90
+#: backend/shop/admin.py:96
 msgid "Фото"
 msgstr "Photo"
 
-#: backend/shop/admin.py:98
+#: backend/shop/admin.py:104
 msgid "✗ Нет фото"
 msgstr "✗ No photo"
 
-#: backend/shop/admin.py:100
+#: backend/shop/admin.py:106
 msgid "Опубликовать выбранные товары"
 msgstr "Publish selected products"
 
@@ -928,7 +928,7 @@ msgid "Улица, дом, квартира*"
 msgstr "Street, house, apartment*"
 
 #: backend/shop/forms.py:44 backend/users/forms.py:99
-#: backend/users/models/user.py:46 templates/users/register.html:215
+#: backend/users/models/user.py:46 templates/users/register.html:218
 msgid "ОКПО / ЕДРПОУ"
 msgstr "OKPO / EDRPOU"
 
@@ -1180,8 +1180,8 @@ msgstr "Item number"
 msgid "Старая цена"
 msgstr "Old price"
 
-#: backend/shop/models/products.py:115 backend/shop/models/snippets.py:51
-#: backend/shop/models/snippets.py:60
+#: backend/shop/models/products.py:115 backend/shop/models/snippets.py:48
+#: backend/shop/models/snippets.py:57
 msgid "Вес"
 msgstr "Weight"
 
@@ -1213,8 +1213,8 @@ msgstr "Store indoors at..."
 msgid "Вкусы"
 msgstr "Tastes"
 
-#: backend/shop/models/products.py:135 backend/shop/models/snippets.py:84
-#: backend/shop/models/snippets.py:91
+#: backend/shop/models/products.py:135 backend/shop/models/snippets.py:80
+#: backend/shop/models/snippets.py:87
 #: templates/shop/includes/product_list.html:121
 msgid "Упаковка"
 msgstr "Packaging"
@@ -1249,32 +1249,32 @@ msgid ""
 msgstr ""
 "Specify how many items to display initially and when clicking 'Show more'"
 
-#: backend/shop/models/snippets.py:19 backend/shop/models/snippets.py:26
+#: backend/shop/models/snippets.py:17 backend/shop/models/snippets.py:24
 #: templates/shop/shop_index_page.html:52
 msgid "Вкус"
 msgstr "Taste"
 
-#: backend/shop/models/snippets.py:27
+#: backend/shop/models/snippets.py:25
 msgid "Справочник: Вкусы"
 msgstr "Reference: Tastes"
 
-#: backend/shop/models/snippets.py:51
+#: backend/shop/models/snippets.py:48
 msgid "Например: 40г, 100г, 200г"
 msgstr "For example: 40g, 100g, 200g"
 
-#: backend/shop/models/snippets.py:53
+#: backend/shop/models/snippets.py:50
 msgid "Значение в граммах"
 msgstr "Value in grams"
 
-#: backend/shop/models/snippets.py:53
+#: backend/shop/models/snippets.py:50
 msgid "Для сортировки"
 msgstr "For sorting"
 
-#: backend/shop/models/snippets.py:61
+#: backend/shop/models/snippets.py:58
 msgid "Справочник: Вес"
 msgstr "Reference: Weight"
 
-#: backend/shop/models/snippets.py:92
+#: backend/shop/models/snippets.py:88
 msgid "Справочник: Упаковки"
 msgstr "Reference: Packaging"
 
@@ -1324,6 +1324,18 @@ msgstr "The EDRPOU code is mandatory for legal entities."
 msgid "Компания*"
 msgstr "Company*"
 
+#: backend/users/models/pages.py:20
+#, fuzzy
+#| msgid "Текст скидки"
+msgid "Текст соглашения"
+msgstr "Discount text"
+
+#: backend/users/models/pages.py:31
+#, fuzzy
+#| msgid "Пользователь"
+msgid "Пользовательское соглашение"
+msgstr "User"
+
 #: backend/users/models/profile.py:176
 msgid "Данные успешно сохранены!"
 msgstr "Data successfully saved!"
@@ -1356,7 +1368,7 @@ msgstr "Sole proprietorship"
 msgid "Тип пользователя"
 msgstr "User type"
 
-#: backend/users/models/user.py:31 templates/users/register.html:199
+#: backend/users/models/user.py:31 templates/users/register.html:202
 msgid "Являюсь ФОП"
 msgstr "I am a sole proprietor."
 
@@ -1388,16 +1400,16 @@ msgstr "Manager's name"
 msgid "Не указан"
 msgstr "Not specified"
 
-#: backend/users/views.py:39
+#: backend/users/views.py:53
 #, python-brace-format
 msgid "Добро пожаловать, {name}!"
 msgstr "Welcome, {name}!"
 
-#: backend/users/views.py:50
+#: backend/users/views.py:64
 msgid "Пожалуйста, исправьте ошибки в форме."
 msgstr "Please correct the errors in the form."
 
-#: backend/users/views.py:86
+#: backend/users/views.py:100
 msgid "Пароль успешно изменен! Вы авторизованы."
 msgstr "Password successfully changed! You are now logged in."
 
@@ -1490,7 +1502,7 @@ msgid "Вход"
 msgstr "Entrance"
 
 #: templates/includes/header.html:47 templates/users/login.html:44
-#: templates/users/register.html:49
+#: templates/users/register.html:49 templates/users/terms_of_use_page.html:14
 msgid "Регистрация"
 msgstr "Registration"
 
@@ -1545,7 +1557,7 @@ msgstr "Log in"
 msgid "или"
 msgstr "or"
 
-#: templates/shop/cart.html:47 templates/users/register.html:178
+#: templates/shop/cart.html:47 templates/users/register.html:181
 msgid "Зарегистрироваться"
 msgstr "Sign up"
 
@@ -1823,7 +1835,7 @@ msgstr "If you did not request this, simply delete the email."
 msgid "Учетная запись"
 msgstr "Account"
 
-#: templates/users/profile_address.html:74 templates/users/register.html:204
+#: templates/users/profile_address.html:74 templates/users/register.html:207
 msgid "Реквизиты"
 msgstr "Details"
 
@@ -1873,16 +1885,17 @@ msgid "Просмотреть заказ"
 msgstr "View order"
 
 #: templates/users/profile_orders.html:54
-msgid "Номер заказа скопирован!"
-msgstr "Order number copied"
-
-#: templates/users/profile_orders.html:54
 msgid "Скопировать номер заказа"
 msgstr "Copy order number"
 
 #: templates/users/profile_orders.html:67
 msgid "У вас не было заказов!"
 msgstr "You had no orders!"
+
+#: templates/users/profile_orders.html:89
+#: templates/users/profile_orders.html:118
+msgid "Номер заказа скопирован!"
+msgstr "Order number copied"
 
 #: templates/users/profile_password.html:80
 msgid "Сохранить пароль"
@@ -1960,13 +1973,19 @@ msgstr "Confirm password *"
 msgid "Я согласен с"
 msgstr "I agree with"
 
-#: templates/users/register.html:172
+#: templates/users/register.html:174
 msgid "Условиями регистрации"
 msgstr "Terms and conditions of registration"
 
-#: templates/users/register.html:208
+#: templates/users/register.html:211
 msgid "Название компании / ФИО ФОП"
 msgstr "Company name / Full name of sole proprietor"
+
+#: templates/users/terms_of_use_page.html:10
+#, fuzzy
+#| msgid "Главная страница"
+msgid "Главная"
+msgstr "Home page"
 
 #~ msgid "Загрузить еще"
 #~ msgstr "Download more"

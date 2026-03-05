@@ -1,22 +1,24 @@
 """gallery/models.py."""
 
 import logging
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+from contacts.blocks import ContactImportBlock
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel
 from home.blocks import HeroBlock
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+
 from gallery.blocks import GallerySectionBlock
-from contacts.blocks import ContactImportBlock
 
 logger = logging.getLogger(__name__)
 
 
 class GalleryPage(Page):  # pylint: disable=too-many-ancestors
-    """
-    The main gallery page model.
+    """The main gallery page model.
+
     Displays images in a grid with pagination and HTMX support.
     """
 
@@ -30,9 +32,7 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         verbose_name=_("Контент страницы"),
     )
 
-    content_panels = Page.content_panels + [
-        FieldPanel("body"),
-    ]
+    content_panels = [*Page.content_panels, FieldPanel("body")]
 
     max_count = 1
     parent_page_types = ["home.HomePage"]
@@ -44,9 +44,7 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         verbose_name_plural = _("Галереи")
 
     def get_main_gallery_section(self):
-        """
-        Retrieves the first gallery section block from the body.
-        """
+        """Retrieve the first gallery section block from the body."""
         # pylint: disable=not-an-iterable
         for block in self.body:
             if block.block_type == "gallery_section":
@@ -54,9 +52,7 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         return None
 
     def get_context(self, request, *args, **kwargs):
-        """
-        Adds paginated gallery items to the template context.
-        """
+        """Add paginated gallery items to the template context."""
         context = super().get_context(request, *args, **kwargs)
         gallery_data = self.get_main_gallery_section()
 
@@ -86,8 +82,9 @@ class GalleryPage(Page):  # pylint: disable=too-many-ancestors
         return context
 
     def serve(self, request, *args, **kwargs):
-        """
-        Handles the request. Intercepts HTMX requests to return only the gallery items partial.
+        """Handle the request.
+
+        Intercepts HTMX requests to return only the gallery items partial.
         """
         if request.headers.get("HX-Request"):
             # pylint: disable=no-member

@@ -1,4 +1,4 @@
-"""gallery/blocks.py"""
+"""gallery/blocks.py."""
 
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
@@ -19,7 +19,9 @@ class GalleryHeroBlock(blocks.StructBlock):
         label=_("Размер"),
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for GalleryHeroBlock."""
+
         template = "gallery/blocks/gallery_hero_block.html"
         icon = "media"
         label = _("Видео/Баннер")
@@ -42,16 +44,16 @@ class GalleryCardBlock(blocks.StructBlock):
         label=_("Размер"),
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for GalleryCardBlock."""
+
         template = "gallery/blocks/gallery_card_block.html"
         icon = "image"
         label = _("Карточка")
 
 
 class GallerySectionBlock(blocks.StructBlock):
-    """
-    Container block. Contains the section title and a list of elements.
-    """
+    """Container block. Contains the section title and a list of elements."""
 
     title = blocks.CharBlock(default=_("Наша галерея"), label=_("Заголовок секции"))
     description = blocks.TextBlock(required=False, label=_("Описание секции"))
@@ -60,7 +62,8 @@ class GallerySectionBlock(blocks.StructBlock):
         default=6,
         label=_("Элементов на странице (для пагинации)"),
         help_text=_(
-            "Сколько карточек показывать за раз. Работает только на детальной странице галереи."
+            "Сколько карточек показывать за раз. "
+            "Работает только на детальной странице галереи."
         ),
     )
 
@@ -72,7 +75,9 @@ class GallerySectionBlock(blocks.StructBlock):
         label=_("Элементы галереи"),
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options for GallerySectionBlock."""
+
         template = "gallery/blocks/gallery_section.html"
         icon = "images"
         label = _("Секция: Галерея")

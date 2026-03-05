@@ -1,31 +1,31 @@
 """shop/models/__init__.py."""
 
-from .snippets import ProductTaste, ProductPackaging, ProductWeight
-from .products import ShopIndexPage, Product, ProductGalleryImage
 from .ecommerce import (
     Cart,
     CartItem,
-    Order,
-    OrderItem,
-    PaymentTransaction,
-    OrderSuccessPage,
     CartPage,
     CheckoutPage,
+    Order,
+    OrderItem,
+    OrderSuccessPage,
+    PaymentTransaction,
 )
+from .products import Product, ProductGalleryImage, ShopIndexPage
+from .snippets import ProductPackaging, ProductTaste, ProductWeight
 
 __all__ = [
-    "ProductTaste",
-    "ProductPackaging",
-    "ProductWeight",
-    "ShopIndexPage",
-    "Product",
-    "ProductGalleryImage",
     "Cart",
     "CartItem",
-    "Order",
-    "OrderItem",
-    "PaymentTransaction",
-    "OrderSuccessPage",
     "CartPage",
     "CheckoutPage",
+    "Order",
+    "OrderItem",
+    "OrderSuccessPage",
+    "PaymentTransaction",
+    "Product",
+    "ProductGalleryImage",
+    "ProductPackaging",
+    "ProductTaste",
+    "ProductWeight",
+    "ShopIndexPage",
 ]

@@ -152,9 +152,7 @@ class LatestNewsBlock(blocks.StructBlock):
         label = _("Слайдер последних новостей")
 
     def get_context(self, value, parent_context=None):
-        """
-        The method retrieves data from the database before sending it to the template.
-        """
+        """Retrieve data from the database before sending it to the template."""
         # Resolve Cyclic Import: Use get_model instead of direct import
         news_page_model = apps.get_model("news", "NewsPage")
 

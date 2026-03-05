@@ -1,14 +1,16 @@
-"""shop/api.py"""
+"""shop/api.py."""
 
 import json
 import logging
-from ninja import Router, Form
+
 from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import gettext as _
-from .models.ecommerce import get_or_create_cart, CartItem
+from ninja import Form, Router
+
+from .models.ecommerce import CartItem, get_or_create_cart
 from .models.products import Product
 
 # pylint: disable=no-member
@@ -18,9 +20,9 @@ router = Router()
 
 
 def get_cart_update_response(request, cart):
-    """
-    Helper function to return a single HttpResponse containing multiple OOB (Out-Of-Band)
-    swaps. This seamlessly updates the mini-cart, header counter, checkout table,
+    """Generate a single HttpResponse containing multiple OOB (Out-Of-Band) swaps.
+
+    This seamlessly updates the mini-cart, header counter, checkout table,
     and totals without triggering multiple GET requests.
     """
     total_items = sum(item.quantity for item in cart.items.all())
@@ -70,7 +72,7 @@ def get_cart_update_response(request, cart):
 
 @router.get("/cart/count/")
 def get_cart_count(request):
-    """Returns only the HTML snippet for the cart items count badge in the header."""
+    """Return only the HTML snippet for the cart items count badge in the header."""
     cart = get_or_create_cart(request)
     total_items = sum(item.quantity for item in cart.items.all())
     return HttpResponse(
@@ -80,7 +82,7 @@ def get_cart_count(request):
 
 @router.get("/cart/mini/")
 def get_mini_cart(request):
-    """Returns the rendered HTML template for the mini-cart dropdown."""
+    """Return the rendered HTML template for the mini-cart dropdown."""
     cart = get_or_create_cart(request)
     html = render_to_string(
         "shop/includes/mini_cart.html", {"cart": cart}, request=request
@@ -90,8 +92,8 @@ def get_mini_cart(request):
 
 @router.post("/cart/add/{product_id}/")
 def add_to_cart(request, product_id: int, quantity: int = Form(1)):
-    """
-    API endpoint to add a product to the cart via HTMX.
+    """Add a product to the cart via HTMX.
+
     Uses atomic transaction to ensure safe data insertion.
     """
     cart = get_or_create_cart(request)
@@ -138,9 +140,7 @@ def add_to_cart(request, product_id: int, quantity: int = Form(1)):
 
 @router.post("/cart/item/{item_id}/update/")
 def update_cart_item(request, item_id: int, action: str = Form(...)):
-    """
-    Increases or decreases the quantity of a specific cart item atomically.
-    """
+    """Increase or decrease the quantity of a specific cart item atomically."""
     cart = get_or_create_cart(request)
     item = get_object_or_404(CartItem, id=item_id, cart=cart)
 
@@ -171,7 +171,7 @@ def update_cart_item(request, item_id: int, action: str = Form(...)):
 
 @router.post("/cart/item/{item_id}/remove/")
 def remove_cart_item(request, item_id: int):
-    """Removes an item from the cart completely (e.g., via cross button)."""
+    """Remove an item from the cart completely (e.g., via cross button)."""
     cart = get_or_create_cart(request)
     item = get_object_or_404(CartItem, id=item_id, cart=cart)
     item.delete()

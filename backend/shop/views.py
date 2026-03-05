@@ -1,8 +1,10 @@
-"""shop/views.py"""
+"""shop/views.py."""
 
 import logging
+
 from django.db import transaction
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
+
 from .models.ecommerce import Order, OrderSuccessPage, PaymentTransaction
 
 # pylint: disable=no-member
@@ -11,8 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def mock_payment(request, order_number):
-    """
-    Mock payment gateway page (simulating LiqPay/WayForPay/etc.).
+    """Mock payment gateway page (simulating LiqPay/WayForPay/etc.).
 
     Processes a dummy payment, securely updates the order status,
     creates a transaction record atomically, and redirects to success.
@@ -52,9 +53,9 @@ def mock_payment(request, order_number):
             logger.warning("OrderSuccessPage not found. Redirecting to home ('/').")
             return redirect("/")
 
-        except Exception as e:  # pylint: disable=broad-exception-caught
-            logger.error(
-                "Error processing mock payment for order %s: %s", order.order_number, e
+        except Exception:  # pylint: disable=broad-exception-caught
+            logger.exception(
+                "Error processing mock payment for order %s", order.order_number
             )
 
     return render(request, "shop/payment.html", {"order": order})

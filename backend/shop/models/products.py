@@ -2,12 +2,13 @@
 
 import logging
 
+from contacts.blocks import ContactImportBlock
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.shortcuts import get_object_or_404, render
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
-
+from home.blocks import EcoBannerBlock, HeroBlock
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import FieldPanel, InlinePanel
@@ -15,17 +16,15 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Locale, Orderable, Page
 
-from contacts.blocks import ContactImportBlock
-from home.blocks import EcoBannerBlock, HeroBlock
 from shop.blocks import ProductTabsBlock
+
 from .snippets import ProductPackaging, ProductTaste, ProductWeight
 
 logger = logging.getLogger(__name__)
 
 
 class ProductPage(Page):  # pylint: disable=too-many-ancestors
-    """
-    A Wagtail Page model serving as a global template for individual product detail views.
+    """A global Wagtail Page template for individual product detail views.
 
     It is restricted to a single instance (max_count = 1) and provides common
     elements like global tabs and footers across all products in the catalog.
@@ -51,7 +50,8 @@ class ProductPage(Page):  # pylint: disable=too-many-ancestors
         verbose_name=_("Подвал (контакты)"),
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("body"),
         FieldPanel("footer_blocks"),
     ]
@@ -61,9 +61,7 @@ class ProductPage(Page):  # pylint: disable=too-many-ancestors
 
 
 class ProductGalleryImage(Orderable):  # pylint: disable=too-few-public-methods
-    """
-    Represents an orderable image within a product's gallery.
-    """
+    """Represents an orderable image within a product's gallery."""
 
     product = ParentalKey(
         "shop.Product", on_delete=models.CASCADE, related_name="gallery_images"
@@ -80,17 +78,16 @@ class ProductGalleryImage(Orderable):  # pylint: disable=too-few-public-methods
     ]
 
     class Meta:  # pylint: disable=too-few-public-methods
-        """
-        Meta options for the ProductGalleryImage model.
-        """
+        """Meta options for the ProductGalleryImage model."""
 
         verbose_name = _("Изображение галереи")
         verbose_name_plural = _("Изображения галереи")
 
 
 class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
-    """
-    Represents a specific product entity in the e-commerce database, managed via the admin panel.
+    """Represents a specific product entity in the e-commerce database.
+
+    Managed via the admin panel.
     """
 
     title = models.CharField(_("Название товара"), max_length=255)
@@ -141,9 +138,7 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:  # pylint: disable=too-few-public-methods
-        """
-        Meta options for the Product model.
-        """
+        """Meta options for the Product model."""
 
         verbose_name = _("Товар")
         verbose_name_plural = _("Товары")
@@ -169,21 +164,18 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
     ]
 
     def __str__(self):
-        """
-        Returns the string representation of the product (its title).
-        """
+        """Return the string representation of the product (its title)."""
         return str(self.title)
 
     def get_gallery_images(self):
-        """
-        Retrieves all gallery images associated with this product.
-        """
+        """Retrieve all gallery images associated with this product."""
         # pylint: disable=no-member
         return self.gallery_images.all()
 
     def get_main_image(self):
-        """
-        Retrieves the first image from the product's gallery to serve as the main display image.
+        """Retrieve the first image from the product's gallery.
+
+        This serves as the main display image.
         """
         # pylint: disable=no-member
         first = self.gallery_images.first()
@@ -191,9 +183,10 @@ class Product(ClusterableModel):  # pylint: disable=too-few-public-methods
 
 
 class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestors
-    """
-    Represents the main catalog page, handling product listing, filtering,
-    sorting, pagination, and dynamic routing for individual product detail views.
+    """Represent the main catalog page.
+
+    Handles product listing, filtering, sorting, pagination,
+    and dynamic routing for individual product detail views.
     """
 
     body = StreamField(
@@ -224,7 +217,8 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
         ),
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("products_per_page"),
         FieldPanel("body"),
         FieldPanel("footer_blocks"),
@@ -238,9 +232,10 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
     ajax_template = "shop/includes/product_list.html"
 
     def get_context(self, request, *args, **kwargs):
-        """
-        Builds the context for the template, applying filters (taste, weight),
-        sorting, and pagination to the product list.
+        """Build the context for the template.
+
+        Applies filters (taste, weight), sorting, and pagination
+        to the product list.
         """
         context = super().get_context(request, *args, **kwargs)
         # pylint: disable=no-member
@@ -290,9 +285,9 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
         return context
 
     def serve(self, request, *args, **kwargs):
-        """
-        Handles the incoming request, supporting HTMX for partial DOM updates
-        of the product list.
+        """Handle the incoming request.
+
+        Supports HTMX for partial DOM updates of the product list.
         """
         if request.headers.get("HX-Request") == "true":
             logger.info("Handling HTMX request for ShopIndexPage.")
@@ -302,8 +297,7 @@ class ShopIndexPage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancest
 
     @route(r"^([^/]+)/$")
     def product_detail(self, request, slug):
-        """
-        Routable page view that handles product detail URLs based on the product slug.
+        """Handle product detail URLs based on the product slug.
 
         Resolves the specific Product instance from the database and binds it
         to the global ProductPage template to render the product detail view.

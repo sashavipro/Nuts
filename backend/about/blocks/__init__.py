@@ -2,16 +2,16 @@
 
 from .about_page import FounderHistoryBlock
 from .wholesale_page import (
-    WholesaleIntroBlock,
-    TabMiniItemBlock,
     TabItemBlock,
+    TabMiniItemBlock,
+    WholesaleIntroBlock,
     WholesaleTabsBlock,
 )
 
 __all__ = [
     "FounderHistoryBlock",
-    "WholesaleIntroBlock",
-    "TabMiniItemBlock",
     "TabItemBlock",
+    "TabMiniItemBlock",
+    "WholesaleIntroBlock",
     "WholesaleTabsBlock",
 ]

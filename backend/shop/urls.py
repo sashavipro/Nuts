@@ -2,8 +2,9 @@
 
 from django.urls import path
 from ninja import NinjaAPI
-from .api import router as shop_router
+
 from . import views
+from .api import router as shop_router
 
 api = NinjaAPI(urls_namespace="shop_api", title="Shop API", docs_url="/docs/")
 

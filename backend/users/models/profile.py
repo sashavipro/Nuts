@@ -2,22 +2,18 @@
 
 import logging
 
+from contacts.blocks import ContactImportBlock
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
 from django.db import models, transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-
+from shop.models.ecommerce import Order, PaymentTransaction
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.models import Page
-
-from contacts.blocks import ContactImportBlock
-from shop.models.ecommerce import Order, PaymentTransaction
-from users.forms import UserAddressForm, UserContactInfoForm
 
 # pylint: disable=no-member, disable=duplicate-code
 
@@ -25,8 +21,7 @@ logger = logging.getLogger(__name__)
 
 
 class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestors
-    """
-    User profile page managing dashboard, orders, and transactions.
+    """User profile page managing dashboard, orders, and transactions.
 
     Provides routable endpoints for viewing order history, managing
     contact info, updating addresses, and changing passwords securely.
@@ -50,7 +45,8 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
         verbose_name=_("Блок контактов"),
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("manager_title"),
         FieldPanel("manager_phone"),
         FieldPanel("footer_blocks"),
@@ -60,9 +56,7 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
     parent_page_types = ["home.HomePage"]
 
     def _check_authentication(self, request):
-        """
-        Redirects to the login page if the user is not authenticated.
-        """
+        """Redirect to the login page if the user is not authenticated."""
         if not request.user.is_authenticated:
             logger.debug(
                 "Unauthenticated access attempt to ProfilePage endpoint: %s",
@@ -73,9 +67,7 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^$")
     def dashboard(self, request):
-        """
-        Root profile route. Redirects to the orders history by default.
-        """
+        """Handle root profile route. Redirects to the orders history by default."""
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -83,9 +75,7 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^orders/$")
     def orders(self, request):
-        """
-        Renders the order history view for the authenticated user.
-        """
+        """Render the order history view for the authenticated user."""
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -99,9 +89,7 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^transactions/$")
     def transactions(self, request):
-        """
-        Renders the transaction history view for the authenticated user.
-        """
+        """Render the transaction history view for the authenticated user."""
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -120,8 +108,8 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^order/(?P<order_id>\d+)/$")
     def order_detail_modal(self, request, order_id):
-        """
-        Returns the HTML snippet of a modal window with specific order details.
+        """Return the HTML snippet of a modal window with specific order details.
+
         Protects against viewing other users' orders.
         """
         auth_redirect = self._check_authentication(request)
@@ -134,9 +122,7 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^transaction/(?P<tr_id>\d+)/$")
     def transaction_detail_modal(self, request, tr_id):
-        """
-        Returns the HTML snippet of the modal window with transaction details.
-        """
+        """Return the HTML snippet of the modal window with transaction details."""
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -153,12 +139,13 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^address/$")
     def address(self, request):
-        """
-        Renders and processes the user address and billing details editing form.
+        """Render and process the user address and billing details editing form.
 
         Handles POST requests to update user data within an atomic transaction
         to ensure database consistency.
         """
+        from users.forms import UserAddressForm
+
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -190,12 +177,13 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^contact-info/$")
     def contact_info(self, request):
-        """
-        Renders and processes the contact information and avatar editing page.
+        """Render and process the contact information and avatar editing page.
 
         Utilizes an atomic transaction to safely commit the file uploads and
         database changes.
         """
+        from users.forms import UserContactInfoForm
+
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect
@@ -229,12 +217,13 @@ class ProfilePage(RoutablePageMixin, Page):  # pylint: disable=too-many-ancestor
 
     @route(r"^password/$")
     def password(self, request):
-        """
-        Renders and processes the secure password change form.
+        """Render and process the secure password change form.
 
         Wraps the password update and session authentication hash update
         within an atomic transaction to ensure the user is not unexpectedly logged out.
         """
+        from django.contrib.auth.forms import PasswordChangeForm
+
         auth_redirect = self._check_authentication(request)
         if auth_redirect:
             return auth_redirect

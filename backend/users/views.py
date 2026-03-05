@@ -1,21 +1,23 @@
 """users/views.py."""
 
 import logging
-from django.shortcuts import redirect
-from django.contrib.auth import login
-from django.views.generic import CreateView
+
 from django.contrib import messages
+from django.contrib.auth import login
 from django.contrib.auth import views as auth_views
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-from .forms import CustomUserCreationForm, CustomPasswordResetForm
+from django.views.generic import CreateView
+
+from .forms import CustomPasswordResetForm, CustomUserCreationForm
+from .models import RegistrationPage, TermsOfUsePage
 
 logger = logging.getLogger(__name__)
 
 
 class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
-    """
-    View to handle user registration.
+    """View to handle user registration.
 
     Uses CustomUserCreationForm to create a new user instance.
     Redirects to the homepage ('/') upon successful registration.
@@ -25,9 +27,18 @@ class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
     template_name = "users/register.html"
     success_url = "/"
 
+    def get_context_data(self, **kwargs):
+        """Injects the TermsOfUsePage URL into the template context."""
+        context = super().get_context_data(**kwargs)
+        reg_page = RegistrationPage.objects.live().first()
+        if reg_page:
+            context["terms_page"] = (
+                TermsOfUsePage.objects.descendant_of(reg_page).live().first()
+            )
+        return context
+
     def form_valid(self, form):
-        """
-        Handles valid form submission.
+        """Handle valid form submission.
 
         Saves the user, logs them in, and displays a success message.
         """
@@ -41,8 +52,7 @@ class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
         return redirect(self.success_url)
 
     def form_invalid(self, form):
-        """
-        Handles invalid form submission.
+        """Handle invalid form submission.
 
         Logs the errors and displays an error message to the user.
         """
@@ -52,8 +62,7 @@ class RegisterView(CreateView):  # pylint: disable=too-many-ancestors
 
 
 class CustomPasswordResetView(auth_views.PasswordResetView):  # pylint: disable=too-many-ancestors
-    """
-    View for requesting a password reset.
+    """View for requesting a password reset.
 
     Uses CustomPasswordResetForm to handle asynchronous email sending.
     """
@@ -64,6 +73,7 @@ class CustomPasswordResetView(auth_views.PasswordResetView):  # pylint: disable=
     form_class = CustomPasswordResetForm
 
     def form_valid(self, form):
+        """Handle valid form submission by logging the email request."""
         logger.info(
             "Password reset requested for email: %s", form.cleaned_data["email"]
         )
@@ -71,8 +81,7 @@ class CustomPasswordResetView(auth_views.PasswordResetView):  # pylint: disable=
 
 
 class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):  # pylint: disable=too-many-ancestors
-    """
-    View for handling the password reset confirmation.
+    """View for handling the password reset confirmation.
 
     Users enter their new password here. Upon success, they are logged in automatically.
     """
@@ -81,6 +90,7 @@ class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):  # py
     success_url = "/"
 
     def form_valid(self, form):
+        """Handle valid form submission, save new password, and login user."""
         user = form.save()
         login(self.request, user, backend="users.backends.EmailOrUsernameModelBackend")
         messages.success(self.request, _("Пароль успешно изменен! Вы авторизованы."))

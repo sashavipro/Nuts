@@ -2,6 +2,7 @@
 {% load i18n django_vite wagtailcore_tags wagtailimages_tags navigation_tags %}
 
 {% block body_class %}page inside{% endblock %}
+
 {% block extra_css %}
 <style>
     /* Стили Select2 */
@@ -92,7 +93,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </form>
                 </div>
@@ -102,46 +102,71 @@
         <div class="row justify-content-center" id="product-grid">
             {% include "shop/includes/product_list.html" %}
         </div>
-
     </div>
 </section>
 
 {% for block in page.footer_blocks %}
     {% include_block block %}
 {% endfor %}
-
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    // Оборачиваем весь код в load, чтобы дождаться Vite и jQuery
     window.addEventListener('load', function() {
         'use strict';
-
-        // Явно получаем jQuery из глобального объекта
         const $ = window.jQuery;
 
+        // 1. Функция отправки AJAX запроса через HTMX
         function fetchFilteredProducts() {
-            var url = '{{ page.url }}?' + $('#filter-form').serialize();
+            const url = '{{ page.url }}?' + $('#filter-form').serialize();
             history.pushState(null, '', url);
             htmx.ajax('GET', url, { target: '#product-grid', swap: 'innerHTML' });
         }
 
-        // Инициализация Select2
+        // 2. Инициализация динамических компонентов (Swiper, Lightbox)
+        function initDynamicScripts() {
+
+            // Инициализация Lightbox (с очисткой предыдущих инстансов)
+            if (typeof $.fn.simpleLightbox !== 'undefined') {
+                $('.products-container .swiper-slide a.lightbox-link').each(function() {
+                    if ($(this).data('simpleLightbox')) {
+                        $(this).data('simpleLightbox').destroy();
+                    }
+                });
+                $('.products-container .swiper-slide a.lightbox-link').simpleLightbox();
+            }
+        }
+
+        // 3. Обработчики Select2
         if ($.fn.select2) {
             $('select.wide').select2({
                 minimumResultsForSearch: Infinity,
                 width: '100%'
+            }).on('change', function() {
+                fetchFilteredProducts();
             });
-        } else {
-            console.error("Select2 не загружен!");
         }
 
-        // Обработчики событий фильтров
-        $('select.wide').on('change', function() {
-            fetchFilteredProducts();
+        // 4. Глобальное делегирование событий (не требует перепривязки при HTMX обновлении)
+        $(document).on('click', '.zoom-link', function(e) {
+            e.preventDefault();
+            $(this).closest('.products-container').find('.swiper-slide-active a.lightbox-link').trigger('click');
         });
 
+        $(document).on('click', '.production__item .wrap', function(e) {
+            const isButton = $(e.target).closest('.button').length > 0;
+            const isSlider = $(e.target).closest('.products-container').length > 0;
+            const isLink = $(e.target).closest('a').length > 0;
+
+            if (!isButton && !isSlider && !isLink) {
+                const url = $(this).find('.production__item_title a').attr('href');
+                if(url && url !== '#') {
+                    window.location.href = url;
+                }
+            }
+        });
+
+        // Сортировка по цене
         $('.production__filter_price').on('click', function(e) {
             let targetSort = 'price_asc';
             if (e.target.hasAttribute('data-sort')) {
@@ -155,6 +180,7 @@
             fetchFilteredProducts();
         });
 
+        // Кнопки управления фильтром
         $('#apply-filters').on('click', function(e) {
             e.preventDefault();
             fetchFilteredProducts();
@@ -165,66 +191,21 @@
             $('#filter-form')[0].reset();
             $('#sort-input').val('default');
             $('.production__filter_price i').removeClass('accent');
-
-            // Важно: сбрасываем состояние Select2 визуально
             if ($.fn.select2) {
                 $('select.wide').val('').trigger('change.select2');
             }
             fetchFilteredProducts();
         });
 
-        // Функция инициализации скриптов карточек (слайдеры, лайтбокс)
-        function initShopScripts() {
-            if (typeof Swiper !== 'undefined') {
-                $('.product-list-swiper:not(.swiper-container-initialized)').each(function() {
-                    var slidesCount = $(this).find('.swiper-slide').length;
-                    new Swiper(this, {
-                        slidesPerView: 1,
-                        spaceBetween: 0,
-                        loop: slidesCount > 1,
-                        navigation: {
-                            nextEl: $(this).find('.swiper-button-next')[0],
-                            prevEl: $(this).find('.swiper-button-prev')[0],
-                        }
-                    });
-                });
-            }
+        // --- ГЛАВНОЕ: Инициализация после загрузки и HTMX ---
 
-            if (typeof $.fn.simpleLightbox !== 'undefined') {
-                $('.products-container .swiper-slide a.lightbox-link').each(function() {
-                    if ($(this).data('simpleLightbox')) {
-                        $(this).data('simpleLightbox').destroy();
-                    }
-                });
-                $('.products-container .swiper-slide a.lightbox-link').simpleLightbox();
-            }
+        // Первый запуск
+        initDynamicScripts();
 
-            $('.zoom-link').off('click').on('click', function(e) {
-                e.preventDefault();
-                $(this).closest('.products-container').find('.swiper-slide-active a.lightbox-link').trigger('click');
-            });
-
-            $('.production__item .wrap').off('click').on('click', function(e) {
-                const isButton = $(e.target).closest('.button').length > 0;
-                const isSlider = $(e.target).closest('.products-container').length > 0;
-                const isLink = $(e.target).closest('a').length > 0;
-
-                if (!isButton && !isSlider && !isLink) {
-                    var url = $(this).find('.production__item_title a').attr('href');
-                    if(url && url !== '#') {
-                        window.location.href = url;
-                    }
-                }
-            });
-        }
-
-        // Запускаем при первой загрузке страницы
-        initShopScripts();
-
-        // Запускаем после подгрузки товаров через HTMX
+        // Запуск после каждого обновления DOM через HTMX
         document.addEventListener('htmx:afterSettle', function(evt) {
-            if (evt.detail.target.id === 'product-grid' || evt.detail.target.id === 'shop-load-more-container') {
-                initShopScripts();
+            if (evt.detail.target.id === 'product-grid') {
+                initDynamicScripts();
             }
         });
     });

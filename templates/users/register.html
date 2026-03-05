@@ -169,7 +169,10 @@
                     <div class="form-check mb-4">
                         <input type="checkbox" class="form-check-input" id="agree" required>
                         <label class="form-check-label" for="agree">
-                            {% trans "Я согласен с" %} <a href="#" style="color: #337d5a;">{% trans "Условиями регистрации" %}</a>
+                            {% trans "Я согласен с" %}
+                            <a href="{% if terms_page %}{{ terms_page.url }}{% else %}#{% endif %}" target="_blank" style="color: #337d5a;">
+                                {% trans "Условиями регистрации" %}
+                            </a>
                         </label>
                     </div>
 

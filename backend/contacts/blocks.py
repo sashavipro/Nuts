@@ -1,6 +1,7 @@
 """contacts/blocks.py."""
 
 import logging
+
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
@@ -9,8 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class BaseIconBlock(blocks.StructBlock):
-    """
-    Abstract base block containing fields for icon selection.
+    """Abstract base block containing fields for icon selection.
 
     Allows choosing between an uploaded image or a font icon class.
     Inherit from this block to add icon functionality to other blocks.
@@ -32,27 +32,29 @@ class BaseIconBlock(blocks.StructBlock):
         help_text=_("Пример: icons-phone, icons-post, icons-home"),
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         abstract = True
 
 
 class SocialLinkBlock(BaseIconBlock):
-    """
-    Block representing a single social media link.
+    """Block representing a single social media link.
+
     Contains an icon and a URL.
     """
 
     link = blocks.URLBlock(label=_("Ссылка"), required=False)
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         icon = "link"
         label = _("Социальная связь")
 
 
 class PhoneSectionBlock(BaseIconBlock):
-    """
-    Section block for displaying phone numbers and associated social links.
-    """
+    """Section block for displaying phone numbers and associated social links."""
 
     phones = blocks.ListBlock(
         blocks.CharBlock(label=_("Номер телефона")),
@@ -63,15 +65,15 @@ class PhoneSectionBlock(BaseIconBlock):
         SocialLinkBlock(), label=_("Социальные сети"), required=False
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         label = _("Раздел Телефон")
         icon = "mobile-alt"
 
 
 class EmailSectionBlock(BaseIconBlock):
-    """
-    Section block for displaying email addresses.
-    """
+    """Section block for displaying email addresses."""
 
     emails = blocks.ListBlock(
         blocks.EmailBlock(label=_("Адрес электронной почты")),
@@ -79,15 +81,15 @@ class EmailSectionBlock(BaseIconBlock):
         required=False,
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         label = _("Раздел Электронная почта")
         icon = "mail"
 
 
 class AddressItemBlock(blocks.StructBlock):
-    """
-    Block representing a single physical address.
-    """
+    """Block representing a single physical address."""
 
     title = blocks.CharBlock(label=_("Филиал/Название"), required=False)
     text = blocks.RichTextBlock(
@@ -96,14 +98,16 @@ class AddressItemBlock(blocks.StructBlock):
         required=True,
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         label = _("Адрес")
         icon = "home"
 
 
 class DetailedContactsBlock(blocks.StructBlock):
-    """
-    Main structural block for the Contact Page.
+    """Main structural block for the Contact Page.
+
     Aggregates phone, email, address sections, and a map embed.
     """
 
@@ -126,15 +130,17 @@ class DetailedContactsBlock(blocks.StructBlock):
         label=_("Код для вставки карты (iframe Google Maps)"), required=False
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         template = "contacts/blocks/detailed_contacts.html"
         icon = "map"
         label = _("Подробные контакты")
 
 
 class ContactImportBlock(blocks.StructBlock):
-    """
-    Block for importing a contact section from an existing ContactPage.
+    """Block for importing a contact section from an existing ContactPage.
+
     Useful for displaying contact info in footers or other pages.
     """
 
@@ -144,7 +150,9 @@ class ContactImportBlock(blocks.StructBlock):
         required=True,
     )
 
-    class Meta:  # pylint: disable=too-few-public-methods, missing-class-docstring
+    class Meta:  # pylint: disable=too-few-public-methods
+        """Meta options."""
+
         template = "contacts/blocks/contact_import_wrapper.html"
         icon = "link"
         label = _("Импорт контактов")

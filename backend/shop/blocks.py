@@ -1,4 +1,4 @@
-"""shop/blocks.py"""
+"""shop/blocks.py."""
 
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks
@@ -8,8 +8,9 @@ from wagtail.images.blocks import ImageChooserBlock
 
 
 class TabItemBlock(blocks.StructBlock):
-    """
-    Represents a single tab containing a title, optional image, and rich text content.
+    """Represents a single tab.
+
+    Contains a title, optional image, and rich text content.
     """
 
     title = blocks.CharBlock(label=_("Заголовок таба"), required=True)
@@ -23,24 +24,18 @@ class TabItemBlock(blocks.StructBlock):
     content = blocks.RichTextBlock(label=_("Текст"))
 
     class Meta:
-        """
-        Meta options for TabItemBlock.
-        """
+        """Meta options for TabItemBlock."""
 
         label = _("Таб")
 
 
 class ProductTabsBlock(blocks.StructBlock):
-    """
-    Block representing a section containing a list of tabs.
-    """
+    """Block representing a section containing a list of tabs."""
 
     tabs = blocks.ListBlock(TabItemBlock(), label=_("Список табов"))
 
     class Meta:
-        """
-        Meta options for ProductTabsBlock.
-        """
+        """Meta options for ProductTabsBlock."""
 
         template = "shop/blocks/product_tabs.html"
         icon = "list-ul"

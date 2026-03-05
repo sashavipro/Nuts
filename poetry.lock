@@ -1884,21 +1884,6 @@ files = [
 ]
 
 [[package]]
-name = "whitenoise"
-version = "6.11.0"
-description = "Radically simplified static file serving for WSGI applications"
-optional = false
-python-versions = ">=3.9"
-groups = ["main"]
-files = [
-    {file = "whitenoise-6.11.0-py3-none-any.whl", hash = "sha256:b2aeb45950597236f53b5342b3121c5de69c8da0109362aee506ce88e022d258"},
-    {file = "whitenoise-6.11.0.tar.gz", hash = "sha256:0f5bfce6061ae6611cd9396a8231e088722e4fc67bc13a111be74c738d99375f"},
-]
-
-[package.extras]
-brotli = ["brotli"]
-
-[[package]]
 name = "willow"
 version = "1.12.0"
 description = "A Python image library that sits on top of Pillow, Wand and OpenCV"
@@ -1925,4 +1910,4 @@ wand = ["Wand (>=0.6,<1.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "5dacafaec80a57e052fd4cf9ac9cf733a8b1e0c2d525e56a9336cc0f5f5113a4"
+content-hash = "f2cb87b2c289c3ecbe7d8f24f6908c1d4078c112623aafe1206bcd00fdd8040f"

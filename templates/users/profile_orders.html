@@ -51,8 +51,8 @@
                                     </svg>
                                 </a>
 
-                                <a href="#" onclick="navigator.clipboard.writeText('{{ order.order_number|default:order.id }}'); alert('{% trans 'Номер заказа скопирован!' %}'); return false;" style="color: #a0a0a0; font-size: 20px; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#3d8063'" onmouseout="this.style.color='#a0a0a0'" title="{% trans 'Скопировать номер заказа' %}">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                               <a href="#" onclick="copyOrderNumber('{{ order.order_number|default:order.id }}'); return false;" style="color: #a0a0a0; font-size: 20px; text-decoration: none; transition: color 0.2s;" onmouseover="this.style.color='#3d8063'" onmouseout="this.style.color='#a0a0a0'" title="{% trans 'Скопировать номер заказа' %}">
+                                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                                         <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                                     </svg>
@@ -76,4 +76,53 @@
 {% for block in page.footer_blocks %}
     {% include_block block %}
 {% endfor %}
+
+
+{% endblock %}
+
+ {% block extra_js %}
+<script>
+    function copyOrderNumber(text) {
+        // Проверяем, доступен ли современный буфер обмена (HTTPS)
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('{% trans "Номер заказа скопирован!" %}');
+            }).catch(function() {
+                fallbackCopyTextToClipboard(text);
+            });
+        } else {
+            // Резервный метод для HTTP (твой случай)
+            fallbackCopyTextToClipboard(text);
+        }
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+        // Создаем невидимое текстовое поле
+        var textArea = document.createElement("textarea");
+        textArea.value = text;
+
+        // Убираем его за пределы видимости экрана
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            // Копируем текст старым методом
+            var successful = document.execCommand('copy');
+            if (successful) {
+                alert('{% trans "Номер заказа скопирован!" %}');
+            }
+        } catch (err) {
+            console.error('Ошибка копирования', err);
+        }
+
+        // Удаляем временное поле
+        document.body.removeChild(textArea);
+    }
+</script>
 {% endblock %}

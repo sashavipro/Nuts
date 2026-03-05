@@ -6,7 +6,7 @@ original_get_app_list = admin.site.get_app_list
 
 
 def custom_get_app_list(request, app_label=None):
-    """custom_get_app_list"""
+    """Filter hidden apps from the admin app list."""
     app_list = original_get_app_list(request, app_label)
     hidden_apps = [
         "cities_light",

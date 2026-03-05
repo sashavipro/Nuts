@@ -46,9 +46,8 @@
     {% include "includes/footer.html" %}
     {% vite_asset 'app/js/common.js' %}
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVofcK1JyIWtVb3kaEbvHi9WqHCteWpxI&amp;callback=initMap"></script>
     <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     {% block extra_js %}{% endblock %}
 
 {% if messages %}
@@ -70,5 +69,50 @@
     }, 4000);
 </script>
 {% endif %}
+<script>
+    // Функція для пошуку та ініціалізації нових слайдерів
+    function initProductSliders(container) {
+        if (typeof Swiper === 'undefined') return;
+
+        // Шукаємо слайдери ТІЛЬКИ з правильним класом, які ще не ініціалізовані
+        var sliders = container.querySelectorAll('.isolated-list-slider:not(.swiper-initialized)');
+
+        sliders.forEach(function(slider) {
+            var sliderId = slider.getAttribute('id');
+            if (!sliderId) return;
+
+            var idNum = sliderId.replace('swiper-', '');
+            var nextBtn = document.getElementById('next-' + idNum);
+            var prevBtn = document.getElementById('prev-' + idNum);
+
+            new Swiper(slider, {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                loop: slider.querySelectorAll('.swiper-slide').length > 1,
+                zoom: true,
+                navigation: (nextBtn && prevBtn) ? {
+                    nextEl: nextBtn,
+                    prevEl: prevBtn,
+                } : false
+            });
+        });
+
+        // Ініціалізація select/інших плагінів, якщо вони є у новому контенті
+        if (typeof $ !== 'undefined' && $.fn.niceSelect) {
+            $(container).find('select.wide').niceSelect();
+        }
+    }
+
+    // 1. Запуск при першому (звичайному) завантаженні сторінки
+    document.addEventListener('DOMContentLoaded', function() {
+        initProductSliders(document);
+    });
+
+    // 2. Запуск ПІСЛЯ кожної успішної заміни контенту через HTMX
+    document.addEventListener('htmx:afterSettle', function(evt) {
+        // evt.detail.target - це контейнер, в який HTMX щойно вставив новий HTML
+        initProductSliders(evt.detail.target);
+    });
+</script>
 </body>
 </html>

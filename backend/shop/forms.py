@@ -1,83 +1,240 @@
-"""shop/forms.py"""
+"""users/forms.py."""
 
 import logging
+
+from cities_light.models import Region
 from django import forms
+from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
+from django.template import loader
 from django.utils.translation import gettext_lazy as _
-from .models.ecommerce import Order
+
+from .models import CustomUser
+from .tasks import send_reset_email_task
 
 logger = logging.getLogger(__name__)
 
-# pylint: disable=too-few-public-methods, cyclic-import
+# pylint: disable=too-few-public-methods
 
 
-class CheckoutForm(forms.ModelForm):
-    """
-    Checkout form handling order creation.
+class CustomUserCreationForm(UserCreationForm):  # pylint: disable=too-many-ancestors
+    """Form for registering a new CustomUser.
 
-    Dynamically enforces required fields based on the selected delivery method.
+    Handles dynamic loading of regions based on the selected country
+    and conditional validation for user types (Physical, Legal, FOP).
     """
 
     class Meta:
-        """Meta options mapping the form to the Order model."""
+        """Meta options for CustomUserCreationForm."""
 
-        model = Order
-        fields = [
+        model = CustomUser
+
+        # pylint: disable=duplicate-code
+        fields = (
+            "user_type",
+            "is_fop",
+            "username",
             "first_name",
-            "phone",
+            "last_name",
+            "middle_name",
             "email",
-            "city",
-            "address_line",
+            "phone",
+            "avatar",
             "company_name",
             "okpo",
-            "delivery_method",
-            "payment_method",
-        ]
+            "country",
+            "region",
+            "city",
+            "address_line",
+            "zip_code",
+        )
         widgets = {
-            "company_name": forms.TextInput(attrs={"placeholder": _("Компания")}),
-            "first_name": forms.TextInput(attrs={"placeholder": _("Контактное лицо*")}),
-            "email": forms.EmailInput(attrs={"placeholder": "Email*"}),
-            "phone": forms.TextInput(attrs={"placeholder": _("Телефон*")}),
-            "city": forms.TextInput(attrs={"placeholder": _("Город*")}),
-            "address_line": forms.TextInput(
-                attrs={"placeholder": _("Улица, дом, квартира*")}
+            "country": forms.Select(
+                attrs={"class": "form-control", "id": "id_country"}
             ),
-            "okpo": forms.TextInput(attrs={"placeholder": _("ОКПО / ЕДРПОУ")}),
         }
 
-    def clean(self):
-        """
-        Validates the entire form payload.
+    def __init__(self, *args, **kwargs):
+        """Initialize the form, set CSS classes, and handle dynamic region loading."""
+        super().__init__(*args, **kwargs)
 
-        Ensures that shipping addresses are provided correctly depending
-        on whether the user selected Nova Poshta, Courier, or Pickup.
+        logger.debug("Initializing CustomUserCreationForm")
+
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})
+
+        self.fields["country"].empty_label = _("Выберите страну")
+        self.fields["country"].widget.attrs.update({"id": "id_country"})
+
+        self.fields["region"].queryset = Region.objects.none()
+        self.fields["region"].widget.attrs.update(
+            {"id": "id_region", "disabled": "true"}
+        )
+
+        if "country" in self.data:
+            try:
+                country_id = int(self.data.get("country"))
+                self.fields["region"].queryset = Region.objects.filter(
+                    country_id=country_id
+                ).order_by("name")
+                self.fields["region"].widget.attrs.pop("disabled", None)
+                logger.debug(
+                    "Loaded regions for country_id=%s from POST data", country_id
+                )
+            except (ValueError, TypeError) as e:
+                logger.warning("Error parsing country_id from data: %s", e)
+
+        elif self.instance.pk and self.instance.country:
+            self.fields["region"].queryset = self.instance.country.region_set.order_by(
+                "name"
+            )
+            logger.debug(
+                "Loaded regions for country=%s from instance", self.instance.country
+            )
+
+        self.fields["company_name"].required = False
+        self.fields["okpo"].required = False
+        self.fields["city"].widget.attrs["placeholder"] = _("Город")
+        self.fields["company_name"].widget.attrs["placeholder"] = _("Название компании")
+        self.fields["okpo"].widget.attrs["placeholder"] = _("ОКПО / ЕДРПОУ")
+        self.fields["zip_code"].widget.attrs["placeholder"] = _("Индекс")
+        self.fields["address_line"].widget.attrs["placeholder"] = _(
+            "Адрес (улица, дом, кв.)"
+        )
+        self.fields["first_name"].widget.attrs["placeholder"] = _("Имя*")
+        self.fields["last_name"].widget.attrs["placeholder"] = _("Фамилия*")
+        self.fields["middle_name"].widget.attrs["placeholder"] = _("Отчество")
+        self.fields["email"].widget.attrs["placeholder"] = _("Email*")
+        self.fields["phone"].widget.attrs["placeholder"] = _("Телефон*")
+
+    def clean(self):
+        """Validate the form data based on the selected user type.
+
+        Cleans up irrelevant fields (e.g., company info for physical users)
+        and enforces requirements for legal entities.
         """
         cleaned_data = super().clean()
-        delivery_method = cleaned_data.get("delivery_method")
+        user_type = cleaned_data.get("user_type")
 
-        city = cleaned_data.get("city")
-        address_line = cleaned_data.get("address_line")
+        logger.debug("Cleaning form data for user_type: %s", user_type)
 
-        if delivery_method == Order.Delivery.NOVA_POSHTA:
-            if not city:
-                self.add_error("city", _("Укажите город для доставки Новой Почтой."))
-                logger.debug("Checkout validation error: Missing city for Nova Poshta.")
-            if not address_line:
+        if user_type == "physical":
+            cleaned_data["company_name"] = ""
+            cleaned_data["okpo"] = ""
+            cleaned_data["is_fop"] = False
+
+        elif user_type == "fop":
+            cleaned_data["is_fop"] = True
+            cleaned_data["company_name"] = ""
+            cleaned_data["okpo"] = ""
+
+        elif user_type == "legal":
+            cleaned_data["is_fop"] = False
+            if not cleaned_data.get("company_name"):
                 self.add_error(
-                    "address_line", _("Укажите номер отделения Новой Почты.")
+                    "company_name",
+                    _("Название компании обязательно для юридических лиц."),
                 )
-                logger.debug(
-                    "Checkout validation error: Missing branch for Nova Poshta."
+                logger.warning(
+                    "Validation error: Missing company_name for Legal entity"
                 )
-
-        elif delivery_method == Order.Delivery.COURIER:
-            if not city:
-                self.add_error("city", _("Укажите город для курьерской доставки."))
-            if not address_line:
-                self.add_error("address_line", _("Укажите улицу, дом и квартиру."))
-
-        elif delivery_method == Order.Delivery.PICKUP:
-            # Clear addressing data if pickup is selected to keep DB clean
-            cleaned_data["city"] = ""
-            cleaned_data["address_line"] = ""
+            if not cleaned_data.get("okpo"):
+                self.add_error("okpo", _("Код ЕДРПОУ обязателен для юридических лиц."))
+                logger.warning("Validation error: Missing okpo for Legal entity")
 
         return cleaned_data
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+    """Custom password reset form that delegates email sending to Celery."""
+
+    def send_mail(  # noqa: PLR0913
+        self,
+        subject_template_name,
+        email_template_name,
+        context,
+        from_email,
+        to_email,
+        html_email_template_name=None,
+    ):  # pylint: disable=too-many-arguments, too-many-positional-arguments
+        """Override the default synchronous send_mail method.
+
+        Renders templates to strings and schedules a Celery task.
+        """
+        logger.debug("Preparing async password reset for: %s", to_email)
+
+        subject = loader.render_to_string(subject_template_name, context)
+        subject = "".join(subject.splitlines())
+
+        body = loader.render_to_string(email_template_name, context)
+
+        html_email = None
+        if html_email_template_name:
+            html_email = loader.render_to_string(html_email_template_name, context)
+
+        send_reset_email_task.delay(
+            subject=subject,
+            body=body,
+            from_email=from_email,
+            recipient_list=[to_email],
+            html_message=html_email,
+        )
+
+        logger.info("Password reset task queued for %s", to_email)
+
+
+class UserAddressForm(forms.ModelForm):
+    """Form for editing user billing details and address."""
+
+    class Meta:
+        """Meta options for UserAddressForm."""
+
+        model = CustomUser
+        fields = ["okpo", "country", "region", "city", "address_line"]
+
+        widgets = {
+            "okpo": forms.TextInput(
+                attrs={"placeholder": _("ОКПО"), "class": "form-control"}
+            ),
+            "country": forms.Select(
+                attrs={"id": "id_country", "class": "form-control"}
+            ),
+            "region": forms.Select(attrs={"id": "id_region", "class": "form-control"}),
+            "city": forms.TextInput(
+                attrs={"placeholder": _("Город*"), "class": "form-control"}
+            ),
+            "address_line": forms.TextInput(
+                attrs={"placeholder": _("Адрес"), "class": "form-control"}
+            ),
+        }
+
+
+class UserContactInfoForm(forms.ModelForm):
+    """Form for editing user contact information and avatar."""
+
+    class Meta:
+        """Meta options for UserContactInfoForm."""
+
+        model = CustomUser
+        fields = ["company_name", "first_name", "email", "phone", "avatar"]
+
+        widgets = {
+            "company_name": forms.TextInput(
+                attrs={"placeholder": _("Компания*"), "class": "form-control"}
+            ),
+            "first_name": forms.TextInput(
+                attrs={"placeholder": _("Контактное лицо*"), "class": "form-control"}
+            ),
+            "email": forms.EmailInput(
+                attrs={"placeholder": _("Email*"), "class": "form-control"}
+            ),
+            "phone": forms.TextInput(
+                attrs={"placeholder": _("Телефон*"), "class": "form-control"}
+            ),
+            "avatar": forms.FileInput(
+                attrs={
+                    "id": "id_avatar",
+                    "style": "display: none;",
+                    "accept": "image/*",
+                }
+            ),
+        }

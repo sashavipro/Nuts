@@ -183,30 +183,3 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
     </style>
 {% endif %}
-
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
-<script>
-    setTimeout(function() {
-        // Выбираем только те слайдеры, которые еще не инициализированы (важно при кнопке "Показать еще")
-        var sliders = document.querySelectorAll('.isolated-list-slider:not(.swiper-initialized)');
-        sliders.forEach(function(slider) {
-            var sliderId = slider.getAttribute('id').replace('swiper-', '');
-            var nextBtn = document.getElementById('next-' + sliderId);
-            var prevBtn = document.getElementById('prev-' + sliderId);
-
-            new Swiper(slider, {
-                slidesPerView: 1,
-                spaceBetween: 0,
-                loop: slider.querySelectorAll('.swiper-slide').length > 1,
-                zoom: true,
-                navigation: (nextBtn && prevBtn) ? {
-                    nextEl: nextBtn,
-                    prevEl: prevBtn,
-                } : false
-            });
-        });
-
-        if (typeof $ !== 'undefined' && $.fn.niceSelect) $('select.wide').niceSelect();
-    }, 500);
-</script>

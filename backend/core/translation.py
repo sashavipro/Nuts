@@ -1,13 +1,13 @@
 """core/translation.py."""
 
-from modeltranslation.translator import register, TranslationOptions
+from modeltranslation.translator import TranslationOptions, register
+
 from .models import SiteSettings
 
 
 @register(SiteSettings)
 class SiteSettingsTranslationOptions(TranslationOptions):
-    """
-    Translation options for the SiteSettings model.
+    """Translation options for the SiteSettings model.
 
     Specifies which fields of the SiteSettings model should be translated
     using django-modeltranslation.

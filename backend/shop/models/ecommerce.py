@@ -1,17 +1,19 @@
 """shop/models/ecommerce.py."""
 
-import uuid
 import logging
-from django.db import models, transaction
-from django.conf import settings
-from django.shortcuts import redirect, render
-from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel
+import uuid
+
 from contacts.blocks import ContactImportBlock
+from django.conf import settings
+from django.contrib import messages
+from django.db import models, transaction
+from django.shortcuts import redirect, render
+from django.utils.translation import gettext_lazy as _
 from home.blocks import HeroBlock
+from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+
 from .products import Product
 
 # pylint: disable=no-member, too-few-public-methods, too-many-ancestors, cyclic-import, disable=duplicate-code
@@ -20,8 +22,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_or_create_cart(request):
-    """
-    Retrieves the existing cart or creates a new one.
+    """Retrieve the existing cart or create a new one.
 
     Uses the authenticated user if available; otherwise, uses the session key.
     """
@@ -53,24 +54,24 @@ class Cart(models.Model):
         blank=True,
         verbose_name=_("Пользователь"),
     )
-    session_key = models.CharField(
+    session_key = models.CharField(  # noqa: DJ001
         _("Ключ сессии"), max_length=40, null=True, blank=True
     )
     created_at = models.DateTimeField(_("Создана"), auto_now_add=True)
-
-    def get_total_price(self):
-        """Calculates and returns the total price of all items in the cart."""
-        return sum(item.get_cost() for item in self.items.all())
-
-    def __str__(self):
-        """String representation of the Cart."""
-        return f"Cart {self.id} - User: {self.user or 'Anonymous'}"
 
     class Meta:
         """Meta options for the Cart model."""
 
         verbose_name = _("Корзина")
         verbose_name_plural = _("Корзины")
+
+    def __str__(self):
+        """Return string representation of the Cart."""
+        return f"Cart {self.id} - User: {self.user or 'Anonymous'}"
+
+    def get_total_price(self):
+        """Calculate and return the total price of all items in the cart."""
+        return sum(item.get_cost() for item in self.items.all())
 
 
 class CartItem(models.Model):
@@ -84,19 +85,19 @@ class CartItem(models.Model):
     )
     quantity = models.PositiveIntegerField(_("Количество"), default=1)
 
-    def get_cost(self):
-        """Calculates the total cost for this specific cart item."""
-        return self.product.price * self.quantity
-
-    def __str__(self):
-        """String representation of the CartItem."""
-        return f"{self.quantity} x {self.product.title}"
-
     class Meta:
         """Meta options for the CartItem model."""
 
         verbose_name = _("Элемент корзины")
         verbose_name_plural = _("Элементы корзины")
+
+    def __str__(self):
+        """Return string representation of the CartItem."""
+        return f"{self.quantity} x {self.product.title}"
+
+    def get_cost(self):
+        """Calculate the total cost for this specific cart item."""
+        return self.product.price * self.quantity
 
 
 class Order(models.Model):
@@ -170,16 +171,16 @@ class Order(models.Model):
     company_name = models.CharField(_("Название компании"), max_length=255, blank=True)
     okpo = models.CharField(_("ОКПО"), max_length=20, blank=True)
 
-    def __str__(self):
-        """String representation of the Order."""
-        return f"Order {self.order_number} ({self.get_status_display()})"
-
     class Meta:
         """Meta options for the Order model."""
 
         verbose_name = _("Заказ")
         verbose_name_plural = _("Заказы")
         ordering = ["-created_at"]
+
+    def __str__(self):
+        """Return string representation of the Order."""
+        return f"Order {self.order_number} ({self.get_status_display()})"
 
 
 class OrderItem(models.Model):
@@ -195,17 +196,17 @@ class OrderItem(models.Model):
     price = models.DecimalField(_("Цена"), max_digits=10, decimal_places=0)
     quantity = models.PositiveIntegerField(_("Количество"), default=1)
 
-    def __str__(self):
-        """String representation of the OrderItem."""
-        return (
-            f"{self.quantity} x {self.product_name} (Order: {self.order.order_number})"
-        )
-
     class Meta:
         """Meta options for the OrderItem model."""
 
         verbose_name = _("Товар в заказе")
         verbose_name_plural = _("Товары в заказе")
+
+    def __str__(self):
+        """Return string representation of the OrderItem."""
+        return (
+            f"{self.quantity} x {self.product_name} (Order: {self.order.order_number})"
+        )
 
 
 class PaymentTransaction(models.Model):
@@ -222,7 +223,7 @@ class PaymentTransaction(models.Model):
     description = models.CharField(max_length=255)
 
     def __str__(self):
-        """String representation of the PaymentTransaction."""
+        """Return string representation of the PaymentTransaction."""
         return f"Transaction {self.id} - {self.amount} by {self.user}"
 
 
@@ -243,7 +244,8 @@ class CartPage(Page):
         max_length=50, default="+38 067 777 14 12", verbose_name=_("Телефон менеджера")
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("manager_title"),
         FieldPanel("manager_phone"),
     ]
@@ -264,8 +266,7 @@ class CheckoutPage(Page):
     template = "shop/checkout.html"
 
     def serve(self, request, *args, **kwargs):
-        """
-        Processes the checkout form submission.
+        """Process the checkout form submission.
 
         Uses transaction.atomic() to ensure the order, its items, and the cart
         clearing happen as a single, indivisible database operation.
@@ -325,10 +326,8 @@ class CheckoutPage(Page):
                     messages.success(request, _("Заказ успешно оформлен!"))
                     return redirect("/")
 
-                except Exception as e:  # pylint: disable=broad-exception-caught
-                    logger.error(
-                        "Failed to create order due to a database error: %s", e
-                    )
+                except Exception:  # pylint: disable=broad-exception-caught
+                    logger.exception("Failed to create order due to a database error")
                     messages.error(
                         request,
                         _(
@@ -341,10 +340,14 @@ class CheckoutPage(Page):
         else:
             initial_data = {}
             if request.user.is_authenticated:
+                user_fn = getattr(request.user, "first_name", "")
+                user_ln = getattr(request.user, "last_name", "")
+                full_name = f"{user_fn} {user_ln}".strip()
+
                 initial_data = {
-                    "first_name": f"{request.user.first_name} {request.user.last_name}".strip(),
+                    "first_name": full_name,
                     "phone": getattr(request.user, "phone", ""),
-                    "email": request.user.email,
+                    "email": getattr(request.user, "email", ""),
                     "city": getattr(request.user, "city", ""),
                     "address_line": getattr(request.user, "address_line", ""),
                     "company_name": getattr(request.user, "company_name", ""),
@@ -378,7 +381,8 @@ class OrderSuccessPage(Page):
         blank=True,
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("body"),
         FieldPanel("footer_blocks"),
     ]

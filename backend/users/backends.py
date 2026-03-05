@@ -1,8 +1,9 @@
 """users/backends.py."""
 
 import logging
-from django.contrib.auth.backends import ModelBackend
+
 from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.http import HttpRequest
 
@@ -10,16 +11,12 @@ logger = logging.getLogger(__name__)
 
 
 class EmailOrUsernameModelBackend(ModelBackend):
-    """
-    Custom authentication backend to allow login via Email or Username.
-    """
+    """Custom authentication backend to allow login via Email or Username."""
 
     def authenticate(
         self, request: HttpRequest, username=None, password=None, **kwargs
     ):
-        """
-        Check credentials against either email or username.
-        """
+        """Check credentials against either email or username."""
         user_model = get_user_model()
 
         if username is None:
@@ -32,7 +29,7 @@ class EmailOrUsernameModelBackend(ModelBackend):
             logger.warning("Login failed: User not found for '%s'", username)
             return None
         except user_model.MultipleObjectsReturned:
-            logger.error("Login error: Multiple users found for '%s'", username)
+            logger.exception("Login error: Multiple users found for '%s'", username)
             return None
 
         if user.check_password(password) and self.user_can_authenticate(user):

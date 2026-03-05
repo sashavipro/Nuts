@@ -2,7 +2,6 @@
 
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
-
 from wagtail.models import Page
 
 # To enable logging of search queries for use with the "Promoted search results" module
@@ -14,6 +13,7 @@ from wagtail.models import Page
 
 
 def search(request):
+    """Handle search queries and return paginated search results."""
     search_query = request.GET.get("query", None)
     page = request.GET.get("page", 1)
 

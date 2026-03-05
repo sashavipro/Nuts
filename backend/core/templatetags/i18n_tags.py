@@ -1,17 +1,18 @@
 """core/templatetags/i18n_tags.py."""
 
 import logging
+
 from django import template
-from django.urls import translate_url, resolve, Resolver404
-from wagtail.models import Page, Site, Locale
+from django.urls import Resolver404, resolve, translate_url
+from wagtail.models import Locale, Page, Site
 
 logger = logging.getLogger(__name__)
 register = template.Library()
 
 
 def _get_wagtail_translated_url(request, page, lang_code):
-    """
-    Helper function to get the translated URL for a Wagtail page.
+    """Get the translated URL for a Wagtail page.
+
     Falls back to the translated root page if the current page translation is missing.
     """
     locale = Locale.objects.filter(language_code=lang_code).first()
@@ -32,10 +33,26 @@ def _get_wagtail_translated_url(request, page, lang_code):
     return f"/{lang_code}/"
 
 
+def _get_product_translated_url(request, product, lang_code):
+    """Find the translated URL for a specific product."""
+    from shop.models import ShopIndexPage
+
+    locale = Locale.objects.filter(language_code=lang_code).first()
+    if locale:
+        shop_page = ShopIndexPage.objects.filter(live=True, locale=locale).first()
+        if shop_page:
+            shop_url = shop_page.get_url(request)
+            translated_slug = (
+                getattr(product, f"slug_{lang_code}", None) or product.slug
+            )
+            return f"{shop_url}{translated_slug}/"
+    return None
+
+
 @register.simple_tag(takes_context=True)
 def get_translated_url(context, lang_code):
-    """
-    Retrieves the translated URL for the current page or path.
+    """Retrieve the translated URL for the current page or path.
+
     Handles both Wagtail pages and standard Django views,
     including dynamic slugs for Product models.
     """
@@ -45,19 +62,9 @@ def get_translated_url(context, lang_code):
 
     product = context.get("product")
     if product:
-        from shop.models import ShopIndexPage
-
-        locale = Locale.objects.filter(language_code=lang_code).first()
-        if locale:
-            shop_page = ShopIndexPage.objects.filter(live=True, locale=locale).first()
-            if shop_page:
-                shop_url = shop_page.get_url(request)
-
-                translated_slug = (
-                    getattr(product, f"slug_{lang_code}", None) or product.slug
-                )
-
-                return f"{shop_url}{translated_slug}/"
+        prod_url = _get_product_translated_url(request, product, lang_code)
+        if prod_url:
+            return prod_url
 
     page = context.get("page")
 
@@ -76,7 +83,7 @@ def get_translated_url(context, lang_code):
         url = translate_url(request.path, lang_code)
         if url:
             return url
-    except Exception as e:  # pylint: disable=broad-exception-caught
-        logger.error("Error translating django url: %s", e)
+    except Exception:  # pylint: disable=broad-exception-caught
+        logger.exception("Error translating django url")
 
     return f"/{lang_code}/"

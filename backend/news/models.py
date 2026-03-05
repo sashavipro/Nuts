@@ -1,24 +1,26 @@
 """news/models.py."""
 
 import logging
+
+from contacts.blocks import ContactImportBlock
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
-from wagtail.models import Page
-from wagtail.fields import StreamField
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail import blocks
 from home.blocks import EcoBannerBlock
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import Page
+
 from news.blocks import MediaOverlayBlock, SidebarSocialBlock
-from contacts.blocks import ContactImportBlock
 
 logger = logging.getLogger(__name__)
 
 
 class NewsPage(Page):  # pylint: disable=too-many-ancestors
-    """
-    Page model representing a single News Article.
+    """Page model representing a single News Article.
+
     Contains preview settings for the list view and a StreamField for the main content.
     """
 
@@ -92,7 +94,8 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         verbose_name=_("Конструктор контента"),
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("date"),
         MultiFieldPanel(
             [
@@ -117,8 +120,8 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
         ordering = ["-date"]
 
     def get_recent_news(self):
-        """
-        Retrieves recent news items to display in the sidebar.
+        """Retrieve recent news items to display in the sidebar.
+
         The count is determined by the parent NewsIndexPage settings.
         """
         parent = self.get_parent().specific
@@ -133,8 +136,8 @@ class NewsPage(Page):  # pylint: disable=too-many-ancestors
 
 
 class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
-    """
-    Index page for News.
+    """Index page for News.
+
     Displays a list of NewsPage children with pagination and HTMX support.
     """
 
@@ -164,7 +167,8 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
         blank=True,
     )
 
-    content_panels = Page.content_panels + [
+    content_panels = [
+        *Page.content_panels,
         FieldPanel("custom_title"),
         FieldPanel("intro"),
         FieldPanel("news_per_page"),
@@ -184,9 +188,7 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
     subpage_types = ["news.NewsPage"]
 
     def get_context(self, request, *args, **kwargs):
-        """
-        Adds paginated news items to the context.
-        """
+        """Add paginated news items to the context."""
         context = super().get_context(request, *args, **kwargs)
         all_news = NewsPage.objects.live().child_of(self).order_by("-date")
         paginator = Paginator(all_news, self.news_per_page)
@@ -203,8 +205,9 @@ class NewsIndexPage(Page):  # pylint: disable=too-many-ancestors
         return context
 
     def serve(self, request, *args, **kwargs):
-        """
-        Handles requests. Intercepts HTMX requests to return the partial list.
+        """Handle requests.
+
+        Intercepts HTMX requests to return the partial list.
         """
         if request.headers.get("HX-Request"):
             # pylint: disable=no-member

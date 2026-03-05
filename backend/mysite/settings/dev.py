@@ -1,5 +1,7 @@
 """mysite/settings/dev.py."""
 
+import contextlib
+
 from .base import *  # noqa: F403
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -14,7 +16,6 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])  # noqa: F405
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
-try:
+# Fix: Replaced try-except-pass with contextlib.suppress
+with contextlib.suppress(ImportError):
     from .local import *  # noqa: F403
-except ImportError:
-    pass

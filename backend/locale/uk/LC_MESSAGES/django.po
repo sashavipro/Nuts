@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-04 18:56+0000\n"
+"POT-Creation-Date: 2026-03-05 15:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,19 +61,19 @@ msgstr "Текст історії"
 msgid "Фоновое изображение истории"
 msgstr "Фонове зображення історії"
 
-#: backend/about/blocks/about_page.py:28
+#: backend/about/blocks/about_page.py:30
 msgid "Блок истории и основателя"
 msgstr "Блок історії та засновника"
 
-#: backend/about/blocks/wholesale_page.py:13
+#: backend/about/blocks/wholesale_page.py:11
 msgid "Заголовок (слева)"
 msgstr "Заголовок (зліва)"
 
-#: backend/about/blocks/wholesale_page.py:15
+#: backend/about/blocks/wholesale_page.py:13
 msgid "Текст (правая часть, колонка 1)"
 msgstr "Текст (права частина, колонка 1)"
 
-#: backend/about/blocks/wholesale_page.py:20
+#: backend/about/blocks/wholesale_page.py:18
 msgid "Текст (правая часть, колонка 2)"
 msgstr "Текст (права частина, колонка 2)"
 
@@ -108,20 +108,20 @@ msgid "Например: icons-delivery"
 msgstr "Наприклад: icons-delivery"
 
 #: backend/about/blocks/wholesale_page.py:51 backend/gallery/blocks.py:14
-#: backend/gallery/blocks.py:33 backend/home/blocks.py:21
+#: backend/gallery/blocks.py:35 backend/home/blocks.py:21
 #: backend/home/blocks.py:51 backend/home/blocks.py:96
 #: backend/home/blocks.py:124 backend/home/blocks.py:137
-#: backend/home/blocks.py:182
+#: backend/home/blocks.py:180
 msgid "Заголовок"
 msgstr "Заголовок"
 
 #: backend/about/blocks/wholesale_page.py:52 backend/home/blocks.py:71
-#: backend/home/blocks.py:97 backend/home/blocks.py:183
+#: backend/home/blocks.py:97 backend/home/blocks.py:181
 #: templates/users/includes/transaction_modal.html:16
 msgid "Описание"
 msgstr "Опис"
 
-#: backend/about/blocks/wholesale_page.py:56
+#: backend/about/blocks/wholesale_page.py:58
 msgid "Элемент с иконкой"
 msgstr "Елемент з іконкою"
 
@@ -181,55 +181,55 @@ msgstr "URL кнопки"
 msgid "Например: /contacts/ или https://example.com"
 msgstr "Наприклад: /contacts/ або https://example.com"
 
-#: backend/about/blocks/wholesale_page.py:122 backend/shop/blocks.py:18
+#: backend/about/blocks/wholesale_page.py:122 backend/shop/blocks.py:19
 msgid "Картинка справа"
 msgstr "Зображення праворуч"
 
-#: backend/about/blocks/wholesale_page.py:126 backend/shop/blocks.py:30
+#: backend/about/blocks/wholesale_page.py:128 backend/shop/blocks.py:29
 msgid "Таб"
 msgstr "Таб"
 
-#: backend/about/blocks/wholesale_page.py:134 backend/shop/blocks.py:38
+#: backend/about/blocks/wholesale_page.py:134 backend/shop/blocks.py:35
 msgid "Список табов"
 msgstr "Список табів"
 
-#: backend/about/blocks/wholesale_page.py:139
+#: backend/about/blocks/wholesale_page.py:141
 msgid "Секция табов (Оплата/Доставка)"
 msgstr "Секція табів (Оплата/Доставка)"
 
-#: backend/about/models.py:41
+#: backend/about/models.py:42
 msgid "Страница галереи"
 msgstr "Сторінка галереї"
 
-#: backend/about/models.py:47
+#: backend/about/models.py:48
 msgid "Количество элементов"
 msgstr "Кількість елементів"
 
-#: backend/about/models.py:52
+#: backend/about/models.py:53
 msgid "Импорт галереи"
 msgstr "Імпорт галереї"
 
-#: backend/about/models.py:58 backend/about/models.py:84
-#: backend/about/models.py:110 backend/gallery/models.py:30
-#: backend/home/models.py:38
+#: backend/about/models.py:59 backend/about/models.py:85
+#: backend/about/models.py:111 backend/gallery/models.py:32
+#: backend/home/models.py:36
 msgid "Контент страницы"
 msgstr "Контент сторінки"
 
-#: backend/about/models.py:67 backend/about/models.py:68
+#: backend/about/models.py:68 backend/about/models.py:69
 msgid "О компании"
 msgstr "Про компанію"
 
-#: backend/about/models.py:93 backend/about/models.py:94
+#: backend/about/models.py:94 backend/about/models.py:95
 msgid "Опт и корпоративные клиенты"
 msgstr "Опт і корпоративні клієнти"
 
-#: backend/about/models.py:119 backend/about/models.py:120
+#: backend/about/models.py:120 backend/about/models.py:121
 msgid "Оплата и доставка"
 msgstr "Оплата та доставка"
 
 #: backend/contacts/blocks.py:21 backend/home/blocks.py:39
-#: backend/news/blocks.py:18 backend/shop/admin.py:34 backend/shop/blocks.py:16
-#: backend/shop/models/products.py:75
+#: backend/news/blocks.py:17 backend/shop/admin.py:31 backend/shop/blocks.py:17
+#: backend/shop/models/products.py:73
 msgid "Изображение"
 msgstr "Зображення"
 
@@ -253,107 +253,107 @@ msgstr "Клас Icon"
 msgid "Пример: icons-phone, icons-post, icons-home"
 msgstr "Приклад: icons-phone, icons-post, icons-home"
 
-#: backend/contacts/blocks.py:45 backend/core/models.py:46
+#: backend/contacts/blocks.py:47 backend/core/models.py:46
 msgid "Ссылка"
 msgstr "Посилання"
 
-#: backend/contacts/blocks.py:49
+#: backend/contacts/blocks.py:53
 msgid "Социальная связь"
 msgstr "Соціальний зв'язок"
 
-#: backend/contacts/blocks.py:58
+#: backend/contacts/blocks.py:60
 msgid "Номер телефона"
 msgstr "Номер телефону"
 
-#: backend/contacts/blocks.py:59
+#: backend/contacts/blocks.py:61
 msgid "Список телефонов"
 msgstr "СписСписок телефонів"
 
-#: backend/contacts/blocks.py:63 backend/core/models.py:54
-#: backend/news/blocks.py:41
+#: backend/contacts/blocks.py:65 backend/core/models.py:52
+#: backend/news/blocks.py:40
 msgid "Социальные сети"
 msgstr "Соціальні мережі"
 
-#: backend/contacts/blocks.py:67
+#: backend/contacts/blocks.py:71
 msgid "Раздел Телефон"
 msgstr "Розділ Телефон"
 
-#: backend/contacts/blocks.py:77
+#: backend/contacts/blocks.py:79
 msgid "Адрес электронной почты"
 msgstr "Адреса електронної пошти"
 
-#: backend/contacts/blocks.py:78
+#: backend/contacts/blocks.py:80
 msgid "Список адресов электронной почты"
 msgstr "Список адрес електронної пошти"
 
-#: backend/contacts/blocks.py:83
+#: backend/contacts/blocks.py:87
 msgid "Раздел Электронная почта"
 msgstr "Розділ Електронна пошта"
 
-#: backend/contacts/blocks.py:92
+#: backend/contacts/blocks.py:94
 msgid "Филиал/Название"
 msgstr "Філія/Назва"
 
-#: backend/contacts/blocks.py:94
+#: backend/contacts/blocks.py:96
 msgid "Текст адреса"
 msgstr "Текст адреси"
 
-#: backend/contacts/blocks.py:100 backend/users/forms.py:213
-#: backend/users/models/user.py:63
+#: backend/contacts/blocks.py:104 backend/shop/forms.py:206
+#: backend/users/forms.py:206 backend/users/models/user.py:62
 #: templates/users/includes/profile_sidebar.html:31
 #: templates/users/profile_address.html:81
 msgid "Адрес"
 msgstr "Адреса"
 
-#: backend/contacts/blocks.py:111
+#: backend/contacts/blocks.py:115
 msgid "Контакты"
 msgstr "Контакти"
 
-#: backend/contacts/blocks.py:111
+#: backend/contacts/blocks.py:115
 msgid "Основное название"
 msgstr "Основна назва"
 
-#: backend/contacts/blocks.py:115
+#: backend/contacts/blocks.py:119
 msgid "Телефоны и социальные сети"
 msgstr "Телефони та соціальні мережі"
 
-#: backend/contacts/blocks.py:118
+#: backend/contacts/blocks.py:122
 msgid "Блокировка электронной почты"
 msgstr "Блокування електронної пошти"
 
-#: backend/contacts/blocks.py:122
+#: backend/contacts/blocks.py:126
 msgid "Список адресов"
 msgstr "Список адрес"
 
-#: backend/contacts/blocks.py:126
+#: backend/contacts/blocks.py:130
 msgid "Код для вставки карты (iframe Google Maps)"
 msgstr "Код для вставки карти (iframe Google Maps)"
 
-#: backend/contacts/blocks.py:132 backend/contacts/models.py:24
+#: backend/contacts/blocks.py:138 backend/contacts/models.py:26
 msgid "Подробные контакты"
 msgstr "Детальні контакти"
 
-#: backend/contacts/blocks.py:143
+#: backend/contacts/blocks.py:149
 msgid "Выберите страницу Контакты"
 msgstr "Виберіть сторінку Контакти"
 
-#: backend/contacts/blocks.py:150
+#: backend/contacts/blocks.py:158
 msgid "Импорт контактов"
 msgstr "Імпорт контактів"
 
-#: backend/contacts/models.py:23
+#: backend/contacts/models.py:25
 msgid "Блок героя"
 msgstr "Блок героя"
 
-#: backend/contacts/models.py:28
+#: backend/contacts/models.py:30
 msgid "Текстовое содержание"
 msgstr "Текстовий зміст"
 
-#: backend/contacts/models.py:34
+#: backend/contacts/models.py:36
 msgid "Содержание страницы Контакты"
 msgstr "Зміст сторінки Контакти"
 
-#: backend/contacts/models.py:42 backend/contacts/models.py:43
+#: backend/contacts/models.py:46 backend/contacts/models.py:47
 msgid "Страница контактов"
 msgstr "Сторінка галереї"
 
@@ -373,80 +373,80 @@ msgstr "Платформа/Іконка"
 msgid "Расположение"
 msgstr "Розташування"
 
-#: backend/core/models.py:53
+#: backend/core/models.py:51
 msgid "Социальная сеть"
 msgstr "Соціальна мережа"
 
-#: backend/core/models.py:78
+#: backend/core/models.py:73
 msgid "Логотип"
 msgstr "Логотип"
 
-#: backend/core/models.py:81
+#: backend/core/models.py:76
 msgid "Текст логотипа"
 msgstr "Текст логотипу"
 
-#: backend/core/models.py:83
+#: backend/core/models.py:78
 msgid "Текст скидки"
 msgstr "Текст знижки"
 
-#: backend/core/models.py:83
+#: backend/core/models.py:78
 msgid "Скидка -10% на первый заказ"
 msgstr "Знижка -10% на перше замовлення"
 
-#: backend/core/models.py:86
+#: backend/core/models.py:81
 msgid "Код 1"
 msgstr "Код 1"
 
-#: backend/core/models.py:87
+#: backend/core/models.py:82
 msgid "Номер 1"
 msgstr "Номер 1"
 
-#: backend/core/models.py:88
+#: backend/core/models.py:83
 msgid "Код 2"
 msgstr "Код 2"
 
-#: backend/core/models.py:89
+#: backend/core/models.py:84
 msgid "Номер 2"
 msgstr "Номер 2"
 
-#: backend/core/models.py:91
+#: backend/core/models.py:86
 msgid "Текст звонка"
 msgstr "Текст дзвінка"
 
-#: backend/core/models.py:91 templates/includes/header.html:112
+#: backend/core/models.py:86 templates/includes/header.html:112
 #: templates/includes/header.html:115
 msgid "Заказать звонок"
 msgstr "Замовити дзвінок"
 
-#: backend/core/models.py:95
+#: backend/core/models.py:90
 msgid "Текст разработчика"
 msgstr "Текст розробника"
 
-#: backend/core/models.py:99
+#: backend/core/models.py:94
 msgid "Копирайт"
 msgstr "Копірайт"
 
-#: backend/core/models.py:99
+#: backend/core/models.py:94
 msgid "Copyright © 2019. Все права защищены"
 msgstr "Copyright © 2019. Всі права захищені"
 
-#: backend/core/models.py:113
+#: backend/core/models.py:108
 msgid "Шапка: Логотип и скидка"
 msgstr "Шапка: Логотип і знижка"
 
-#: backend/core/models.py:125
+#: backend/core/models.py:120
 msgid "Шапка: Контакты"
 msgstr "Шапка: Контакти"
 
-#: backend/core/models.py:136
+#: backend/core/models.py:131
 msgid "Подвал сайта"
 msgstr "Підвал сайту"
 
-#: backend/core/models.py:138
+#: backend/core/models.py:133
 msgid "Ссылки на соцсети"
 msgstr "Посилання на соціальні мережі"
 
-#: backend/core/models.py:146
+#: backend/core/models.py:139
 msgid "Настройки сайта"
 msgstr "Налаштування сайту"
 
@@ -455,7 +455,7 @@ msgid "Видео (приоритет)"
 msgstr "Відео (пріоритет)"
 
 #: backend/gallery/blocks.py:15 backend/home/blocks.py:23
-#: backend/home/blocks.py:138 backend/news/blocks.py:40
+#: backend/home/blocks.py:138 backend/news/blocks.py:39
 msgid "Подзаголовок"
 msgstr "Підзаголовок"
 
@@ -463,61 +463,61 @@ msgstr "Підзаголовок"
 msgid "100%"
 msgstr "100%"
 
-#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:38
+#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:40
 msgid "50%"
 msgstr "50%"
 
-#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:37
+#: backend/gallery/blocks.py:17 backend/gallery/blocks.py:39
 msgid "33%"
 msgstr "33%"
 
-#: backend/gallery/blocks.py:19 backend/gallery/blocks.py:42
+#: backend/gallery/blocks.py:19 backend/gallery/blocks.py:44
 msgid "Размер"
 msgstr "Розмір"
 
-#: backend/gallery/blocks.py:25
+#: backend/gallery/blocks.py:27
 msgid "Видео/Баннер"
 msgstr "Відео/Банер"
 
-#: backend/gallery/blocks.py:31
+#: backend/gallery/blocks.py:33
 msgid "Фоновая картинка"
 msgstr "Фонова картинка"
 
-#: backend/gallery/blocks.py:32 backend/home/blocks.py:95
+#: backend/gallery/blocks.py:34 backend/home/blocks.py:95
 #: backend/home/blocks.py:123
 msgid "Иконка"
 msgstr "Іконка"
 
-#: backend/gallery/blocks.py:34 backend/home/blocks.py:54
-#: backend/home/blocks.py:125 backend/shop/blocks.py:23
+#: backend/gallery/blocks.py:36 backend/home/blocks.py:54
+#: backend/home/blocks.py:125 backend/shop/blocks.py:24
 msgid "Текст"
 msgstr "Текст"
 
-#: backend/gallery/blocks.py:39
+#: backend/gallery/blocks.py:41
 msgid "25%"
 msgstr "25%"
 
-#: backend/gallery/blocks.py:48
+#: backend/gallery/blocks.py:52
 msgid "Карточка"
 msgstr "Картка"
 
-#: backend/gallery/blocks.py:56
+#: backend/gallery/blocks.py:58
 msgid "Наша галерея"
 msgstr "Наша галерея"
 
-#: backend/gallery/blocks.py:56
+#: backend/gallery/blocks.py:58
 msgid "Заголовок секции"
 msgstr "Заголовок розділу"
 
-#: backend/gallery/blocks.py:57
+#: backend/gallery/blocks.py:59
 msgid "Описание секции"
 msgstr "Опис секції"
 
-#: backend/gallery/blocks.py:61
+#: backend/gallery/blocks.py:63
 msgid "Элементов на странице (для пагинации)"
 msgstr "Елементів на сторінці (для пагінації)"
 
-#: backend/gallery/blocks.py:63
+#: backend/gallery/blocks.py:65
 msgid ""
 "Сколько карточек показывать за раз. Работает только на детальной странице "
 "галереи."
@@ -525,15 +525,15 @@ msgstr ""
 "Скільки карток показувати за раз. Працює тільки на детальній сторінці "
 "галереї."
 
-#: backend/gallery/blocks.py:72
+#: backend/gallery/blocks.py:75
 msgid "Элементы галереи"
 msgstr "Елементи галереї"
 
-#: backend/gallery/blocks.py:78
+#: backend/gallery/blocks.py:83
 msgid "Секция: Галерея"
 msgstr "Секція: Галерея"
 
-#: backend/gallery/models.py:25 backend/gallery/models.py:27
+#: backend/gallery/models.py:27 backend/gallery/models.py:29
 msgid "Основное"
 msgstr "Основне"
 
@@ -546,7 +546,7 @@ msgid "Галереи"
 msgstr "Галереї"
 
 #: backend/home/blocks.py:15 backend/home/blocks.py:40
-#: backend/news/blocks.py:19
+#: backend/news/blocks.py:18
 msgid "Видео"
 msgstr "Відео"
 
@@ -562,7 +562,7 @@ msgstr "Горіх Причорномор'я"
 msgid "Смотреть видео"
 msgstr "Дивитися відео"
 
-#: backend/home/blocks.py:33 backend/home/models.py:28
+#: backend/home/blocks.py:33 backend/home/models.py:26
 msgid "Главный экран (Hero)"
 msgstr "Головний екран (Hero)"
 
@@ -582,7 +582,7 @@ msgstr "Посилання на сторінку"
 msgid "Галерея (Слайдер)"
 msgstr "Галерея (Слайдер)"
 
-#: backend/home/blocks.py:63 backend/home/models.py:29
+#: backend/home/blocks.py:63 backend/home/models.py:27
 msgid "Блок 'О производителе'"
 msgstr "Блок 'Про виробника'"
 
@@ -602,7 +602,7 @@ msgstr "Елемент статистики"
 msgid "Список статистики"
 msgstr "Список статистики"
 
-#: backend/home/blocks.py:88 backend/home/models.py:31
+#: backend/home/blocks.py:88 backend/home/models.py:29
 msgid "Блок статистики"
 msgstr "Блок статистики"
 
@@ -626,7 +626,7 @@ msgstr "Опис блоку"
 msgid "Карточки преимуществ"
 msgstr "Картки переваг"
 
-#: backend/home/blocks.py:116 backend/home/models.py:32
+#: backend/home/blocks.py:116 backend/home/models.py:30
 msgid "Блок преимуществ"
 msgstr "Блок переваг"
 
@@ -634,7 +634,7 @@ msgstr "Блок переваг"
 msgid "Эко продукция"
 msgstr "Еко продукція"
 
-#: backend/home/blocks.py:131 backend/home/models.py:33
+#: backend/home/blocks.py:131 backend/home/models.py:31
 msgid "Эко баннер"
 msgstr "Еко банер"
 
@@ -654,119 +654,120 @@ msgstr "Сторінка новин (для кнопки 'Всі новини')"
 msgid "Слайдер последних новостей"
 msgstr "Слайдер останніх новин"
 
-#: backend/home/blocks.py:182
+#: backend/home/blocks.py:180
 msgid "Продукция"
 msgstr "Продукція"
 
-#: backend/home/blocks.py:184 backend/shop/models/ecommerce.py:152
+#: backend/home/blocks.py:182 backend/shop/models/ecommerce.py:153
 msgid "Количество товаров"
 msgstr "Кількість товарів"
 
-#: backend/home/blocks.py:191
+#: backend/home/blocks.py:189
 msgid "Блок товаров"
 msgstr "Блок товарів"
 
-#: backend/home/models.py:30
+#: backend/home/models.py:28
 msgid "Блок продуктов"
 msgstr "Блок продуктів"
 
-#: backend/home/models.py:34
+#: backend/home/models.py:32
 msgid "Последние новости"
 msgstr "Останні новини"
 
-#: backend/home/models.py:35 backend/users/models/profile.py:50
+#: backend/home/models.py:33 backend/users/models/pages.py:35
+#: backend/users/models/profile.py:45
 msgid "Блок контактов"
 msgstr "Блок контактів"
 
-#: backend/home/models.py:49
+#: backend/home/models.py:47
 msgid "Главная страница"
 msgstr "Головна сторінка"
 
-#: backend/home/models.py:50
+#: backend/home/models.py:48
 msgid "Главные страницы"
 msgstr "Головні сторінки"
 
-#: backend/mysite/settings/base.py:162
+#: backend/mysite/settings/base.py:165
 msgid "Russian"
 msgstr "Російська"
 
-#: backend/mysite/settings/base.py:163
+#: backend/mysite/settings/base.py:166
 msgid "Ukrainian"
 msgstr "Український"
 
-#: backend/mysite/settings/base.py:164
+#: backend/mysite/settings/base.py:167
 msgid "English"
 msgstr "Англійська"
 
-#: backend/mysite/settings/base.py:259
+#: backend/mysite/settings/base.py:264
 msgid "Nuts Admin"
 msgstr "Адміністратор Nuts"
 
-#: backend/mysite/settings/base.py:260
+#: backend/mysite/settings/base.py:265
 msgid "Nuts Administration"
 msgstr "Адміністрація Nuts"
 
-#: backend/mysite/settings/base.py:282
+#: backend/mysite/settings/base.py:287
 msgid "Навигация"
 msgstr "Навігація"
 
-#: backend/mysite/settings/base.py:286
+#: backend/mysite/settings/base.py:291
 msgid "Панель управления"
 msgstr "Панель управління"
 
-#: backend/mysite/settings/base.py:294
+#: backend/mysite/settings/base.py:299
 msgid "Магазин"
 msgstr "Магазин"
 
-#: backend/mysite/settings/base.py:298 backend/shop/models/products.py:149
+#: backend/mysite/settings/base.py:303 backend/shop/models/products.py:144
 msgid "Товары"
 msgstr "Товари"
 
-#: backend/mysite/settings/base.py:309
+#: backend/mysite/settings/base.py:314
 msgid "Доступ и права"
 msgstr "Доступ і права"
 
-#: backend/mysite/settings/base.py:313 backend/users/models/user.py:73
+#: backend/mysite/settings/base.py:318 backend/users/models/user.py:72
 msgid "Пользователи"
 msgstr "Користувачи"
 
-#: backend/mysite/settings/base.py:319
+#: backend/mysite/settings/base.py:324
 msgid "Группы"
 msgstr "Групи"
 
-#: backend/news/blocks.py:23
+#: backend/news/blocks.py:22
 msgid "Текст над медиа"
 msgstr "Текст над медіа"
 
-#: backend/news/blocks.py:25
+#: backend/news/blocks.py:24
 msgid "Этот текст будет отображаться поверх изображения или видео."
 msgstr "Цей текст буде відображатися поверх зображення або відео."
 
-#: backend/news/blocks.py:31
+#: backend/news/blocks.py:32
 msgid "Медиа с текстом"
 msgstr "Медіа з текстом"
 
-#: backend/news/blocks.py:39
+#: backend/news/blocks.py:38
 msgid "Название"
 msgstr "Назва"
 
-#: backend/news/blocks.py:39
+#: backend/news/blocks.py:38
 msgid "Присоединяйтесь к нам"
 msgstr "Приєднуйтесь до нас"
 
-#: backend/news/blocks.py:46
+#: backend/news/blocks.py:47
 msgid "Виджет социальной сети в боковой панели"
 msgstr "Віджет соціальної мережі в бічній панелі"
 
-#: backend/news/models.py:25
+#: backend/news/models.py:27
 msgid "Дата публикации"
 msgstr "Дата публікації"
 
-#: backend/news/models.py:27
+#: backend/news/models.py:29
 msgid "Полная ширина (широкий)?"
 msgstr "Повна ширина (широкий)?"
 
-#: backend/news/models.py:30
+#: backend/news/models.py:32
 msgid ""
 "Если этот флажок установлен, новость будет занимать всю ширину (col-12) в "
 "списке."
@@ -774,11 +775,11 @@ msgstr ""
 "Якщо цей прапорець встановлений, новина буде займати всю ширину (col-12) в "
 "списку."
 
-#: backend/news/models.py:36
+#: backend/news/models.py:38
 msgid "Показать название/вступление над превью?"
 msgstr "Показати назву/вступ над превью?"
 
-#: backend/news/models.py:39
+#: backend/news/models.py:41
 msgid ""
 "Если флажок установлен: заголовок и введение будут выровнены по центру над "
 "изображением/видео (белый текст). Если флажок не установлен: под "
@@ -788,257 +789,292 @@ msgstr ""
 "над  зображенням/відео (білий текст). Якщо прапорець не встановлений: під "
 "зображенням (чорний текст)."
 
-#: backend/news/models.py:46
+#: backend/news/models.py:48
 msgid "Краткое описание"
 msgstr "Короткий опис"
 
-#: backend/news/models.py:46
+#: backend/news/models.py:48
 msgid "Для списка новостей"
 msgstr "Для списку новин"
 
-#: backend/news/models.py:56
+#: backend/news/models.py:58
 msgid "Предварительный просмотр: Изображение"
 msgstr "Попередній перегляд: Зображення"
 
-#: backend/news/models.py:66
+#: backend/news/models.py:68
 msgid "Предварительный просмотр: Видео"
 msgstr "Попередній перегляд: Відео"
 
-#: backend/news/models.py:74
+#: backend/news/models.py:76
 msgid "Текстовый блок"
 msgstr "Текстовий блок"
 
-#: backend/news/models.py:88
+#: backend/news/models.py:90
 msgid "Медиа (фото/видео) + текст"
 msgstr "Медіа (фото/відео) + текст"
 
-#: backend/news/models.py:89
+#: backend/news/models.py:91
 msgid "Эко-баннер"
 msgstr "Еко-банер"
 
-#: backend/news/models.py:92
+#: backend/news/models.py:94
 msgid "Конструктор контента"
 msgstr "Конструктор контенту"
 
-#: backend/news/models.py:105
+#: backend/news/models.py:108
 msgid "Настройки предварительного просмотра"
 msgstr "Налаштування попереднього перегляду"
 
-#: backend/news/models.py:107
+#: backend/news/models.py:110
 msgid "Новости Содержание"
 msgstr "Новини Зміст"
 
-#: backend/news/models.py:116
+#: backend/news/models.py:119
 msgid "Страница новостей"
 msgstr "Сторінка новин"
 
-#: backend/news/models.py:141
+#: backend/news/models.py:144
 msgid "H1 Заголовок"
 msgstr "H1 Заголовок"
 
-#: backend/news/models.py:142
+#: backend/news/models.py:145
 msgid "Описание раздела"
 msgstr "Опис розділу"
 
-#: backend/news/models.py:143
+#: backend/news/models.py:146
 msgid "Новости на странице"
 msgstr "Новини на сторінці"
 
-#: backend/news/models.py:145
+#: backend/news/models.py:148
 msgid "Количество последних новостей в боковой панели"
 msgstr "Кількість останніх новин у бічній панелі"
 
-#: backend/news/models.py:154
+#: backend/news/models.py:157
 msgid "Социальный виджет боковой панели"
 msgstr "Соціальний віджет бічної панелі"
 
-#: backend/news/models.py:176
+#: backend/news/models.py:180
 msgid "Настройки боковой панели"
 msgstr "Налаштування бічної панелі"
 
-#: backend/shop/admin.py:35 backend/shop/models/products.py:168
+#: backend/shop/admin.py:32 backend/shop/models/products.py:163
 msgid "Галерея изображений"
 msgstr "Галерея зображень"
 
-#: backend/shop/admin.py:62
+#: backend/shop/admin.py:57
 msgid "Основная информация"
 msgstr "Основна інформація"
 
-#: backend/shop/admin.py:76
+#: backend/shop/admin.py:71
 msgid "Маркетинг"
 msgstr "Маркетинг"
 
-#: backend/shop/admin.py:83
+#: backend/shop/admin.py:78
 msgid "Характеристики"
 msgstr "Характеристики"
 
-#: backend/shop/admin.py:89
+#: backend/shop/admin.py:84
 msgid "Связи"
 msgstr "Зв'язки"
 
-#: backend/shop/admin.py:96
+#: backend/shop/admin.py:91
 msgid "Фото"
 msgstr "Фото"
 
-#: backend/shop/admin.py:104
+#: backend/shop/admin.py:97
 msgid "✗ Нет фото"
 msgstr "✗ Немає фото"
 
-#: backend/shop/admin.py:106
+#: backend/shop/admin.py:99
 msgid "Опубликовать выбранные товары"
 msgstr "Опублікувати вибрані товари"
 
-#: backend/shop/api.py:133
+#: backend/shop/api.py:135
 msgid "Товар успешно добавлен в корзину"
 msgstr "Товар успішно додано до кошика"
 
-#: backend/shop/blocks.py:15
+#: backend/shop/blocks.py:16
 msgid "Заголовок таба"
 msgstr "Заголовок таба"
 
-#: backend/shop/blocks.py:18
+#: backend/shop/blocks.py:19
 msgid "Картинка слева"
 msgstr "Зображення ліворуч"
 
-#: backend/shop/blocks.py:20
+#: backend/shop/blocks.py:21
 msgid "Расположение картинки"
 msgstr "Розташування зображення"
 
-#: backend/shop/blocks.py:47
+#: backend/shop/blocks.py:42
 msgid "Секция с табами"
 msgstr "Секція з табами"
 
-#: backend/shop/forms.py:36
-msgid "Компания"
-msgstr "Компанія"
+#: backend/shop/forms.py:65 backend/users/forms.py:65
+#: templates/users/profile_address.html:128
+msgid "Выберите страну"
+msgstr "Виберіть країну"
 
-#: backend/shop/forms.py:37 backend/users/forms.py:234
-msgid "Контактное лицо*"
-msgstr "Контактна особа*"
+#: backend/shop/forms.py:96 backend/shop/models/ecommerce.py:169
+#: backend/users/forms.py:96 backend/users/models/user.py:61
+msgid "Город"
+msgstr "Місто"
 
-#: backend/shop/forms.py:39 backend/users/forms.py:108
-#: backend/users/forms.py:240
-msgid "Телефон*"
-msgstr "Телефон*"
+#: backend/shop/forms.py:97 backend/shop/models/ecommerce.py:171
+#: backend/users/forms.py:97 backend/users/models/user.py:44
+msgid "Название компании"
+msgstr "Назва компанії"
 
-#: backend/shop/forms.py:40 backend/users/forms.py:210
-msgid "Город*"
-msgstr "Місто*"
-
-#: backend/shop/forms.py:42 templates/shop/checkout.html:143
-msgid "Улица, дом, квартира*"
-msgstr "Вулиця, будинок, квартира*"
-
-#: backend/shop/forms.py:44 backend/users/forms.py:99
-#: backend/users/models/user.py:46 templates/users/register.html:218
+#: backend/shop/forms.py:98 backend/users/forms.py:98
+#: backend/users/models/user.py:45 templates/users/register.html:218
 msgid "ОКПО / ЕДРПОУ"
 msgstr "ОКПО / ЕДРПОУ"
 
-#: backend/shop/forms.py:62
-msgid "Укажите город для доставки Новой Почтой."
-msgstr "Вкажіть місто для доставки Новою Поштою."
+#: backend/shop/forms.py:99 backend/users/forms.py:99
+msgid "Индекс"
+msgstr "Індекс"
 
-#: backend/shop/forms.py:66
-msgid "Укажите номер отделения Новой Почты."
-msgstr "Вкажіть номер відділення Нової Пошти."
+#: backend/shop/forms.py:101 backend/users/forms.py:101
+msgid "Адрес (улица, дом, кв.)"
+msgstr "Адреса (вулиця, будинок, кв.)"
 
-#: backend/shop/forms.py:74
-msgid "Укажите город для курьерской доставки."
-msgstr "Вкажіть місто для кур'єрської доставки."
+#: backend/shop/forms.py:103 backend/users/forms.py:103
+msgid "Имя*"
+msgstr "Ім'я*"
 
-#: backend/shop/forms.py:76
-msgid "Укажите улицу, дом и квартиру."
-msgstr "Вкажіть вулицю, будинок і квартиру"
+#: backend/shop/forms.py:104 backend/users/forms.py:104
+msgid "Фамилия*"
+msgstr "Прізвище*"
 
-#: backend/shop/models/ecommerce.py:54 backend/shop/models/ecommerce.py:135
-#: backend/users/models/user.py:72
+#: backend/shop/forms.py:105 backend/users/forms.py:105
+#: backend/users/models/user.py:32 templates/users/register.html:107
+msgid "Отчество"
+msgstr "По батькові"
+
+#: backend/shop/forms.py:106 backend/shop/forms.py:228
+#: backend/users/forms.py:106 backend/users/forms.py:228
+#: templates/users/password_reset.html:22
+msgid "Email*"
+msgstr "Електронна пошта*"
+
+#: backend/shop/forms.py:107 backend/shop/forms.py:231
+#: backend/users/forms.py:107 backend/users/forms.py:231
+msgid "Телефон*"
+msgstr "Телефон*"
+
+#: backend/shop/forms.py:135 backend/users/forms.py:135
+msgid "Название компании обязательно для юридических лиц."
+msgstr "Назва компанії обов'язкова для юридичних осіб."
+
+#: backend/shop/forms.py:141 backend/users/forms.py:141
+msgid "Код ЕДРПОУ обязателен для юридических лиц."
+msgstr "Код ЄДРПОУ обов'язковий для юридичних осіб."
+
+#: backend/shop/forms.py:196 backend/shop/models/ecommerce.py:172
+#: backend/users/forms.py:196
+msgid "ОКПО"
+msgstr "ОКПО"
+
+#: backend/shop/forms.py:203 backend/users/forms.py:203
+msgid "Город*"
+msgstr "Місто*"
+
+#: backend/shop/forms.py:222 backend/users/forms.py:222
+msgid "Компания*"
+msgstr "Компанія*"
+
+#: backend/shop/forms.py:225 backend/users/forms.py:225
+msgid "Контактное лицо*"
+msgstr "Контактна особа*"
+
+#: backend/shop/models/ecommerce.py:55 backend/shop/models/ecommerce.py:136
+#: backend/users/models/user.py:71
 msgid "Пользователь"
 msgstr "Користувач"
 
-#: backend/shop/models/ecommerce.py:57
+#: backend/shop/models/ecommerce.py:58
 msgid "Ключ сессии"
 msgstr "Ключ сесії"
 
-#: backend/shop/models/ecommerce.py:59
+#: backend/shop/models/ecommerce.py:60
 msgid "Создана"
 msgstr "Створено"
 
-#: backend/shop/models/ecommerce.py:72 backend/shop/models/ecommerce.py:80
+#: backend/shop/models/ecommerce.py:65 backend/shop/models/ecommerce.py:81
 #: templates/shop/cart.html:12
 msgid "Корзина"
 msgstr "Кошик"
 
-#: backend/shop/models/ecommerce.py:73
+#: backend/shop/models/ecommerce.py:66
 msgid "Корзины"
 msgstr "Кошики"
 
-#: backend/shop/models/ecommerce.py:83 backend/shop/models/ecommerce.py:190
-#: backend/shop/models/products.py:148
+#: backend/shop/models/ecommerce.py:84 backend/shop/models/ecommerce.py:191
+#: backend/shop/models/products.py:143
 #: templates/shop/includes/cart_table.html:4
 msgid "Товар"
 msgstr "Товар"
 
-#: backend/shop/models/ecommerce.py:85 backend/shop/models/ecommerce.py:196
+#: backend/shop/models/ecommerce.py:86 backend/shop/models/ecommerce.py:197
 msgid "Количество"
 msgstr "Кількість"
 
-#: backend/shop/models/ecommerce.py:98
+#: backend/shop/models/ecommerce.py:91
 msgid "Элемент корзины"
 msgstr "Елемент кошика"
 
-#: backend/shop/models/ecommerce.py:99
+#: backend/shop/models/ecommerce.py:92
 msgid "Элементы корзины"
 msgstr "Елементи кошика"
 
-#: backend/shop/models/ecommerce.py:108
+#: backend/shop/models/ecommerce.py:109
 msgid "Новый"
 msgstr "Новий"
 
-#: backend/shop/models/ecommerce.py:109
+#: backend/shop/models/ecommerce.py:110
 msgid "В обработке"
 msgstr "В обробці"
 
-#: backend/shop/models/ecommerce.py:110
+#: backend/shop/models/ecommerce.py:111
 msgid "Выполнен"
 msgstr "Виконано"
 
-#: backend/shop/models/ecommerce.py:117
+#: backend/shop/models/ecommerce.py:118
 msgid "Новая почта (по Украине оплата за счет Клиента)"
 msgstr "Нова пошта (по Україні оплата за рахунок Клієнта)"
 
-#: backend/shop/models/ecommerce.py:119
+#: backend/shop/models/ecommerce.py:120
 msgid "Курьер по Одессе"
 msgstr "Кур'єр по Одесі"
 
-#: backend/shop/models/ecommerce.py:120
+#: backend/shop/models/ecommerce.py:121
 msgid "Самовывоз со склада"
 msgstr "Самовивіз зі складу"
 
-#: backend/shop/models/ecommerce.py:125
+#: backend/shop/models/ecommerce.py:126
 msgid "Безналичный расчет"
 msgstr "Безготівковий розрахунок"
 
-#: backend/shop/models/ecommerce.py:126
+#: backend/shop/models/ecommerce.py:127
 msgid "LiqPay / Приват24"
 msgstr "LiqPay / Приват24"
 
-#: backend/shop/models/ecommerce.py:127
+#: backend/shop/models/ecommerce.py:128
 msgid "Наличными при получении (Наложенным платежом)"
 msgstr "Готівкою при отриманні (Післяплатою)"
 
-#: backend/shop/models/ecommerce.py:143
+#: backend/shop/models/ecommerce.py:144
 msgid "Менеджер"
 msgstr "Менеджер"
 
-#: backend/shop/models/ecommerce.py:146
+#: backend/shop/models/ecommerce.py:147
 msgid "Номер заказа"
 msgstr "Номер замовлення"
 
-#: backend/shop/models/ecommerce.py:147
+#: backend/shop/models/ecommerce.py:148
 msgid "Создан"
 msgstr "Створено"
 
-#: backend/shop/models/ecommerce.py:149
+#: backend/shop/models/ecommerce.py:150
 #: templates/users/includes/order_modal.html:14
 #: templates/users/includes/transaction_modal.html:21
 #: templates/users/profile_orders.html:32
@@ -1046,372 +1082,316 @@ msgstr "Створено"
 msgid "Статус"
 msgstr "Статус"
 
-#: backend/shop/models/ecommerce.py:151
+#: backend/shop/models/ecommerce.py:152
 #: templates/users/includes/transaction_modal.html:26
 #: templates/users/profile_transactions.html:31
 msgid "Сумма"
 msgstr "Сума"
 
-#: backend/shop/models/ecommerce.py:155 templates/shop/checkout.html:67
+#: backend/shop/models/ecommerce.py:156 templates/shop/checkout.html:67
 msgid "Способ доставки"
 msgstr "Спосіб доставки"
 
-#: backend/shop/models/ecommerce.py:161 templates/shop/checkout.html:89
+#: backend/shop/models/ecommerce.py:162 templates/shop/checkout.html:89
 msgid "Способ оплаты"
 msgstr "Спосіб оплати"
 
-#: backend/shop/models/ecommerce.py:164
+#: backend/shop/models/ecommerce.py:165
 msgid "Имя"
 msgstr "Ім'я*"
 
-#: backend/shop/models/ecommerce.py:165 backend/users/models/user.py:40
+#: backend/shop/models/ecommerce.py:166 backend/users/models/user.py:39
 msgid "Телефон"
 msgstr "Телефон"
 
-#: backend/shop/models/ecommerce.py:166
+#: backend/shop/models/ecommerce.py:167
 msgid "Email"
 msgstr "Електронна пошта*"
 
-#: backend/shop/models/ecommerce.py:168 backend/users/forms.py:97
-#: backend/users/models/user.py:62
-msgid "Город"
-msgstr "Місто"
-
-#: backend/shop/models/ecommerce.py:169
+#: backend/shop/models/ecommerce.py:170
 msgid "Адрес/Отделение"
 msgstr "Адреса/Відділення"
 
-#: backend/shop/models/ecommerce.py:170 backend/users/forms.py:98
-#: backend/users/models/user.py:45
-msgid "Название компании"
-msgstr "Назва компанії"
-
-#: backend/shop/models/ecommerce.py:171 backend/users/forms.py:203
-msgid "ОКПО"
-msgstr "ОКПО"
-
-#: backend/shop/models/ecommerce.py:180 templates/shop/payment.html:10
+#: backend/shop/models/ecommerce.py:177 templates/shop/payment.html:10
 #: templates/users/includes/order_modal.html:8
 msgid "Заказ"
 msgstr "Замовлення"
 
-#: backend/shop/models/ecommerce.py:181
+#: backend/shop/models/ecommerce.py:178
 msgid "Заказы"
 msgstr "Замовлення"
 
-#: backend/shop/models/ecommerce.py:193
+#: backend/shop/models/ecommerce.py:194
 msgid "Название товара (на момент заказа)"
 msgstr "Назва товару (на момент замовлення)"
 
-#: backend/shop/models/ecommerce.py:195 backend/shop/models/products.py:105
+#: backend/shop/models/ecommerce.py:196 backend/shop/models/products.py:102
 #: templates/shop/includes/product_list.html:131
 msgid "Цена"
 msgstr "Ціна"
 
-#: backend/shop/models/ecommerce.py:207
+#: backend/shop/models/ecommerce.py:202
 msgid "Товар в заказе"
 msgstr "Товар у замовленні"
 
-#: backend/shop/models/ecommerce.py:208
+#: backend/shop/models/ecommerce.py:203
 msgid "Товары в заказе"
 msgstr "Товари в замовленні"
 
-#: backend/shop/models/ecommerce.py:239 backend/users/models/profile.py:37
+#: backend/shop/models/ecommerce.py:240 backend/users/models/profile.py:32
 msgid "Ваш личный менеджер Олег"
 msgstr "Ваш особистий менеджер Олег"
 
-#: backend/shop/models/ecommerce.py:240 backend/users/models/profile.py:38
+#: backend/shop/models/ecommerce.py:241 backend/users/models/profile.py:33
 msgid "Текст 'Личный менеджер'"
 msgstr "Текст 'Особистий менеджер'"
 
-#: backend/shop/models/ecommerce.py:243 backend/users/models/profile.py:41
-#: backend/users/models/user.py:67
+#: backend/shop/models/ecommerce.py:244 backend/users/models/profile.py:36
+#: backend/users/models/user.py:66
 msgid "Телефон менеджера"
 msgstr "Телефон менеджера"
 
-#: backend/shop/models/ecommerce.py:280 templates/shop/cart.html:54
+#: backend/shop/models/ecommerce.py:281 templates/shop/cart.html:54
 #: templates/shop/checkout.html:117 templates/shop/includes/mini_cart.html:30
 msgid "Ваша корзина пуста."
 msgstr "Ваш кошик порожній."
 
-#: backend/shop/models/ecommerce.py:325
+#: backend/shop/models/ecommerce.py:326
 msgid "Заказ успешно оформлен!"
 msgstr "Замовлення успішно оформлено!"
 
-#: backend/shop/models/ecommerce.py:335
+#: backend/shop/models/ecommerce.py:334
 msgid "Произошла ошибка при оформлении заказа. Попробуйте еще раз."
 msgstr ""
 
-#: backend/shop/models/ecommerce.py:372
+#: backend/shop/models/ecommerce.py:375
 msgid "Баннер (Hero)"
 msgstr "Банер (Hero)"
 
-#: backend/shop/models/products.py:42
+#: backend/shop/models/products.py:41
 msgid "Общие табы для всех товаров"
 msgstr "Загальні вкладки для всіх товарів"
 
-#: backend/shop/models/products.py:51
+#: backend/shop/models/products.py:50 backend/users/models/pages.py:39
 msgid "Подвал (контакты)"
 msgstr "Підвал (контакти)"
 
-#: backend/shop/models/products.py:87
+#: backend/shop/models/products.py:83
 msgid "Изображение галереи"
 msgstr "Зображення галереї"
 
-#: backend/shop/models/products.py:88
+#: backend/shop/models/products.py:84
 msgid "Изображения галереи"
 msgstr "Зображення галереї"
 
-#: backend/shop/models/products.py:96
+#: backend/shop/models/products.py:93
 msgid "Название товара"
 msgstr "Назва товару"
 
-#: backend/shop/models/products.py:98
+#: backend/shop/models/products.py:95
 msgid "URL (slug)"
 msgstr "URL (slug)"
 
-#: backend/shop/models/products.py:101
+#: backend/shop/models/products.py:98
 msgid "Часть ссылки, например: greckiy-oreh"
 msgstr "Частина посилання, наприклад: greckiy-oreh"
 
-#: backend/shop/models/products.py:104
+#: backend/shop/models/products.py:101
 msgid "Артикул"
 msgstr "Артикул"
 
-#: backend/shop/models/products.py:107
+#: backend/shop/models/products.py:104
 msgid "Старая цена"
 msgstr "Стара ціна"
 
-#: backend/shop/models/products.py:115 backend/shop/models/snippets.py:48
-#: backend/shop/models/snippets.py:57
+#: backend/shop/models/products.py:112 backend/shop/models/snippets.py:41
+#: backend/shop/models/snippets.py:48
 msgid "Вес"
 msgstr "Вага"
 
-#: backend/shop/models/products.py:120
+#: backend/shop/models/products.py:117
 msgid "Энерг. ценность"
 msgstr "Енергетична цінність"
 
-#: backend/shop/models/products.py:120
+#: backend/shop/models/products.py:117
 msgid "654 Ккал."
 msgstr "654 Ккал"
 
-#: backend/shop/models/products.py:122 templates/shop/product_page.html:145
+#: backend/shop/models/products.py:119 templates/shop/product_page.html:145
 msgid "Срок годности"
 msgstr "Термін придатності"
 
-#: backend/shop/models/products.py:123 templates/shop/product_page.html:124
+#: backend/shop/models/products.py:120 templates/shop/product_page.html:124
 msgid "Состав"
 msgstr "Склад"
 
-#: backend/shop/models/products.py:126
+#: backend/shop/models/products.py:123
 msgid "Условия хранения"
 msgstr "Умови зберігання"
 
-#: backend/shop/models/products.py:126
+#: backend/shop/models/products.py:123
 msgid "Хранить в помещениях при..."
 msgstr "Зберігати в приміщеннях при..."
 
-#: backend/shop/models/products.py:129
+#: backend/shop/models/products.py:126
 msgid "Вкусы"
 msgstr "Смаки"
 
-#: backend/shop/models/products.py:135 backend/shop/models/snippets.py:80
-#: backend/shop/models/snippets.py:87
+#: backend/shop/models/products.py:132 backend/shop/models/snippets.py:65
+#: backend/shop/models/snippets.py:70
 #: templates/shop/includes/product_list.html:121
 msgid "Упаковка"
 msgstr "Упаковка"
 
-#: backend/shop/models/products.py:138
+#: backend/shop/models/products.py:135
 #: templates/shop/includes/product_list.html:42
 #: templates/shop/product_page.html:75
 msgid "Новинка"
 msgstr "Новинка"
 
-#: backend/shop/models/products.py:139
+#: backend/shop/models/products.py:136
 #: templates/shop/includes/product_list.html:35
 #: templates/shop/product_page.html:72
 msgid "Акция"
 msgstr "Акція"
 
-#: backend/shop/models/products.py:140
+#: backend/shop/models/products.py:137
 msgid "Опубликовано"
 msgstr "Опубліковано"
 
-#: backend/shop/models/products.py:205
+#: backend/shop/models/products.py:198
 msgid "Контент страницы (сверху)"
 msgstr "Контент сторінки (зверху)"
 
-#: backend/shop/models/products.py:220
+#: backend/shop/models/products.py:213
 msgid "Товаров на страницу"
 msgstr "Товари на сторінку"
 
-#: backend/shop/models/products.py:222
+#: backend/shop/models/products.py:215
 msgid ""
 "Укажите, сколько товаров показывать изначально и при нажатии 'Показать еще'"
 msgstr ""
 "Вкажіть, скільки товарів показувати спочатку і при натисканні 'Показати ще'"
 
-#: backend/shop/models/snippets.py:17 backend/shop/models/snippets.py:24
-#: templates/shop/shop_index_page.html:52
+#: backend/shop/models/snippets.py:16 backend/shop/models/snippets.py:21
+#: templates/shop/shop_index_page.html:53
 msgid "Вкус"
 msgstr "Смак"
 
-#: backend/shop/models/snippets.py:25
+#: backend/shop/models/snippets.py:22
 msgid "Справочник: Вкусы"
 msgstr "Довідник: Смаки"
 
-#: backend/shop/models/snippets.py:48
+#: backend/shop/models/snippets.py:41
 msgid "Например: 40г, 100г, 200г"
 msgstr "Приклад: 40 г, 100 г, 200 г"
 
-#: backend/shop/models/snippets.py:50
+#: backend/shop/models/snippets.py:43
 msgid "Значение в граммах"
 msgstr "Значення в грамах"
 
-#: backend/shop/models/snippets.py:50
+#: backend/shop/models/snippets.py:43
 msgid "Для сортировки"
 msgstr "Для сортування"
 
-#: backend/shop/models/snippets.py:58
+#: backend/shop/models/snippets.py:49
 msgid "Справочник: Вес"
 msgstr "Довідник: Вага"
 
-#: backend/shop/models/snippets.py:88
+#: backend/shop/models/snippets.py:71
 msgid "Справочник: Упаковки"
 msgstr "Довідник: Упаковки"
 
-#: backend/users/admin.py:30
+#: backend/users/admin.py:28
 msgid "Дополнительная информация"
 msgstr "Додаткова інформація"
 
-#: backend/users/forms.py:66 templates/users/profile_address.html:128
-msgid "Выберите страну"
-msgstr "Виберіть країну"
-
-#: backend/users/forms.py:100
-msgid "Индекс"
-msgstr "Індекс"
-
-#: backend/users/forms.py:102
-msgid "Адрес (улица, дом, кв.)"
-msgstr "Адреса (вулиця, будинок, кв.)"
-
-#: backend/users/forms.py:104
-msgid "Имя*"
-msgstr "Ім'я*"
-
-#: backend/users/forms.py:105
-msgid "Фамилия*"
-msgstr "Прізвище*"
-
-#: backend/users/forms.py:106 backend/users/models/user.py:33
-#: templates/users/register.html:107
-msgid "Отчество"
-msgstr "По батькові"
-
-#: backend/users/forms.py:107 backend/users/forms.py:237
-#: templates/users/password_reset.html:22
-msgid "Email*"
-msgstr "Електронна пошта*"
-
-#: backend/users/forms.py:137
-msgid "Название компании обязательно для юридических лиц."
-msgstr "Назва компанії обов'язкова для юридичних осіб."
-
-#: backend/users/forms.py:143
-msgid "Код ЕДРПОУ обязателен для юридических лиц."
-msgstr "Код ЄДРПОУ обов'язковий для юридичних осіб."
-
-#: backend/users/forms.py:231
-msgid "Компания*"
-msgstr "Компанія*"
-
-#: backend/users/models/pages.py:20
+#: backend/users/models/pages.py:31
 #, fuzzy
 #| msgid "Текст скидки"
 msgid "Текст соглашения"
 msgstr "Текст знижки"
 
-#: backend/users/models/pages.py:31
+#: backend/users/models/pages.py:55
 #, fuzzy
 #| msgid "Пользователь"
 msgid "Пользовательское соглашение"
 msgstr "Користувач"
 
-#: backend/users/models/profile.py:176
+#: backend/users/models/profile.py:163
 msgid "Данные успешно сохранены!"
 msgstr "Дані успішно збережені!"
 
-#: backend/users/models/profile.py:215
+#: backend/users/models/profile.py:203
 msgid "Контактная информация успешно сохранена!"
 msgstr "Контактна інформація успішно збережена!"
 
-#: backend/users/models/profile.py:254
+#: backend/users/models/profile.py:243
 msgid "Ваш пароль успешно изменен!"
 msgstr "Ваш пароль успішно змінено!"
 
-#: backend/users/models/profile.py:262
+#: backend/users/models/profile.py:251
 msgid "Пожалуйста, исправьте ошибки ниже."
 msgstr "Будь ласка, виправте помилки нижче."
 
-#: backend/users/models/user.py:21 templates/users/register.html:66
+#: backend/users/models/user.py:20 templates/users/register.html:66
 msgid "Физическое лицо"
 msgstr "Фізична особа"
 
-#: backend/users/models/user.py:22 templates/users/register.html:70
+#: backend/users/models/user.py:21 templates/users/register.html:70
 msgid "Юридическое лицо"
 msgstr "Юридична особа"
 
-#: backend/users/models/user.py:23
+#: backend/users/models/user.py:22
 msgid "ФОП"
 msgstr "ФОП"
 
-#: backend/users/models/user.py:29
+#: backend/users/models/user.py:28
 msgid "Тип пользователя"
 msgstr "Тип користувача"
 
-#: backend/users/models/user.py:31 templates/users/register.html:202
+#: backend/users/models/user.py:30 templates/users/register.html:202
 msgid "Являюсь ФОП"
 msgstr "Я є ФОП"
 
-#: backend/users/models/user.py:37
+#: backend/users/models/user.py:36
 msgid "Номер телефона должен быть в формате: '+999 99 999 99 99'"
 msgstr "Номер телефону повинен бути у форматі: '+999 99 999 99 99'"
 
-#: backend/users/models/user.py:43 templates/users/profile_contact_info.html:73
+#: backend/users/models/user.py:42 templates/users/profile_contact_info.html:73
 msgid "Аватар"
 msgstr "Аватар"
 
-#: backend/users/models/user.py:53
+#: backend/users/models/user.py:52
 msgid "Страна"
 msgstr "Країна"
 
-#: backend/users/models/user.py:60
+#: backend/users/models/user.py:59
 msgid "Область/Регион"
 msgstr "Область/Регіон"
 
-#: backend/users/models/user.py:64 templates/users/register.html:153
+#: backend/users/models/user.py:63 templates/users/register.html:153
 msgid "Почтовый индекс"
 msgstr "Поштовий індекс"
 
-#: backend/users/models/user.py:66
+#: backend/users/models/user.py:65
 msgid "Имя менеджера"
 msgstr "Ім'я менеджера"
 
-#: backend/users/models/user.py:94
+#: backend/users/models/user.py:88
 msgid "Не указан"
 msgstr "Не вказано"
 
-#: backend/users/views.py:53
+#: backend/users/views.py:50
 #, python-brace-format
 msgid "Добро пожаловать, {name}!"
 msgstr "Ласкаво просимо, {name}!"
 
-#: backend/users/views.py:64
+#: backend/users/views.py:60
 msgid "Пожалуйста, исправьте ошибки в форме."
 msgstr "Будь ласка, виправте помилки у формі."
 
-#: backend/users/views.py:100
+#: backend/users/views.py:96
 msgid "Пароль успешно изменен! Вы авторизованы."
 msgstr "Пароль успішно змінено! Ви авторизовані."
 
@@ -1504,7 +1484,7 @@ msgid "Вход"
 msgstr "Вхід"
 
 #: templates/includes/header.html:47 templates/users/login.html:44
-#: templates/users/register.html:49 templates/users/terms_of_use_page.html:14
+#: templates/users/register.html:49
 msgid "Регистрация"
 msgstr "Реєстрація"
 
@@ -1579,6 +1559,10 @@ msgstr "безкоштовно"
 msgid "Номер отделения или почтомата*"
 msgstr "Номер відділення або поштомату*"
 
+#: templates/shop/checkout.html:143
+msgid "Улица, дом, квартира*"
+msgstr "Вулиця, будинок, квартира*"
+
 #: templates/shop/includes/cart_table.html:5
 msgid "Кол - во"
 msgstr "Кількість"
@@ -1601,7 +1585,7 @@ msgid "Арт"
 msgstr "Арт"
 
 #: templates/shop/includes/product_list.html:111
-#: templates/shop/shop_index_page.html:63
+#: templates/shop/shop_index_page.html:64
 msgid "Масса"
 msgstr "Маса"
 
@@ -1671,20 +1655,20 @@ msgstr "Ваша ціна"
 msgid "В корзину"
 msgstr "У кошик"
 
-#: templates/shop/shop_index_page.html:45
+#: templates/shop/shop_index_page.html:46
 msgid "Фильтр"
 msgstr "Фільтр"
 
-#: templates/shop/shop_index_page.html:78
+#: templates/shop/shop_index_page.html:79
 #: templates/users/profile_orders.html:33
 msgid "Стоимость"
 msgstr "Вартість"
 
-#: templates/shop/shop_index_page.html:87
+#: templates/shop/shop_index_page.html:88
 msgid "Применить"
 msgstr "Застосувати"
 
-#: templates/shop/shop_index_page.html:89
+#: templates/shop/shop_index_page.html:90
 msgid "Сбросить"
 msgstr "Скинути"
 
@@ -1979,11 +1963,25 @@ msgstr "Умовами реєстрації"
 msgid "Название компании / ФИО ФОП"
 msgstr "Назва компанії / ПІБ ФОП"
 
-#: templates/users/terms_of_use_page.html:10
+#~ msgid "Компания"
+#~ msgstr "Компанія"
+
+#~ msgid "Укажите город для доставки Новой Почтой."
+#~ msgstr "Вкажіть місто для доставки Новою Поштою."
+
+#~ msgid "Укажите номер отделения Новой Почты."
+#~ msgstr "Вкажіть номер відділення Нової Пошти."
+
+#~ msgid "Укажите город для курьерской доставки."
+#~ msgstr "Вкажіть місто для кур'єрської доставки."
+
+#~ msgid "Укажите улицу, дом и квартиру."
+#~ msgstr "Вкажіть вулицю, будинок і квартиру"
+
 #, fuzzy
-#| msgid "Главная страница"
-msgid "Главная"
-msgstr "Головна сторінка"
+#~| msgid "Главная страница"
+#~ msgid "Главная"
+#~ msgstr "Головна сторінка"
 
 #~ msgid "Загрузить еще"
 #~ msgstr "Завантажити ще"

@@ -7,9 +7,8 @@ from django import forms
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.template import loader
 from django.utils.translation import gettext_lazy as _
-
-from .models import CustomUser
-from .tasks import send_reset_email_task
+from users.models import CustomUser
+from users.tasks import send_reset_email_task
 
 logger = logging.getLogger(__name__)
 
